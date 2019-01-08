@@ -13,16 +13,16 @@
  
  
 <h:form id="form">
-    <p:dataGrid var="person" value="#{personViewController.persons}" columns="3" layout="grid"
+    <p:dataGrid var="person" value="#{dataGridView.persons}" columns="3" layout="grid"
         rows="12" paginator="true" id="persons"
         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="6,12,16">
          
         <f:facet name="header">
-            persons
+           Liste des personnes	
         </f:facet>
  
-        <p:panel header="#{person.firstName} #{person.name}" style="text-align:center">
+        <p:panel header="#{person.id}" style="text-align:center">
             <h:panelGrid columns="1" style="width:100%">
    
  
@@ -30,7 +30,7 @@
  
                 <p:commandLink update=":form:personDetail" oncomplete="PF('personDialog').show()" title="View Detail">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
-                    <f:setPropertyActionListener value="#{person}" target="#{personViewController.selectedPerson}" />
+                    <f:setPropertyActionListener value="#{person}" target="#{dataGridView.selectedPerson}" />
                 </p:commandLink>
             </h:panelGrid>
         </p:panel>
@@ -39,16 +39,21 @@
  
     <p:dialog header="Person Info" widgetVar="personDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
         <p:outputPanel id="personDetail" style="text-align:center;">
-            <p:panelGrid  columns="2" rendered="#{not empty personViewController.selectedPerson}" columnClasses="label,value">
+            <p:panelGrid  columns="2" rendered="#{not empty dataGridView.selectedPerson}" columnClasses="label,value">
                 
-                <h:outputText value="Id:" />
-                <h:outputText value="#{personViewController.selectedPerson.id}" />
- 
-                <h:outputText value="Birthday" />
-                <h:outputText value="#{personViewController.selectedPerson.birthDay}" />
- 
-                <h:outputText value="Email" />
-                <h:outputText value="$#{personViewController.selectedPerson.email}" />
+                <h:outputText value="Name:" />
+                <h:outputText value="#{dataGridView.selectedPerson.name}" />
+  				<h:outputText value="FirstName: " />
+                <h:outputText value="#{dataGridView.selectedPerson.firstName}" />
+                <h:outputText value="Birthday: " />
+                <h:outputText value="#{dataGridView.selectedPerson.birthday}" />
+                <h:outputText value="Email: " />
+                <h:outputText value="$#{dataGridView.selectedPerson.email}" />
+                <h:outputText value="Website: " />
+                <h:outputText value="$#{dataGridView.selectedPerson.webSite}" />
+                <h:outputText value="CV: " />
+                <h:outputText value="$#{dataGridView.selectedPerson.curriculumVitae}" />
+                
             </p:panelGrid>
         </p:outputPanel>
     </p:dialog>
