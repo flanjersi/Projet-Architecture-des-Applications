@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
+ 
+ 
+<h:form id="form">
+    <p:dataGrid var="person" value="#{personViewController.persons}" columns="3" layout="grid"
+        rows="12" paginator="true" id="persons"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="6,12,16">
+         
+        <f:facet name="header">
+            persons
+        </f:facet>
+ 
+        <p:panel header="#{person.firstName} #{person.name}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+   
+ 
+                <h:outputText value="#{person.birthDay}" />
+ 
+                <p:commandLink update=":form:personDetail" oncomplete="PF('personDialog').show()" title="View Detail">
+                    <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                    <f:setPropertyActionListener value="#{person}" target="#{personViewController.selectedPerson}" />
+                </p:commandLink>
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
+ 
+    <p:dialog header="Person Info" widgetVar="personDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="personDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty personViewController.selectedPerson}" columnClasses="label,value">
+                
+                <h:outputText value="Id:" />
+                <h:outputText value="#{personViewController.selectedPerson.id}" />
+ 
+                <h:outputText value="Birthday" />
+                <h:outputText value="#{personViewController.selectedPerson.birthDay}" />
+ 
+                <h:outputText value="Email" />
+                <h:outputText value="$#{personViewController.selectedPerson.email}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:tabMenu activeIndex="#{param.i}">
+    <p:menuitem value="Overview" outcome="/index" icon="fa fa-star">
+        <f:param name="i" value="0" />
+    </p:menuitem>
+      <p:menuitem value="Persons" outcome="/persons" icon="fa fa-users">
+        <f:param name="i" value="1" />
+    </p:menuitem>
+    <p:menuitem value="CVs" outcome="/index" icon="fa fa-file">
+        <f:param name="i" value="2" />
+    </p:menuitem>
+    <p:menuitem value="profil" outcome="/index" icon="fa fa-user">
+        <f:param name="i" value="3" />
+    </p:menuitem>
+
+</p:tabMenu>
+
+</html>
+
+
+
