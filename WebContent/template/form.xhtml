@@ -5,31 +5,78 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<h3 style="margin-top: 10" align="center"><div style="margin-bottom:10px">Inscription </div> 
-<div style="margin-bottom:10px">
-		<p:inputText placeholder="Name" required="true" />
-</div>
-	
 
-<div style="margin-bottom:10px">
-		<p:inputText placeholder="Firstname" required="true" />
 
-</div>
-	
 
-<div style="margin-bottom:10px">
+<h:form>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="inputEmail4">Email</label> <input type="email"
+				class="form-control" id="inputEmail4" placeholder="Email" />
+		</div>
+		<div class="form-group col-md-6">
+			<label for="inputPassword4">Password</label> <input type="password"
+				class="form-control" id="inputPassword4" placeholder="Password" />
+		</div>
+	</div>
+	<div class="form-group col-md-6">
+		<label for="inputName">Name</label> <input type="text"
+			class="form-control" id="inputName" placeholder="Name" />
+	</div>
+	<div class="form-group col-md-6">
+		<label for="inputFirstname">Firstname</label> <input type="text"
+			class="form-control" id="inputFirstname" placeholder="Firstname" />
+	</div>
+	<div class="form-group col-md-6">
+		<label for="inputWebsite">Website</label> <input type="text"
+			class="form-control" id="inputWebsite" placeholder="Website" />
+	</div>
 	
-		<p:inputText placeholder="Email" required="true" />
-</div>
 	
-<div style="margin-bottom:10px">		
-		<p:inputText placeholder="Website" />
+	<div class="form-group col-md-2">
+		<label for="inputBirthday">Birthday</label> <p:outputLabel for="restricted" value="Restricted:" />
+        <p:calendar id="restricted"  mindate="4/1/14" maxdate="7/1/14" />	
+	</div>
+	<div>
+	<p:commandButton class ="signup" value="Sign Up" action="#{person.signup()}" icon="fa fa-check" />
 </div>
-
-<!--outcome="personDetail"-->
-<p:button value="Validate" icon="fa fa-check-circle">
-	<f:param name="productId" value="20" />
-</p:button>
-</h3>
+</h:form>
 
 </html>
+
+
+<!-- <h3 style="margin-top: 10" align="center">
+	<div style="margin-bottom: 10px">Inscription</div>
+	<h:form id="formPerson">
+		<div style="margin-bottom: 10px">
+			<p:inputText placeholder="Name" required="true"
+				requiredMessage="Name required" />
+		</div>
+
+
+		<div style="margin-bottom: 10px">
+			<p:inputText placeholder="Firstname" required="true"
+				requiredMessage="Firstname required" />
+
+		</div>
+
+<div style="margin-bottom: 10px">
+			<p:inputText placeholder="Password" required="true"
+				requiredMessage="Password required" />
+
+		</div>
+		<div style="margin-bottom: 10px">
+
+			<p:inputText placeholder="Email" required="true"
+				requiredMessage="Email required" />
+		</div>
+		<h:message errorClass="error" for="text" />
+
+		<div style="margin-bottom: 10px">
+			<p:inputText placeholder="Website" />
+		</div>
+
+		<p:commandButton class ="signup" value="Sign Up" action="#{person.signup()}" icon="fa fa-check" />
+		
+	</h:form>
+</h3> -->
