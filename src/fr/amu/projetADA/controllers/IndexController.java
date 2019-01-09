@@ -14,10 +14,4 @@ public class IndexController {
 	private PersonManager personManager;
 	
 	public IndexController() {}
-	
-	public String getStr() {
-		return "toto";
-	}
-	
-	
 }
