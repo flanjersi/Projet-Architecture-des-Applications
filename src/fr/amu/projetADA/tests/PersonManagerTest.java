@@ -141,18 +141,20 @@ public class PersonManagerTest {
     	personManager.addPerson(person1);
     	
     	Assert.assertEquals(person1, personManager.findByemail("example34@example.com"));
+    	Assert.assertNull(personManager.findByemail("example34@example34.com"));
     	
     	personManager.removePerson(person1);
     }
     
     @Test
     public void testfindByEmailAndPwd() {
-    	/* en cours de dev */
     	Person person1 = new Person("Youcef", "Guelil", new Date(System.currentTimeMillis()), "1234", "example340@example.com");	
     
     	personManager.addPerson(person1);
 
-    	Assert.assertTrue(personManager.authentification(person1.getEmail(), person1.getPassword()));
+    	Assert.assertNotNull(personManager.findByEmailAndPassword(person1.getEmail(), person1.getPassword()));
+    	Assert.assertNull(personManager.findByEmailAndPassword("example666@exampletestauth.com", "1234"));
+    	
     	personManager.removePerson(person1);	
     	
     }

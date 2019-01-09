@@ -26,6 +26,6 @@ public interface PersonManager {
 	
 	public Person findByemail(String email);
 	
-	public boolean authentification(String email,String pwd);
+	public Person findByEmailAndPassword(String email,String pwd);
 	
 }

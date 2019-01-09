@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -58,16 +59,21 @@ public class PersonManagerBean implements PersonManager{
 	
 	public Person findByemail(String email) {
 		TypedQuery<Person> q = em.createNamedQuery("findByEmail", Person.class).setParameter("email", email);	
-		return q.getSingleResult();
+		
+		try {
+			return q.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
-	public boolean authentification(String email,String pwd) {
-	
-		 Query query = em.createQuery("SELECT p From Person p WHERE p.email = '"+email+"' "
-				 					+"and p.password = '"+pwd+"'");
+	public Person findByEmailAndPassword(String email,String pwd) {
+		TypedQuery<Person> q = em.createNamedQuery("findByEmailAndPwd", Person.class).setParameter("email", email).setParameter("pwd", pwd);	
 		
-		 List<Person> marins = query.getResultList() ;		
-		
-		 return query.getResultList().size() ==1 ? true : false;
+		try {
+			return q.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

@@ -62,13 +62,6 @@
 
 
 	<build>
-		<resources>
-			<resource>
-				<excludes>
-					<exclude>src/main/resources/*</exclude>
-				</excludes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

@@ -7,6 +7,5 @@ public interface ConnectedUser {
 	
 	boolean login(String login, String pwd);
 	void logout();
-	String getLogin();
 	
 }
