@@ -34,5 +34,7 @@ public class SignUpViewController {
 	
 	public String dateNow() {
 		return new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-	}	
+	}
+	
+	
 }

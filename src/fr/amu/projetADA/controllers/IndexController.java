@@ -14,8 +14,4 @@ public class IndexController {
 	private PersonManager personManager;
 	
 	public IndexController() {}
-	
-
-	
-	
 }
