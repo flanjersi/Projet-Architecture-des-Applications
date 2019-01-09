@@ -15,9 +15,7 @@ public class IndexController {
 	
 	public IndexController() {}
 	
-	public String getStr() {
-		return "toto";
-	}
+
 	
 	
 }

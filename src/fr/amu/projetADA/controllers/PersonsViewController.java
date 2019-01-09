@@ -26,16 +26,7 @@ public class PersonsViewController {
 	@PostConstruct
 	public void init() {
 		System.out.println("Test");
-
 		persons = personManager.findAllPerson();
-
-		Fairy fairy = Fairy.create();
-		for(int i = 0 ; i < 100 ; i++) {
-			io.codearte.jfairy.producer.person.Person person = fairy.person();
-			System.out.println(person);
-			Person personEntity = new Person(person.getFirstName(), person.getLastName(), person.getDateOfBirth().toDate(), person.getPassword(), person.getEmail());
-			persons.add(personEntity);
-		}
 	}
 	
  

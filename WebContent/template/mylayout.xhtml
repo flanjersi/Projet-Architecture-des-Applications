@@ -9,7 +9,11 @@
     <title><ui:insert name="title">YouCV</ui:insert></title>
         <link rel="shortcut icon" href="favicon.ico"
 type="image/x-icon" />
-
+<h:outputStylesheet library="webjars"
+        name="bootstrap/3.3.7/css/bootstrap.min-jsf.css" />
+    
+    <h:outputScript library="webjars"
+        name="bootstrap/3.3.7/js/bootstrap.js" />
 </h:head>
 <h:body>
 
@@ -25,7 +29,7 @@ type="image/x-icon" />
 
 
     <ui:debug />
-    <div>
+    <div class="container">
         <ui:insert name="content">
         </ui:insert>
         <h:messages />
@@ -38,6 +42,8 @@ type="image/x-icon" />
             </ui:insert>
         </div>
     </footer>
+    
+    
     
 </h:body>
 </html>

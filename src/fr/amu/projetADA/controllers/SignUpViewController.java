@@ -28,7 +28,7 @@ public class SignUpViewController {
 	public String save() {
 		personManager.addPerson(person);
 		connectedUser.setPersonLogged(person);
-	
+		System.out.println(person);
 		return "profil";
 	}
 	
