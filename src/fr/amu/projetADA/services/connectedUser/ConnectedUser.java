@@ -10,6 +10,7 @@ public interface ConnectedUser {
 	boolean login(String login, String pwd);
 	void logout();
 	
+	void setPersonLogged(Person person);
 	Person getPersonLogged();
 	
 }
