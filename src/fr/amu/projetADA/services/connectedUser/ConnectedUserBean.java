@@ -30,11 +30,12 @@ public class ConnectedUserBean implements ConnectedUser{
 		personlogged = null;
 	}
 
-	public Person getPersonlogged() {
-		return personlogged;
-	}
-
 	public void setPersonlogged(Person personlogged) {
 		this.personlogged = personlogged;
+	}
+
+	@Override
+	public Person getPersonLogged() {
+		return personlogged;
 	}	
 }
