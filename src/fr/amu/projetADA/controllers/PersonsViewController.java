@@ -13,6 +13,7 @@ import org.primefaces.model.SortOrder;
 
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
+import io.codearte.jfairy.Fairy;
 
 @ManagedBean(name = "personsView")
 @SessionScoped
@@ -28,6 +29,19 @@ public class PersonsViewController {
 	
 	@PostConstruct
 	public void init() {
+		Fairy fairy = Fairy.create();
+		
+		if(personManager.countNbPerson() == 0) {
+			for(int i = 0 ; i < 100_000 ; i++) {
+				io.codearte.jfairy.producer.person.Person person = fairy.person();
+				Person personEntity = new Person(person.getFirstName(), person.getLastName(), person.getDateOfBirth().toDate(), person.getPassword(), "example" + i + "@example.fr");
+				personManager.addPerson(personEntity);
+				System.out.println(i);
+			}	
+		}
+		
+		
+		
 		persons = new LazyDataModel<Person>() {
 
 			private static final long serialVersionUID = 1L;

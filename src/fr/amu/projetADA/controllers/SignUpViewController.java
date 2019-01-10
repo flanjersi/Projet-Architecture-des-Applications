@@ -15,26 +15,30 @@ public class SignUpViewController {
 
 	@ManagedProperty("#{personView}")
 	private PersonViewController personViewController;
-	
+
 	@EJB
 	private PersonManager personManager;
-	
+
 	private Person person = new Person();
-	
+
 	public String save() {
 		if(personManager.findByemail(person.getEmail()) != null)
 			return "signup";
-		
+
+
 		personManager.addPerson(person);
-		personViewController.setPerson(person);
-		
+
+		if(personViewController.getPerson() == null) {
+			personViewController.setPerson(person);
+
+		}
+
+
 		person = new Person();
-		
-		System.out.println(person);
-		
+
 		return "profil";
 	}
-	
+
 	public Person getPerson() {
 		return person;
 	}
@@ -42,7 +46,7 @@ public class SignUpViewController {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-	
+
 	public PersonViewController getPersonViewController() {
 		return personViewController;
 	}

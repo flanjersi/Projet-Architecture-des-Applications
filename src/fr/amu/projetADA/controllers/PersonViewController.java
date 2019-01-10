@@ -42,8 +42,8 @@ public class PersonViewController {
 	}
 	
 	public void delete() throws IOException {
-		connectedUser.logout();
 		personManager.removePerson(connectedUser.getPersonLogged());
+		connectedUser.logout();
 		
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/signin.xhtml");

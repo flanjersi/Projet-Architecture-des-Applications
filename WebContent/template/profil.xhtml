@@ -6,23 +6,39 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<c:set var="person" value="#{personView.person}"/>
-	
-	
-	
-	
-	<div>
-		<p><h:outputText value="#{person.id}"/></p>
-		<p><h:outputText value="#{person.name}"/></p>
-		<p><h:outputText value="#{person.firstName}"/></p>
-		<p><h:outputText value="#{person.email}"/></p>
-		<p><h:outputText value="#{person.birthDay}"/></p>
-	</div>
-	<h:form>
-		<p:commandButton ajax="false" value="Log out" action="#{personView.logout()}" icon="fa fa-check" />		
-	</h:form>
-	<h:form>
-		<p:commandButton ajax="false" value="Delete" action="#{personView.delete()}" icon="fa fa-check" />		
-	</h:form>
-	
+<c:set var="person" value="#{personView.person}" />
+
+
+
+
+<div>
+	<p>
+		<h:outputText value="#{person.id}" />
+	</p>
+	<p>
+		<h:outputText value="#{person.name}" />
+	</p>
+	<p>
+		<h:outputText value="#{person.firstName}" />
+	</p>
+	<p>
+		<h:outputText value="#{person.email}" />
+	</p>
+	<p>
+		<h:outputText value="#{person.birthDay}" />
+	</p>
+</div>
+<h:form>
+	<p:commandButton ajax="false" value="Log out"
+		action="#{personView.logout()}" icon="fa fa-check" />
+</h:form>
+
+<h:form>
+	<p:commandButton ajax="false" value="Delete"
+		action="#{personView.delete()}" icon="fa fa-check" />
+</h:form>
+
+<p:button outcome="/signup.xhtml" value="Add People" icon="fa fa-star"
+	style="margin-right:20px;" />
+
 </html>
