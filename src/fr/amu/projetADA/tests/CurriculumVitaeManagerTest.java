@@ -1,5 +1,6 @@
 package fr.amu.projetADA.tests;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,9 +36,11 @@ public class CurriculumVitaeManagerTest {
     public void setUp() throws Exception {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);
     
-        person = new Person("Jérémy", "Gros", new Date(System.currentTimeMillis()), "1234", "example@example.com");	
+        person = new Person("Jérémy", "Gros", getNowDate(), "1234", "example@example.com");	
     
         curriculumVitae = new CurriculumVitae();
+        curriculumVitae.setCreatedIn(getNowDate());
+        curriculumVitae.setTitle("Example cv");
         
         //Add curriculum vitae to person
         person.setCurriculumVitae(curriculumVitae);
@@ -68,7 +71,7 @@ public class CurriculumVitaeManagerTest {
     
     @Test
     public void testUpdateCurriculumVitae() {
-    	Activity activity = new Activity(2018, "Formation", "Master 2 Informatique");
+    	Activity activity = new Activity(2018, "Formation", "Master 2 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	
@@ -76,6 +79,9 @@ public class CurriculumVitaeManagerTest {
     	
     	CurriculumVitae curriculumVitaeUpdate = curriculumVitaeManager.findCurriculumVitae(curriculumVitae.getId());
     
+    	System.out.println(curriculumVitaeUpdate);
+    	System.out.println(curriculumVitae);
+    	
     	Assert.assertTrue(curriculumVitaeUpdate.equals(curriculumVitae));
     }
     
@@ -96,9 +102,11 @@ public class CurriculumVitaeManagerTest {
     public void testFindAll() {
     	// Add a another cv 
     	
-    	Person person = new Person("Jérémy", "Gros", new Date(System.currentTimeMillis()), "1234", "example2@example.com");	
+    	Person person = new Person("Jérémy", "Gros", getNowDate(), "1234", "example2@example.com");	
         
         CurriculumVitae curriculumVitae = new CurriculumVitae();
+        curriculumVitae.setCreatedIn(getNowDate());
+        curriculumVitae.setTitle("Example cv");
         
         person.setCurriculumVitae(curriculumVitae);
         
@@ -109,6 +117,22 @@ public class CurriculumVitaeManagerTest {
     	List<CurriculumVitae> cvs = curriculumVitaeManager.findAllCurriculumVitae();
     	Assert.assertNotNull(cvs);    	
     	Assert.assertTrue(cvs.size() >= 2);
+    }
+    
+    private Date getNowDate() {
+    	Date date = new Date();
+    	 
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	 
+    	cal.set(Calendar.HOUR_OF_DAY, 0);
+    	cal.set(Calendar.MINUTE, 0);
+    	cal.set(Calendar.SECOND, 0);
+    	cal.set(Calendar.MILLISECOND, 0);
+    	 
+    	date = cal.getTime();
+    	
+    	return date;
     }
     
 }

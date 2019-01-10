@@ -7,7 +7,7 @@ import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
 
 @Stateful(name = "connectedUser")
-public class ConnectedUserBean implements ConnectedUser{
+public class ConnectedUserBean implements ConnectedUser {
 
 	@EJB
 	private PersonManager personManager;

@@ -1,6 +1,9 @@
 package fr.amu.projetADA.beans.cv;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.persistence.Basic;
@@ -9,11 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Class which represents an activity of a Curriculum Vitae
@@ -53,6 +57,16 @@ public class Activity implements Serializable {
 	private String description;
 	
 	@Basic
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date begin;
+	
+	@Basic
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date end;
+	
+	@Basic
 	@Column(nullable = true)
 	private String webSite;
 	
@@ -61,10 +75,12 @@ public class Activity implements Serializable {
 	
 	public Activity() {	}
 
-	public Activity(int year, String type, String title) {
+	public Activity(int year, String type, String title, Date begin, Date end) {
 		this.year  = year;
 		this.type  = type;
 		this.title = title;
+		this.begin = begin;
+		this.end = end;
 	}
 
 	public long getId() {
@@ -123,13 +139,29 @@ public class Activity implements Serializable {
 		this.curriculumVitae = curriculumVitae;
 	}
 
-	@Override
-	public String toString() {
-		return "Activity [id=" + id + ", year=" + year + ", type=" + type + ", title=" + title + ", description="
-				+ description + ", webSite=" + webSite + "]";
+	public Date getBegin() {
+		return begin;
+	}
+
+	public void setBegin(Date begin) {
+		this.begin = begin;
+	}
+
+	public Date getEnd() {
+		return end;
+	}
+
+	public void setEnd(Date end) {
+		this.end = end;
 	}
 	
 	
+
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", year=" + year + ", type=" + type + ", title=" + title + ", description="
+				+ description + ", begin=" + begin + ", end=" + end + ", webSite=" + webSite + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -187,6 +219,10 @@ public class Activity implements Serializable {
 		
 		return true;
 	}
+
+
+
+
 	
 	
 	

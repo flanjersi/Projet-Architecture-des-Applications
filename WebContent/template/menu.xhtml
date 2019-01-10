@@ -5,20 +5,23 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<p:tabMenu activeIndex="#{param.i}">
-    <p:menuitem value="Overview" outcome="/index" icon="fa fa-star">
-        <f:param name="i" value="0" />
-    </p:menuitem>
-      <p:menuitem value="Persons" outcome="/persons" icon="fa fa-users">
-        <f:param name="i" value="1" />
-    </p:menuitem>
-    <p:menuitem value="CVs" outcome="/index" icon="fa fa-file">
-        <f:param name="i" value="2" />
-    </p:menuitem>
-    <p:menuitem value="profil" outcome="/profil" icon="fa fa-user">
-        <f:param name="i" value="3" />
-    </p:menuitem>
 
+<p:tabMenu activeIndex="#{param.i}">
+	<p:menuitem value="Overview" outcome="/index" icon="fa fa-star">
+		<f:param name="i" value="0" />
+	</p:menuitem>
+	
+	<p:menuitem value="Persons" outcome="/persons" icon="fa fa-users">
+		<f:param name="i" value="1" />
+	</p:menuitem>
+	
+	<p:menuitem value="CVs" outcome="/index" icon="fa fa-file">
+		<f:param name="i" value="2" />
+	</p:menuitem>
+
+	<p:menuitem value="profil" outcome="/profil" icon="fa fa-user">
+		<f:param name="i" value="3" />
+	</p:menuitem>
 </p:tabMenu>
 
 </html>

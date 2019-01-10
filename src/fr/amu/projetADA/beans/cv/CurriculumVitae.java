@@ -1,12 +1,16 @@
 package fr.amu.projetADA.beans.cv;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import fr.amu.projetADA.beans.person.Person;
 
@@ -40,6 +46,23 @@ public class CurriculumVitae implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@Basic
+	@Column(nullable = false)
+	private String title;
+	
+
+	@Basic
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = true)
+	private Date modifiedIn;
+	
+
+	@Basic
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = true)
+	private Date createdIn;
+	
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "curriculumVitae")
 	private List<Activity> activities = new ArrayList<>();
@@ -79,23 +102,49 @@ public class CurriculumVitae implements Serializable{
 		activities.add(activity);
 		activity.setCurriculumVitae(this);
 	}
-	
-	@Override
-	public String toString() {
-		return "CurriculumVitae [id=" + id + ", activities=" + getActivities() + "]";
+
+	public String getTitle() {
+		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getModifiedIn() {
+		return modifiedIn;
+	}
+
+	public void setModifiedIn(Date modifiedIn) {
+		this.modifiedIn = modifiedIn;
+	}
+
+	public Date getCreatedIn() {
+		return createdIn;
+	}
+
+	public void setCreatedIn(Date createdIn) {
+		this.createdIn = createdIn;
+	}
 	
 	
+
+	@Override
+	public String toString() {
+		return "CurriculumVitae [id=" + id + ", title=" + title + ", modifiedIn=" + modifiedIn + ", createdIn="
+				+ createdIn + ", activities=" + activities + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((activities == null) ? 0 : activities.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,7 +153,11 @@ public class CurriculumVitae implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
+		
 		CurriculumVitae other = (CurriculumVitae) obj;
+		
+		
 		if (activities == null) {
 			if (other.activities != null)
 				return false;
@@ -115,10 +168,14 @@ public class CurriculumVitae implements Serializable{
 		if (id != other.id)
 			return false;
 		
+		if(title == null || other.title == null)
+			return false;
+		else if (!title.equals(other.title))
+			return false;
+		
+		
 		return true;
 	}
-	
-	
-	
+
 	
 }

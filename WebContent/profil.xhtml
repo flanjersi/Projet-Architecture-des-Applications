@@ -6,8 +6,9 @@
     xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template/mylayout.xhtml">
-          <ui:define name="content">
-            <ui:include src="/template/form.xhtml"></ui:include>
+         <ui:define name="content">
+            <f:event type="preRenderView" listener="#{personView.checkIsLogged()}" ></f:event>
+            <ui:include src="/template/profil.xhtml"></ui:include>
         </ui:define>
         <ui:define name="title" >YouCV</ui:define>
     </ui:composition>

@@ -84,7 +84,7 @@ public class PersonManagerTest {
     	personManager.addPerson(person3);
   	  	
     	// Test find all
-    	List<Person> persons = personManager.findAllPerson();
+    	List<Person> persons = personManager.findAllPerson(-1, 0);
     	Assert.assertNotNull(persons);    	
     	Assert.assertTrue(persons.size() >= 3);
     

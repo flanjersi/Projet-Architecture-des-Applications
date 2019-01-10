@@ -1,6 +1,7 @@
 package fr.amu.projetADA.tests;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -43,16 +44,18 @@ public class ActivityManagerTest {
     public void setUp() throws Exception {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);
     
-        person = new Person("Jérémy", "Gros", new Date(System.currentTimeMillis()), "1234", "example@example.com");	
+        person = new Person("Jérémy", "Gros", getNowDate(), "1234", "example@example.com");	
     
         curriculumVitae = new CurriculumVitae();
+        curriculumVitae.setCreatedIn(getNowDate());
+        curriculumVitae.setTitle("Example cv");
         
         //Add curriculum vitae to person
         person.setCurriculumVitae(curriculumVitae);
         
     	personManager.addPerson(person);
 	
-    	activity = new Activity(2018, "Formation", "Master 2 Informatique");
+    	activity = new Activity(2018, "Formation", "Master 2 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -74,17 +77,21 @@ public class ActivityManagerTest {
     
     @Test
     public void testUpdateActivity() {
-    	activity.setTitle("Master 2 Informatique ILD");
+    	activity.setTitle("Master 1 Informatique ILD");
     	
-    	activityManager.updateActivity(activity);
-    
+    	Activity activityUpdate = activityManager.updateActivity(activity);
+    	
+    	System.out.println(activityUpdate);
+    	curriculumVitae.getActivities().stream().forEach(a -> System.out.println(a));
+    	
+    	Assert.assertTrue(curriculumVitae.getActivities().contains(activityUpdate));	
     	Assert.assertTrue(activity.equals(activityManager.findActivity(activity.getId())));
     }
     
     @Test
     public void testRemoveActivity() {
     	
-    	Activity activityAdded = new Activity(2017, "Formation", "Master 1 Informatique");
+    	Activity activityAdded = new Activity(2017, "Formation", "Master 1 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activityAdded);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -97,13 +104,13 @@ public class ActivityManagerTest {
     	
     	CurriculumVitae cv = curriculumVitaeManager.findCurriculumVitae(curriculumVitae.getId());
     	
-    	Assert.assertFalse(new ArrayList<>(cv.getActivities()).contains(activityAdded));
+    	Assert.assertFalse(cv.getActivities().contains(activityAdded));
     }
     
     @Test
     public void testFindAll() {
     	// Add other activity
-    	Activity activity = new Activity(2017, "Formation", "Master 1 Informatique");
+    	Activity activity = new Activity(2017, "Formation", "Master 1 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -114,7 +121,7 @@ public class ActivityManagerTest {
     
     @Test
     public void findActivitiesByTitle() {
-    	Activity activity = new Activity(2014, "Formation", "Licence Informatique");
+    	Activity activity = new Activity(2014, "Formation", "Licence Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -126,6 +133,22 @@ public class ActivityManagerTest {
     	activities = activityManager.findByTitle("Licences");
     	
     	Assert.assertEquals(0, activities.size());
+    }
+    
+    private Date getNowDate() {
+    	Date date = new Date();
+    	 
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	 
+    	cal.set(Calendar.HOUR_OF_DAY, 0);
+    	cal.set(Calendar.MINUTE, 0);
+    	cal.set(Calendar.SECOND, 0);
+    	cal.set(Calendar.MILLISECOND, 0);
+    	 
+    	date = cal.getTime();
+    	
+    	return date;
     }
 
 	

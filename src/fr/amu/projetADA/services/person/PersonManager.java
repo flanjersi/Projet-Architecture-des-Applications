@@ -18,7 +18,9 @@ public interface PersonManager {
 	
 	public Person updatePerson(Person person);
 	
-	public List<Person> findAllPerson();
+	public long countNbPerson();
+	
+	public List<Person> findAllPerson(int limit, int offset);
 	
 	public List<Person> findByFirstName(String firstName);
 	

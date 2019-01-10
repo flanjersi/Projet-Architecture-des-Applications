@@ -40,8 +40,12 @@ public class PersonManagerBean implements PersonManager{
 	}
 
 	@Override
-	public List<Person> findAllPerson() {
+	public List<Person> findAllPerson(int limit, int offset) {
 		TypedQuery<Person> q = em.createNamedQuery("findAllPersons", Person.class);
+		q.setFirstResult(offset);
+		
+		if(limit > 0) q.setMaxResults(limit);
+		
 		return q.getResultList();
 	}
 
@@ -75,5 +79,12 @@ public class PersonManagerBean implements PersonManager{
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+
+	@Override
+	public long countNbPerson() {
+		TypedQuery<Long> q = em.createNamedQuery("countPersons", Long.class);	
+		
+		return q.getSingleResult().longValue();
 	}
 }
