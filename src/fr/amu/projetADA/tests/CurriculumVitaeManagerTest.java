@@ -71,7 +71,7 @@ public class CurriculumVitaeManagerTest {
     
     @Test
     public void testUpdateCurriculumVitae() {
-    	Activity activity = new Activity(2018, "Formation", "Master 2 Informatique", getNowDate(), getNowDate());
+    	Activity activity = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	
@@ -114,7 +114,7 @@ public class CurriculumVitaeManagerTest {
   	  	
     	// Test find all
     	
-    	List<CurriculumVitae> cvs = curriculumVitaeManager.findAllCurriculumVitae();
+    	List<CurriculumVitae> cvs = curriculumVitaeManager.findAllCurriculumVitae(-1, 0);
     	Assert.assertNotNull(cvs);    	
     	Assert.assertTrue(cvs.size() >= 2);
     }

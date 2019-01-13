@@ -15,6 +15,8 @@ public interface CurriculumVitaeManager {
 	
 	public CurriculumVitae updateCurriculumVitae(CurriculumVitae curriculumVitae);
 	
-	public List<CurriculumVitae> findAllCurriculumVitae();
+	public List<CurriculumVitae> findAllCurriculumVitae(int pageSize, int first);
+
+	public long countNbCurriculumVitae();
 	
 }

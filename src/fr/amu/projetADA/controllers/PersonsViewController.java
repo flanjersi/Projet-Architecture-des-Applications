@@ -58,6 +58,10 @@ public class PersonsViewController {
 		};	
 	}
 	
+	
+	public String seeProfil(Person person) {
+		return "persons";
+	}
  
 	public Person getSelectedPerson() {
 		return selectedPerson;

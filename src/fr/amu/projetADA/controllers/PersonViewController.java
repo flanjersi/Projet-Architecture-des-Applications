@@ -22,7 +22,6 @@ public class PersonViewController {
 	@EJB
 	private PersonManager personManager;
 	
-	
 	public void checkIsLogged() throws IOException {
 		if(connectedUser.getPersonLogged() == null) {
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
@@ -49,6 +48,7 @@ public class PersonViewController {
         ec.redirect(ec.getRequestContextPath() + "/signin.xhtml");
 	}
 	
+	
 	public Person getPerson() {
 		return connectedUser.getPersonLogged();
 	}
@@ -56,4 +56,10 @@ public class PersonViewController {
 	public void setPerson(Person person) {
 		connectedUser.setPersonLogged(person);
 	}	
+	
+	public void edit() {
+		setPerson(personManager.updatePerson(getPerson()));
+	}
+	
+	
 }

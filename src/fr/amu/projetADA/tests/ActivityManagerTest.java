@@ -55,7 +55,7 @@ public class ActivityManagerTest {
         
     	personManager.addPerson(person);
 	
-    	activity = new Activity(2018, "Formation", "Master 2 Informatique", getNowDate(), getNowDate());
+    	activity = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -91,7 +91,7 @@ public class ActivityManagerTest {
     @Test
     public void testRemoveActivity() {
     	
-    	Activity activityAdded = new Activity(2017, "Formation", "Master 1 Informatique", getNowDate(), getNowDate());
+    	Activity activityAdded = new Activity("Formation", "Master 1 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activityAdded);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -110,7 +110,7 @@ public class ActivityManagerTest {
     @Test
     public void testFindAll() {
     	// Add other activity
-    	Activity activity = new Activity(2017, "Formation", "Master 1 Informatique", getNowDate(), getNowDate());
+    	Activity activity = new Activity("Formation", "Master 1 Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -121,7 +121,7 @@ public class ActivityManagerTest {
     
     @Test
     public void findActivitiesByTitle() {
-    	Activity activity = new Activity(2014, "Formation", "Licence Informatique", getNowDate(), getNowDate());
+    	Activity activity = new Activity("Formation", "Licence Informatique", getNowDate(), getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);

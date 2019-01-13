@@ -42,10 +42,6 @@ public class Activity implements Serializable {
 	
 	@Basic
 	@Column(nullable = false)
-	private int year;
-	
-	@Basic
-	@Column(nullable = false)
 	private String type;
 	
 	@Basic
@@ -75,8 +71,7 @@ public class Activity implements Serializable {
 	
 	public Activity() {	}
 
-	public Activity(int year, String type, String title, Date begin, Date end) {
-		this.year  = year;
+	public Activity(String type, String title, Date begin, Date end) {
 		this.type  = type;
 		this.title = title;
 		this.begin = begin;
@@ -91,13 +86,6 @@ public class Activity implements Serializable {
 		this.id = id;
 	}
 
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
 
 	public String getType() {
 		return type;
@@ -159,7 +147,7 @@ public class Activity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Activity [id=" + id + ", year=" + year + ", type=" + type + ", title=" + title + ", description="
+		return "Activity [id=" + id + ", type=" + type + ", title=" + title + ", description="
 				+ description + ", begin=" + begin + ", end=" + end + ", webSite=" + webSite + "]";
 	}
 
@@ -172,7 +160,6 @@ public class Activity implements Serializable {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((webSite == null) ? 0 : webSite.hashCode());
-		result = prime * result + year;
 		return result;
 	}
 
@@ -212,9 +199,6 @@ public class Activity implements Serializable {
 			if (other.webSite != null)
 				return false;
 		} else if (!webSite.equals(other.webSite))
-			return false;
-		
-		if (year != other.year)
 			return false;
 		
 		return true;

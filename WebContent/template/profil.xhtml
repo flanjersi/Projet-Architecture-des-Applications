@@ -9,36 +9,108 @@
 <c:set var="person" value="#{personView.person}" />
 
 
-
-
-<div>
-	<p>
-		<h:outputText value="#{person.id}" />
-	</p>
-	<p>
-		<h:outputText value="#{person.name}" />
-	</p>
-	<p>
-		<h:outputText value="#{person.firstName}" />
-	</p>
-	<p>
-		<h:outputText value="#{person.email}" />
-	</p>
-	<p>
-		<h:outputText value="#{person.birthDay}" />
-	</p>
-</div>
 <h:form>
+
+	<div>
+		<p>
+			<h:outputText value="#{person.id}" />
+		</p>
+		<p>
+			<h:outputText value="#{person.name}" />
+		</p>
+		<p>
+			<h:outputText value="#{person.firstName}" />
+		</p>
+		<p>
+			<h:outputText value="#{person.email}" />
+		</p>
+		<p>
+			<h:outputText value="#{person.birthDay}" />
+		</p>
+		<p>
+			<h:outputText value="#{person.status}" />
+		</p>
+		<p>
+			<h:outputText value="#{person.description}" />
+		</p>
+		<p>
+			<h:outputText value="#{person.webSite}" />
+		</p>
+		
+		
+		
+	</div>
+
 	<p:commandButton ajax="false" value="Log out"
-		action="#{personView.logout()}" icon="fa fa-check" />
+		action="#{personView.logout()}" />
+
+	<p:commandButton ajax="false" value="Delete"
+		action="#{personView.delete()}" />
+
+	<p:button outcome="/signup.xhtml" value="Add People"
+		style="margin-right:20px;" />
 </h:form>
+
+<p:commandButton value="Edit profil"
+	onclick="PF('personDialog').show();">
+	<f:setPropertyActionListener value="#{person}"
+		target="#{personView.person}" />
+</p:commandButton>
 
 <h:form>
-	<p:commandButton ajax="false" value="Delete"
-		action="#{personView.delete()}" icon="fa fa-check" />
+	<p:dialog header="Edit profil" widgetVar="personDialog" modal="true"
+		resizable="false" responsive="true" draggable="false">
+		<c:set var="person" value="#{personView.person}" />
+		
+		<label for="inputName">Name</label>
+		<p:inputText type="text" value="#{person.name}" class="form-control"
+			id="inputName" placeholder="Name" required="true"
+			requiredMessage="Name required" />
+
+		<label for="inputFirstname">Firstname</label>
+		<p:inputText type="text" value="#{person.firstName}"
+			class="form-control" id="inputFirstname" placeholder="Firstname"
+			required="true" requiredMessage="Firstname required" />
+
+		<label for="inputEmail">Email</label>
+		<p:inputText type="email" value="#{person.email}" class="form-control"
+			id="inputEmail" placeholder="Email" required="true"
+			requiredMessage="Email required" />
+
+		<label for="inputPassword">Password</label>
+		<p:inputText type="password" value="#{person.password}"
+			class="form-control" id="inputPassword" placeholder="Password"
+			required="true" requiredMessage="Password required" />
+
+
+		<label for="inputBirthday">Birthday</label>
+		<p:calendar pattern="dd/MM/yyyy" id="inputBirthday"
+			value="#{person.birthDay}" navigator="true" yearRange="c-120:c"
+			maxdate="today" required="true" requiredMessage="Birthday required" />
+
+
+		<label for="inputStatus">Status</label>
+		<p:inputText type="text" value="#{person.status}" class="form-control"
+			id="inputStatus" placeholder="Status" />
+
+
+		<label for="inputDescription">About You</label>
+		<p:inputTextarea type="text" value="#{person.description}" class="form-control"
+			id="inputDescription" placeholder="Describe you in few words" maxlength="200"/>
+
+
+		<label for="inputWebsite">Website</label>
+		<p:inputText type="text" value="#{person.webSite}"
+			class="form-control" id="inputWebsite" placeholder="Website" />
+
+
+		<div>
+			<p:commandButton ajax="false" class="signup" value="Save"
+				action="#{personView.edit()}" icon="fa fa-check" />
+		</div>
+
+	</p:dialog>
 </h:form>
 
-<p:button outcome="/signup.xhtml" value="Add People" icon="fa fa-star"
-	style="margin-right:20px;" />
 
 </html>

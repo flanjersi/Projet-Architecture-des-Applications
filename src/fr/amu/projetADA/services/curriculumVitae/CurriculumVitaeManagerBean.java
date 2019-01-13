@@ -13,9 +13,9 @@ import fr.amu.projetADA.beans.person.Person;
 
 @Stateless
 public class CurriculumVitaeManagerBean implements CurriculumVitaeManager{
-	
+
 	@PersistenceContext(unitName = "myData")
-    private EntityManager em;
+	private EntityManager em;
 
 	@Override
 	public CurriculumVitae findCurriculumVitae(long id) {
@@ -37,11 +37,22 @@ public class CurriculumVitaeManagerBean implements CurriculumVitaeManager{
 	}
 
 	@Override
-	public List<CurriculumVitae> findAllCurriculumVitae() {
+	public List<CurriculumVitae> findAllCurriculumVitae(int limit, int offset) {
 		TypedQuery<CurriculumVitae> q = em.createNamedQuery("findAllCurriculumVitae", CurriculumVitae.class);
-	    
+
+		q.setFirstResult(offset);
+
+		if(limit > 0) q.setMaxResults(limit);
+
 		return q.getResultList();
 	}
-	
-	
+
+	@Override
+	public long countNbCurriculumVitae() {
+		TypedQuery<Long> q = em.createNamedQuery("countCurriculumsVitae", Long.class);	
+
+		return q.getSingleResult().longValue();
+	}
+
+
 }

@@ -4,57 +4,59 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 <style type="text/css">
-    .value {
-        font-weight: bold;
-    }
+.value {
+	font-weight: bold;
+}
 </style>
- 
- 
- 
+
+
+
 <h:form id="form">
-    <p:dataGrid id="persons" var="person" value="#{personsView.persons}" columns="3" layout="grid"
-        rows="12" paginator="true" lazy="true"
-        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-        rowsPerPageTemplate="6,12,16, 32">
-         
-        <f:facet name="header">
-           List of people
-        </f:facet>
- 
-        <p:panel header="#{person.firstName} #{person.name}" style="text-align:center">
-            <h:panelGrid columns="1" style="width:100%">
-                <h:outputText value="#{person.birthDay}" />
- 
-                <p:commandLink update=":form:personDetail" oncomplete="PF('personDialog').show()" title="View Detail">
-                    <h:outputText styleClass="fa fa-search" style="margin:0 auto;"/>
-                    <f:setPropertyActionListener value="#{person}" target="#{personsView.selectedPerson}" />
-                </p:commandLink>
-            </h:panelGrid>
-        </p:panel>
- 
-    </p:dataGrid>
- 
-    <p:dialog header="Person Info" widgetVar="personDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:outputPanel id="personDetail" style="text-align:center;">
-            <p:panelGrid  columns="2" rendered="#{not empty personsView.selectedPerson}" columnClasses="label,value">
-                
-                <h:outputText value="Name" />
-                <h:outputText value="#{personsView.selectedPerson.name}" />
-  				<h:outputText value="FirstName " />
-                <h:outputText value="#{personsView.selectedPerson.firstName}" />
-                <h:outputText value="Birthday " />
-                <h:outputText value="#{personsView.selectedPerson.birthDay}" />
-                <h:outputText value="Email " />
-                <h:outputText value="#{personsView.selectedPerson.email}" />
-                <h:outputText value="Website: " />
-                <h:outputText value="#{personsView.selectedPerson.webSite}" />
-                <h:outputText value="Password " />
-                <h:outputText value="#{personsView.selectedPerson.password}" />
-                
-            </p:panelGrid>
-        </p:outputPanel>
-    </p:dialog>
+	<p:dataGrid id="persons" var="person" value="#{personsView.persons}"
+		columns="1" layout="grid" rows="12" paginator="true" lazy="true" paginatorPosition="both"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="6,12,16, 32">
+
+		<p:panel header="#{person.firstName} #{person.name}"
+			style="text-align:center">
+			<h:panelGrid columns="1" style="width:100%">
+				<h:outputText value="#{person.birthDay}" />
+
+				<p:commandLink update=":form:personDetail"
+					oncomplete="PF('personDialog').show()" title="View Detail">
+					<h:outputText styleClass="fa fa-search" style="margin:0 auto;" />
+					<f:setPropertyActionListener value="#{person}"
+						target="#{personsView.selectedPerson}" />
+				</p:commandLink>
+			</h:panelGrid>
+		</p:panel>
+
+	</p:dataGrid>
+
+	<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
+		showEffect="fade" hideEffect="fade" resizable="false">
+		<p:outputPanel id="personDetail" style="text-align:center;">
+			<p:panelGrid columns="2"
+				rendered="#{not empty personsView.selectedPerson}"
+				columnClasses="label,value">
+
+				<h:outputText value="Name" />
+				<h:outputText value="#{personsView.selectedPerson.name}" />
+				<h:outputText value="FirstName " />
+				<h:outputText value="#{personsView.selectedPerson.firstName}" />
+				<h:outputText value="Birthday " />
+				<h:outputText value="#{personsView.selectedPerson.birthDay}" />
+				<h:outputText value="Email " />
+				<h:outputText value="#{personsView.selectedPerson.email}" />
+				<h:outputText value="Website: " />
+				<h:outputText value="#{personsView.selectedPerson.webSite}" />
+				<h:outputText value="Password " />
+				<h:outputText value="#{personsView.selectedPerson.password}" />
+
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:dialog>
 </h:form>
 </html>

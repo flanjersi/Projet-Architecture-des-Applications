@@ -77,6 +77,14 @@ public class Person implements Serializable{
 	@Column(nullable = true)
 	private String webSite;
 
+	@Basic
+	@Column(nullable = true)
+	private String description;
+
+	@Basic
+	@Column(nullable = true)
+	private String status;
+		
 	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinColumn(name="person_id", referencedColumnName="id")
 	private CurriculumVitae curriculumVitae;
@@ -174,10 +182,30 @@ public class Person implements Serializable{
 		this.curriculumVitae = curriculumVitae;	
 	}
 
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", firstName=" + firstName + ", name=" + name + ", birthDay=" + birthDay
-		+ ", password=" + password + ", email=" + email + ", webSite=" + webSite + ", curriculum vitae=" + curriculumVitae + "]";
+				+ ", password=" + password + ", email=" + email + ", webSite=" + webSite + ", description="
+				+ description + ", status=" + status + "]";
 	}
 
 	@Override
@@ -225,6 +253,21 @@ public class Person implements Serializable{
 		else if (!name.equals(other.name))
 			return false;
 
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} 
+		else if (!description.equals(other.description))
+			return false;
+
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} 
+		else if (!status.equals(other.status))
+			return false;
+
+		
 		if (password == null) {
 			if (other.password != null)
 				return false;
