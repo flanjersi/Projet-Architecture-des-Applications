@@ -10,8 +10,12 @@
 	font-weight: bold;
 }
 </style>
+
+
+<h:form id="form">
+
 <h:form>      
-    <p:panel id="panel" header="Search Form" style="margin-bottom:10px;">
+ 
         <p:messages id="messages" />
  
         <h:panelGrid columns="4" cellpadding="5">
@@ -23,13 +27,11 @@
  
             
         </h:panelGrid>
-    </p:panel>
- 
+    
 
 </h:form>
 
 
-<h:form id="form">
 	<p:dataGrid id="persons" var="person" value="#{personsView.persons}"
 		columns="1" layout="grid" rows="12" paginator="true" lazy="true" paginatorPosition="both"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -79,7 +81,14 @@
 				<h:outputText value="Website: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.webSite}" />
 				</p>
-				
+				<p>
+				<h:outputText value="Description: " style="color:#3c8dbc;" />
+				<h:outputText value="#{personsView.selectedPerson.description}" />
+				</p>
+				<p>
+				<h:outputText value="Curriculum Vitae: " style="color:#3c8dbc;" />
+				<h:outputText value="#{personsView.selectedPerson.curriculumVitae.title}" />
+				</p>
 		</p:outputPanel>
 	</p:dialog>
 </h:form>
