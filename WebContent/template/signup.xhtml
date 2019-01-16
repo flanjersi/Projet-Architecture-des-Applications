@@ -50,7 +50,9 @@
 
 	<div class="col-md-6">
 		<p:commandButton ajax="false" class="signup" value="Sign Up"
-			action="#{signUpView.save()}" icon="fa fa-check" />
+			action="#{signUpView.save()}" icon="fa fa-check">
+			<f:param name="i" value="3" />
+		</p:commandButton>
 	</div>
 </h:form>
 </html>

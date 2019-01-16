@@ -28,7 +28,7 @@ public class PersonsViewController {
 
 	
 	@PostConstruct
-	public void init() {	
+	public void init() {
 		persons = new LazyDataModel<Person>() {
 
 			private static final long serialVersionUID = 1L;
