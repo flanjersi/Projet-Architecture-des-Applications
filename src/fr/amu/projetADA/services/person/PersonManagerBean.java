@@ -87,4 +87,17 @@ public class PersonManagerBean implements PersonManager{
 		
 		return q.getSingleResult().longValue();
 	}
+	
+	
+	@Override
+	public List<Person> findByNamesAndFirstName(String value) {
+		TypedQuery<Person> q = em.createNamedQuery("findByNamesAndFirstName", Person.class).setParameter("name", value).setParameter("fisrtName", value);
+
+		
+		return q.getResultList();
+	}
+	
+	
+	
+	
 }
