@@ -42,6 +42,7 @@ import fr.amu.projetADA.beans.cv.CurriculumVitae;
 @NamedQuery(name = "findByEmail", query = "SELECT p From Person p WHERE p.email = :email"),
 @NamedQuery(name = "findByEmailAndPwd", query = "SELECT p From Person p WHERE p.email = :email and p.password = :pwd"),
 @NamedQuery(name = "countPersons", query = "SELECT count(p.id) From Person p"),
+@NamedQuery(name = "countPersonsByNamesAndFirstName", query = "SELECT count(p.id) From Person p WHERE p.name like Concat('%',:name,'%') OR p.firstName like Concat('%',:fisrtName,'%')"),
 })
 public class Person implements Serializable{
 

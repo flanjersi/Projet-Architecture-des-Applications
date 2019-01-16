@@ -13,25 +13,31 @@
 </style>
 
 
+
+
 <h:form id="form">
+	<div class="ui-g" style="background-color:white;">
+		<DIV class="ui-g-4" />
+		<div class="ui-g-4">Users</div>
+		<DIV class="ui-g-4">
+			<p:inputText placeholder="Search"  value="#{personsView.filter}">
+				<p:ajax event="keyup" update="persons"></p:ajax>
+			</p:inputText>
+		</DIV>
+	</div>
+
 	<p:dataGrid id="persons" var="person" value="#{personsView.persons}"
 		columns="1" layout="grid" rows="12" paginator="true" lazy="true"
 		paginatorPosition="both"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rowsPerPageTemplate="6,12,16, 32">
 
-		<f:facet name="header">
-			<div class="ui-g">
-				<DIV class="ui-g-4" />
-				<div class="ui-g-4">Users</div>
-				<DIV class="ui-g-4">
-					<input type="text" placeholder="Search.."></input>
-				</DIV>
-			</div>
-		</f:facet>
-
 		<div style="text-align: center">
 			<h:panelGrid columns="1" style="width:100%">
+				<h:outputText value="#{person.name}" />
+				
+				<h:outputText value="#{person.firstName}" />
+
 				<h:outputText value="#{person.birthDay}" />
 
 				<p:commandLink update=":form:personDetail"
@@ -48,9 +54,9 @@
 		</h:outputText>
 
 	</p:dataGrid>
-<br/>
+	<br />
 	<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
-		showEffect="fade" hideEffect="fade" resizable="false">
+		showEffect="fade" hideEffect="fade" resizable="false" positionType="absolute" draggable="false">
 		<p:outputPanel id="personDetail" style="text-align:center;">
 			<!-- <p:panelGrid columns="2"
 				rendered="#{not empty personsView.selectedPerson}"
