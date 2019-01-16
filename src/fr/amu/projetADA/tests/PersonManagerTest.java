@@ -170,8 +170,8 @@ public class PersonManagerTest {
     	personManager.addPerson(person2);
     	personManager.addPerson(person3);
 
-    	Assert.assertEquals(2, personManager.findByNamesAndFirstName("z").size());
-    	Assert.assertEquals(0, personManager.findByNamesAndFirstName("w").size());
+    	Assert.assertEquals(2, personManager.findByNamesAndFirstName("z", -1, 0).size());
+    	Assert.assertEquals(0, personManager.findByNamesAndFirstName("w", -1, 0).size());
     	
     	personManager.removePerson(person1);	
     	personManager.removePerson(person2);	

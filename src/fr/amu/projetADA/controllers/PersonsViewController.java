@@ -26,9 +26,11 @@ public class PersonsViewController {
 	@EJB
 	private PersonManager personManager;
 
-	
+	private String filter;
+
 	@PostConstruct
 	public void init() {
+
 		persons = new LazyDataModel<Person>() {
 
 			private static final long serialVersionUID = 1L;
@@ -36,20 +38,28 @@ public class PersonsViewController {
 			@Override
 			public List<Person> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 					Map<String, Object> filters) {
-				
-				persons.setRowCount((int) personManager.countNbPerson());
-				
-				return personManager.findAllPerson(pageSize, first);
+
+				if(filter == null || filter.length() == 0){
+					persons.setRowCount((int) personManager.countNbPerson());
+
+					return personManager.findAllPerson(pageSize, first);
+
+				}
+				else {
+					persons.setRowCount((int) personManager.countByNamesAndFirstName(filter));
+					return personManager.findByNamesAndFirstName(filter, pageSize, first);
+				}
 			}
-			
-		};	
+
+		};
 	}
-	
-	
+
+
+
 	public String seeProfil(Person person) {
 		return "persons";
 	}
- 
+
 	public Person getSelectedPerson() {
 		return selectedPerson;
 	}
@@ -70,6 +80,20 @@ public class PersonsViewController {
 	public void setPersons(LazyDataModel<Person> persons) {
 		this.persons = persons;
 	}
-	
-	
+
+
+
+	public String getFilter() {
+		return filter;
+	}
+
+
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
+
+
+
+
 }

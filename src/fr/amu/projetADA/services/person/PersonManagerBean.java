@@ -16,14 +16,14 @@ import fr.amu.projetADA.beans.person.Person;
 public class PersonManagerBean implements PersonManager{
 
 	@PersistenceContext(unitName = "myData")
-    private EntityManager em;
+	private EntityManager em;
 
-	
+
 	@Override
 	public Person findPerson(long id) {
 		return em.find(Person.class, id);
 	}
-	
+
 	@Override
 	public void addPerson(Person person) {
 		em.persist(person);
@@ -43,9 +43,9 @@ public class PersonManagerBean implements PersonManager{
 	public List<Person> findAllPerson(int limit, int offset) {
 		TypedQuery<Person> q = em.createNamedQuery("findAllPersons", Person.class);
 		q.setFirstResult(offset);
-		
+
 		if(limit > 0) q.setMaxResults(limit);
-		
+
 		return q.getResultList();
 	}
 
@@ -54,26 +54,26 @@ public class PersonManagerBean implements PersonManager{
 		TypedQuery<Person> q = em.createNamedQuery("findByFirstName", Person.class).setParameter("firstName", firstName);
 		return q.getResultList();		
 	}
-	
+
 	@Override
 	public List<Person> findByName(String name){
 		TypedQuery<Person> q = em.createNamedQuery("findByNames", Person.class).setParameter("name", name);
 		return q.getResultList();		
 	}
-	
+
 	public Person findByemail(String email) {
 		TypedQuery<Person> q = em.createNamedQuery("findByEmail", Person.class).setParameter("email", email);	
-		
+
 		try {
 			return q.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
+
 	public Person findByEmailAndPassword(String email,String pwd) {
 		TypedQuery<Person> q = em.createNamedQuery("findByEmailAndPwd", Person.class).setParameter("email", email).setParameter("pwd", pwd);	
-		
+
 		try {
 			return q.getSingleResult();
 		} catch (NoResultException e) {
@@ -84,20 +84,37 @@ public class PersonManagerBean implements PersonManager{
 	@Override
 	public long countNbPerson() {
 		TypedQuery<Long> q = em.createNamedQuery("countPersons", Long.class);	
-		
+
 		return q.getSingleResult().longValue();
 	}
-	
-	
-	@Override
-	public List<Person> findByNamesAndFirstName(String value) {
-		TypedQuery<Person> q = em.createNamedQuery("findByNamesAndFirstName", Person.class).setParameter("name", value).setParameter("fisrtName", value);
 
+
+	@Override
+	public List<Person> findByNamesAndFirstName(String value, int limit, int offset) {
+		TypedQuery<Person> q = em.createNamedQuery("findByNamesAndFirstName", Person.class)
+				.setParameter("name", value)
+				.setParameter("fisrtName", value);
 		
+		q.setFirstResult(offset);
+
+		if(limit > 0) q.setMaxResults(limit);
+
+
 		return q.getResultList();
 	}
+
+	//TODO TEST
+	@Override
+	public long countByNamesAndFirstName(String value) {
+		TypedQuery<Long> q = em.createNamedQuery("countPersonsByNamesAndFirstName", Long.class)
+				.setParameter("name", value)
+				.setParameter("fisrtName", value);
 	
-	
-	
-	
+
+		return q.getSingleResult().longValue();	
+	}
+
+
+
+
 }
