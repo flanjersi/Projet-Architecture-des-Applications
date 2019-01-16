@@ -10,7 +10,23 @@
 	font-weight: bold;
 }
 </style>
+<h:form>      
+    <p:panel id="panel" header="Search Form" style="margin-bottom:10px;">
+        <p:messages id="messages" />
+ 
+        <h:panelGrid columns="4" cellpadding="5">
+            <p:inputText id="txt1" value="" required="true" label="Search">
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="txt1" />
+            <h:outputText value="#{searchView.text1}" />
+ 
+            
+        </h:panelGrid>
+    </p:panel>
+ 
 
+</h:form>
 
 
 <h:form id="form">
@@ -38,24 +54,32 @@
 	<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
 		showEffect="fade" hideEffect="fade" resizable="false">
 		<p:outputPanel id="personDetail" style="text-align:center;">
-			<p:panelGrid columns="2"
+		<!-- <p:panelGrid columns="2"
 				rendered="#{not empty personsView.selectedPerson}"
 				columnClasses="label,value">
-
-				<h:outputText value="Name" />
+ -->	<p>
+				<h:outputText value="Name: " style="color:#3c8dbc;" />
+				
+		
 				<h:outputText value="#{personsView.selectedPerson.name}" />
-				<h:outputText value="FirstName " />
+			</p>
+			<p>
+				<h:outputText value="FirstName: " style="color:#3c8dbc;"/>
 				<h:outputText value="#{personsView.selectedPerson.firstName}" />
-				<h:outputText value="Birthday " />
+			</p>
+			<p>	
+				<h:outputText value="Birthday: " style="color:#3c8dbc;"/>
 				<h:outputText value="#{personsView.selectedPerson.birthDay}" />
-				<h:outputText value="Email " />
+				</p>
+				<p>
+				<h:outputText value="Email: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.email}" />
-				<h:outputText value="Website: " />
+				</p>
+				<p>
+				<h:outputText value="Website: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.webSite}" />
-				<h:outputText value="Password " />
-				<h:outputText value="#{personsView.selectedPerson.password}" />
-
-			</p:panelGrid>
+				</p>
+				
 		</p:outputPanel>
 	</p:dialog>
 </h:form>
