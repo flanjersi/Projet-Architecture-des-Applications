@@ -52,6 +52,7 @@ public class Activity implements Serializable {
 	@Column(nullable = true)
 	private String description;
 	
+	@Basic(optional = false)
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date begin;
