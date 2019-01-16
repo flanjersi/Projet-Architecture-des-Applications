@@ -49,18 +49,18 @@ public class CurriculumVitae implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Basic
+	@Basic(optional = false)
 	@Column(nullable = false)
 	private String title;
 	
 
-	@Basic
+	@Basic(optional = true)
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
 	private Date modifiedIn;
 	
 
-	@Basic
+	@Basic(optional = true)
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
 	private Date createdIn;

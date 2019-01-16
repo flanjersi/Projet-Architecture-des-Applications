@@ -40,29 +40,28 @@ public class Activity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Basic
+	@Basic(optional = false)
 	@Column(nullable = false)
 	private String type;
 	
-	@Basic
+	@Basic(optional = false)
 	@Column(nullable = false)
 	private String title;
 	
-	@Basic
+	@Basic(optional = true)
 	@Column(nullable = true)
 	private String description;
 	
-	@Basic
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date begin;
 	
-	@Basic
+	@Basic(optional = false)
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date end;
 	
-	@Basic
+	@Basic(optional = true)
 	@Column(nullable = true)
 	private String webSite;
 	

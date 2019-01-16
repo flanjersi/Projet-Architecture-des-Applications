@@ -52,36 +52,36 @@ public class Person implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Basic
+	@Basic(optional = false)
 	@Column(nullable = false)
 	private String firstName;
 
-	@Basic
+	@Basic(optional = false)
 	@Column(nullable = false)
 	private String name;
 
-	@Basic
+	@Basic(optional = false)
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date birthDay;
 
-	@Basic
+	@Basic(optional = false)
 	@Column(nullable = false)
 	private String password;
 
-	@Basic
+	@Basic(optional = false)
 	@Column(nullable = false)
 	private String email;
 
-	@Basic
+	@Basic(optional = true)
 	@Column(nullable = true)
 	private String webSite;
 
-	@Basic
+	@Basic(optional = true)
 	@Column(nullable = true)
 	private String description;
 
-	@Basic
+	@Basic(optional = true)
 	@Column(nullable = true)
 	private String status;
 		
