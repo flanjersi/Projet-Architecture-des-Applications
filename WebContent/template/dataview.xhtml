@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <style type="text/css">
 .value {
@@ -13,32 +14,23 @@
 
 
 <h:form id="form">
-
-<h:form>      
- 
-        <p:messages id="messages" />
- 
-        <h:panelGrid columns="4" cellpadding="5">
-            <p:inputText id="txt1" value="" required="true" label="Search">
-                <f:validateLength minimum="2" />
-            </p:inputText>
-            <p:message for="txt1" />
-            <h:outputText value="#{searchView.text1}" />
- 
-            
-        </h:panelGrid>
-    
-
-</h:form>
-
-
 	<p:dataGrid id="persons" var="person" value="#{personsView.persons}"
-		columns="1" layout="grid" rows="12" paginator="true" lazy="true" paginatorPosition="both"
+		columns="1" layout="grid" rows="12" paginator="true" lazy="true"
+		paginatorPosition="both"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rowsPerPageTemplate="6,12,16, 32">
 
-		<p:panel header="#{person.firstName} #{person.name}"
-			style="text-align:center">
+		<f:facet name="header">
+			<div class="ui-g">
+				<DIV class="ui-g-4" />
+				<div class="ui-g-4">Users</div>
+				<DIV class="ui-g-4">
+					<input type="text" placeholder="Search.."></input>
+				</DIV>
+			</div>
+		</f:facet>
+
+		<div style="text-align: center">
 			<h:panelGrid columns="1" style="width:100%">
 				<h:outputText value="#{person.birthDay}" />
 
@@ -49,46 +41,52 @@
 						target="#{personsView.selectedPerson}" />
 				</p:commandLink>
 			</h:panelGrid>
-		</p:panel>
+		</div>
+		<h:outputText
+			rendered="#{personsView.persons.rowIndex lt personsView.persons.pageSize - 1}">
+			<hr />
+		</h:outputText>
 
 	</p:dataGrid>
-
+<br/>
 	<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
 		showEffect="fade" hideEffect="fade" resizable="false">
 		<p:outputPanel id="personDetail" style="text-align:center;">
-		<!-- <p:panelGrid columns="2"
+			<!-- <p:panelGrid columns="2"
 				rendered="#{not empty personsView.selectedPerson}"
 				columnClasses="label,value">
- -->	<p>
+ -->
+			<p>
 				<h:outputText value="Name: " style="color:#3c8dbc;" />
-				
-		
+
+
 				<h:outputText value="#{personsView.selectedPerson.name}" />
 			</p>
 			<p>
-				<h:outputText value="FirstName: " style="color:#3c8dbc;"/>
+				<h:outputText value="FirstName: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.firstName}" />
 			</p>
-			<p>	
-				<h:outputText value="Birthday: " style="color:#3c8dbc;"/>
+			<p>
+				<h:outputText value="Birthday: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.birthDay}" />
-				</p>
-				<p>
+			</p>
+			<p>
 				<h:outputText value="Email: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.email}" />
-				</p>
-				<p>
+			</p>
+			<p>
 				<h:outputText value="Website: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.webSite}" />
-				</p>
-				<p>
+			</p>
+			<p>
 				<h:outputText value="Description: " style="color:#3c8dbc;" />
 				<h:outputText value="#{personsView.selectedPerson.description}" />
-				</p>
-				<p>
+			</p>
+			<p>
 				<h:outputText value="Curriculum Vitae: " style="color:#3c8dbc;" />
-				<h:outputText value="#{personsView.selectedPerson.curriculumVitae.title}" />
-				</p>
+				<h:outputText
+					value="#{personsView.selectedPerson.curriculumVitae.title}" />
+			</p>
 		</p:outputPanel>
 	</p:dialog>
 </h:form>
