@@ -21,7 +21,9 @@
 	</div>
 	<div class="col-md-6">
 		<p:commandButton ajax="false" class="signin" value="Sign In"
-			action="#{signInView.login()}" icon="fa fa-check" />
+			action="#{signInView.login()}" icon="fa fa-check">
+			<f:param name="i" value="3" />
+		</p:commandButton>
 	</div>
 </h:form>
 
