@@ -158,4 +158,31 @@ public class PersonManagerTest {
     	personManager.removePerson(person1);	
     	
     }
+    
+    
+    @Test
+    public void testfindByNamesAndFirstName() {
+    	Person person1 = new Person("Youcef", "Guelil", new Date(System.currentTimeMillis()), "1234", "example340@example.com");
+    	Person person2 = new Person("Rami", "Guelzil", new Date(System.currentTimeMillis()), "1234", "example3400@example.com");
+    	Person person3 = new Person("Ramzi", "Guelil", new Date(System.currentTimeMillis()), "1234", "example3434@example.com");
+    	
+    	personManager.addPerson(person1);
+    	personManager.addPerson(person2);
+    	personManager.addPerson(person3);
+
+    	Assert.assertEquals(2, personManager.findByNamesAndFirstName("z").size());
+    	Assert.assertEquals(0, personManager.findByNamesAndFirstName("w").size());
+    	
+    	personManager.removePerson(person1);	
+    	personManager.removePerson(person2);	
+    	personManager.removePerson(person3);	
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
 }
