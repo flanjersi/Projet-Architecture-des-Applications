@@ -3,12 +3,19 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition template="/template/mylayout.xhtml">
          <ui:define name="content">
-            <f:event type="preRenderView" listener="#{personView.checkIsLogged()}" ></f:event>
-            <ui:include src="/template/profil.xhtml"></ui:include>
+            <c:choose>
+            	<c:when test="#{personView.isLogged()}">
+            	    <ui:include src="/template/profil.xhtml"></ui:include>
+        		</c:when>
+            	<c:otherwise>
+            	    <ui:include src="/template/signin.xhtml"></ui:include>
+            	</c:otherwise>
+            </c:choose>
         </ui:define>
         <ui:define name="title" >YouCV</ui:define>
     </ui:composition>

@@ -36,9 +36,9 @@
 		<p>
 			<h:outputText value="#{person.webSite}" />
 		</p>
-		
-		
-		
+
+
+
 	</div>
 
 	<p:commandButton ajax="false" value="Log out"
@@ -47,9 +47,12 @@
 	<p:commandButton ajax="false" value="Delete"
 		action="#{personView.delete()}" />
 
-	<p:button outcome="/signup.xhtml" value="Add People"
-		style="margin-right:20px;" />
 </h:form>
+
+<p:commandButton value="Add people"
+	onclick="PF('addPersonDialog').show();">
+</p:commandButton>
+
 
 <p:commandButton value="Edit profil"
 	onclick="PF('personDialog').show();">
@@ -61,7 +64,7 @@
 	<p:dialog header="Edit profil" widgetVar="personDialog" modal="true"
 		resizable="false" responsive="true" draggable="false">
 		<c:set var="person" value="#{personView.person}" />
-		
+
 		<label for="inputName">Name</label>
 		<p:inputText type="text" value="#{person.name}" class="form-control"
 			id="inputName" placeholder="Name" required="true"
@@ -95,8 +98,9 @@
 
 
 		<label for="inputDescription">About You</label>
-		<p:inputTextarea type="text" value="#{person.description}" class="form-control"
-			id="inputDescription" placeholder="Describe you in few words" maxlength="200"/>
+		<p:inputTextarea type="text" value="#{person.description}"
+			class="form-control" id="inputDescription"
+			placeholder="Describe you in few words" maxlength="200" />
 
 
 		<label for="inputWebsite">Website</label>
@@ -111,6 +115,11 @@
 
 	</p:dialog>
 </h:form>
+
+<p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"
+	resizable="false" responsive="true" draggable="false">
+	<ui:include src="/template/signup.xhtml"></ui:include>
+</p:dialog>
 
 
 </html>

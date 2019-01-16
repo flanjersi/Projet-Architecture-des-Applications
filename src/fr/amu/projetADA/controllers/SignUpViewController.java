@@ -23,15 +23,14 @@ public class SignUpViewController {
 
 	public String save() {
 		if(personManager.findByemail(person.getEmail()) != null)
-			return "signup";
-
+			return "profil";
 
 		personManager.addPerson(person);
 
-		if(personViewController.getPerson() == null) {
+		/*if(personViewController.getPerson() == null) {
 			personViewController.setPerson(person);
 
-		}
+		}*/
 
 
 		person = new Person();
