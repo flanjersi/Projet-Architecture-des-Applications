@@ -1,15 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template/mylayout.xhtml">
-          <ui:define name="content">
-			<ui:include src="/template/dataview.xhtml"></ui:include>
-        </ui:define>
-        <ui:define name="title" >YouCV</ui:define>
-    </ui:composition>
+<ui:composition template="/template/mylayout.xhtml">
+	<ui:param name="activeIndex" value="1" />
+
+	<ui:define name="content">
+		<style type="text/css">
+.value {
+	font-weight: bold;
+}
+</style>
+
+		<h:form id="form">
+			<div class="ui-g" style="background-color: white;">
+				<DIV class="ui-g-4 ui-md-4 ui-lg-4" />
+				<div class="ui-g-12 ui-md-4 ui-lg-4" style="display:flex; justify-content: center;align-items:center">Users</div>
+				<DIV class="ui-g-12 ui-md-4 ui-lg-4">
+					<p:inputText style="width:100%" placeholder="Search" value="#{personsView.filter}">
+						<p:ajax event="keyup" update="persons"></p:ajax>
+					</p:inputText>
+				</DIV>
+			</div>
+
+			<p:dataGrid id="persons" var="person" value="#{personsView.persons}"
+				columns="1" layout="grid" rows="12" paginator="true" lazy="true"
+				paginatorPosition="both"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16, 32">
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-12 ui-lg-12">
+						<u>
+						<h:outputText value="#{person.firstName}" />
+						<h:outputText value=" " />
+						<h:outputText value="#{person.name}" />
+						</u>
+					</div>
+				</div>
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+						<h:outputText value="Birthday : " />
+						<h:outputText value="#{person.birthDay}" />
+					</div>
+				</div>
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+						<h:outputText value="#{person.status}" />
+					</div>
+				</div>
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+						<h:outputText value="#{person.description}" />
+					</div>
+				</div>
+
+
+				
+				<h:outputText
+					rendered="#{personsView.persons.rowIndex lt personsView.persons.pageSize - 1}">
+					<hr />
+				</h:outputText>
+
+			</p:dataGrid>
+			<br />
+			<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false"
+				positionType="absolute" draggable="false">
+				<p:outputPanel id="personDetail" style="text-align:center;">
+					<!-- <p:panelGrid columns="2"
+				rendered="#{not empty personsView.selectedPerson}"
+				columnClasses="label,value">
+ -->
+					<p>
+						<h:outputText value="Name: " style="color:#3c8dbc;" />
+						<h:outputText value="#{personsView.selectedPerson.name}" />
+					</p>
+					<p>
+						<h:outputText value="FirstName: " style="color:#3c8dbc;" />
+						<h:outputText value="#{personsView.selectedPerson.firstName}" />
+					</p>
+					<p>
+						<h:outputText value="Birthday: " style="color:#3c8dbc;" />
+						<h:outputText value="#{personsView.selectedPerson.birthDay}" />
+					</p>
+					<p>
+						<h:outputText value="Email: " style="color:#3c8dbc;" />
+						<h:outputText value="#{personsView.selectedPerson.email}" />
+					</p>
+					<p>
+						<h:outputText value="Website: " style="color:#3c8dbc;" />
+						<h:outputText value="#{personsView.selectedPerson.webSite}" />
+					</p>
+					<p>
+						<h:outputText value="Description: " style="color:#3c8dbc;" />
+						<h:outputText value="#{personsView.selectedPerson.description}" />
+					</p>
+					<p>
+						<h:outputText value="Curriculum Vitae: " style="color:#3c8dbc;" />
+						<h:outputText
+							value="#{personsView.selectedPerson.curriculumVitae.title}" />
+					</p>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+	<ui:define name="title">YouCV</ui:define>
+</ui:composition>
 
 </html>

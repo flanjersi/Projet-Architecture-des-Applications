@@ -93,7 +93,7 @@ public class PersonManagerBean implements PersonManager{
 	public List<Person> findByNamesAndFirstName(String value, int limit, int offset) {
 		TypedQuery<Person> q = em.createNamedQuery("findByNamesAndFirstName", Person.class)
 				.setParameter("name", value)
-				.setParameter("fisrtName", value);
+				.setParameter("firstName", value);
 		
 		q.setFirstResult(offset);
 
@@ -108,7 +108,7 @@ public class PersonManagerBean implements PersonManager{
 	public long countByNamesAndFirstName(String value) {
 		TypedQuery<Long> q = em.createNamedQuery("countPersonsByNamesAndFirstName", Long.class)
 				.setParameter("name", value)
-				.setParameter("fisrtName", value);
+				.setParameter("firstName", value);
 	
 
 		return q.getSingleResult().longValue();	

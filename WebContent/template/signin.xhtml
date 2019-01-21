@@ -6,25 +6,68 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<h:form>
-	<div class="form-group col-md-6">
-		<label for="inputEmail4">Email</label>
-		<p:inputText type="email" value="#{signInView.email}"
-			class="form-control" id="inputEmail4" placeholder="Email"
-			required="true" requiredMessage="Email required" />
+<h:form id="formSignIn">
+	<div class="ui-g">
+		<div class="ui-g-12">
+			<p:messages />
+		</div>
 	</div>
-	<div class="form-group col-md-6">
-		<label for="inputPassword4">Password</label>
-		<p:inputText type="password" value="#{signInView.password}"
-			class="form-control" id="inputPassword4" placeholder="Password"
-			required="true" requiredMessage="Password required" />
+	<div class="ui-g">
+		<div class="ui-g-12 ui-md-6 ui-lg-6">
+			<p:inputText type="email" value="#{signInView.email}"
+				class="form-control" id="inputEmail" placeholder="Email"
+				required="true" requiredMessage="Email required" />
+		</div>
+		<div class="ui-g-12 ui-md-6 ui-lg-6">
+			<p:inputText type="password" value="#{signInView.password}"
+				class="form-control" id="inputPassword" placeholder="Password"
+				required="true" requiredMessage="Password required" />
+		</div>
 	</div>
-	<div class="col-md-6">
-		<p:commandButton ajax="false" class="signin" value="Sign In"
-			action="#{signInView.login()}" icon="fa fa-check">
-			<f:param name="i" value="3" />
-		</p:commandButton>
+
+	<div class="ui-g">
+		<div class="ui-g-3">
+			<p:commandButton class="signin" value="Sign In"
+				action="#{signInView.login()}" update="formSignIn"
+				icon="fa fa-check">
+			</p:commandButton>
+		</div>
+		<div class="ui-g-1" />
+
+		<div class="ui-g-3">
+			<p:commandButton value="First Connexion"
+				onclick="PF('firstConnexion').show();" icon="fa fa-check" />
+		</div>
 	</div>
 </h:form>
+
+<p:dialog header="First Connexion" widgetVar="firstConnexion"
+	modal="true" resizable="false" responsive="true" draggable="false">
+
+	<h:form id="formFirstConnexion">
+		<p:messages closable="true" />
+
+		<div class="form-group col-md-6">
+			<p:inputText type="email" value="#{signInView.emailFirstConnexion}"
+				class="form-control" id="inputEmail" placeholder="Email"
+				required="true" requiredMessage="Email required" />
+		</div>
+		<div class="form-group col-md-6">
+			<p:inputText type="password"
+				value="#{signInView.passwordFirstConnexion}" class="form-control"
+				id="inputPassword" placeholder="Set your Password" required="true"
+				requiredMessage="Password required" />
+		</div>
+
+		<div class="form-group col-md-6">
+			<p:commandButton value="Submit"
+				action="#{signInView.firstConnexion()}" 
+				update="formFirstConnexion"
+				icon="fa fa-check">
+			</p:commandButton>
+		</div>
+	</h:form>
+
+</p:dialog>
 
 </html>

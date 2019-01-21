@@ -26,6 +26,7 @@ public class PersonViewController {
 	public void init() {
 		if(personManager.findByemail("admin@admin.fr") == null) {
 			Person person = new Person("admin", "admin", new Date(System.currentTimeMillis()), "admin", "admin@admin.fr");
+			person.setLastConnexion(new Date(System.currentTimeMillis()));
 			personManager.addPerson(person);	
 		}
 		
@@ -37,6 +38,8 @@ public class PersonViewController {
 		if(p == null)
 			return false;
 		
+		p.setLastConnexion(new Date(System.currentTimeMillis()));
+		p = personManager.updatePerson(p);
 		connectedUser.setPersonLogged(p);
 		
 		return true;

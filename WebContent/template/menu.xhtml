@@ -6,22 +6,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<p:tabMenu activeIndex="#{param.i}" style="position: fixed;width:100%;display:block;top:0;orverflow:hidden;position:fixed;">
-	<p:menuitem value="Overview" outcome="/index" icon="fa fa-star">
-		<f:param name="i" value="0" />
-	</p:menuitem>
+<p:tabMenu activeIndex="#{activeIndex}" style="position: fixed;width:100%;display:block;top:0;orverflow:hidden;position:fixed;">
 	
-	<p:menuitem value="Persons" outcome="/persons" icon="fa fa-users">
-		<f:param name="i" value="1" />
-	</p:menuitem>
-	
-	<p:menuitem value="CVs" outcome="/cvs" icon="fa fa-file">
-		<f:param name="i" value="2" />
-	</p:menuitem>
-
-	<p:menuitem value="profil" outcome="/profil" icon="fa fa-user">
-		<f:param name="i" value="3" />
-	</p:menuitem>
+	<p:menuitem value="Overview" outcome="/index" icon="fa fa-star"/>	
+	<p:menuitem value="Persons" outcome="/persons" icon="fa fa-users"/>
+	<p:menuitem value="CVs" outcome="/cvs" icon="fa fa-file"/>
+	<p:menuitem value="profil" outcome="/profil" icon="fa fa-user"/>
 
 </p:tabMenu>
 
