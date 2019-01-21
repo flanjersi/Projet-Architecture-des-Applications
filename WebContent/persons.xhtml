@@ -18,9 +18,11 @@
 		<h:form id="form">
 			<div class="ui-g" style="background-color: white;">
 				<DIV class="ui-g-4 ui-md-4 ui-lg-4" />
-				<div class="ui-g-12 ui-md-4 ui-lg-4" style="display:flex; justify-content: center;align-items:center">Users</div>
+				<div class="ui-g-12 ui-md-4 ui-lg-4"
+					style="display: flex; justify-content: center; align-items: center">Users</div>
 				<DIV class="ui-g-12 ui-md-4 ui-lg-4">
-					<p:inputText style="width:100%" placeholder="Search" value="#{personsView.filter}">
+					<p:inputText style="width:100%" placeholder="Search"
+						value="#{personsView.filter}">
 						<p:ajax event="keyup" update="persons"></p:ajax>
 					</p:inputText>
 				</DIV>
@@ -34,11 +36,15 @@
 
 				<div class="ui-g">
 					<div class="ui-g-12 ui-md-12 ui-lg-12">
-						<u>
-						<h:outputText value="#{person.firstName}" />
-						<h:outputText value=" " />
-						<h:outputText value="#{person.name}" />
-						</u>
+						<p:commandLink update=":form:personDetail"
+							oncomplete="PF('personDialog').show()" title="View Detail">
+							<u> <h:outputText value="#{person.firstName}" /> <h:outputText
+									value=" " /> <h:outputText value="#{person.name}" />
+							</u>
+							<f:setPropertyActionListener value="#{person}"
+								target="#{personsView.selectedPerson}" />
+						</p:commandLink>
+
 					</div>
 				</div>
 
@@ -62,7 +68,7 @@
 				</div>
 
 
-				
+
 				<h:outputText
 					rendered="#{personsView.persons.rowIndex lt personsView.persons.pageSize - 1}">
 					<hr />
