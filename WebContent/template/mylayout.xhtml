@@ -12,10 +12,13 @@ body {
 	background-size: cover;
 	background-attachment:fixed;
 }
+footer{
+	float:bottom;
+}
 </style>
 <h:head>
 	<title><ui:insert name="title">YouCV</ui:insert></title>
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="favicon.bmp" type="image/x-icon" />
 	<h:outputStylesheet library="webjars"
 		name="bootstrap/3.3.7/css/bootstrap.min-jsf.css" />
 
@@ -41,7 +44,7 @@ body {
 		<footer class="page-footer">
 			<div class="footer-copyright text-center py-3">
 				<ui:insert name="footer">
-					<span>(c) Goibeault-Gros-Guellil 2018 <br /></span>
+					(c) Goibeault-Gros-Guellil 2018 
 				</ui:insert>
 			</div>
 		</footer>
