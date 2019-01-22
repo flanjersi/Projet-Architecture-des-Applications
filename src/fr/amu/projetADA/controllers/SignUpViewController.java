@@ -8,6 +8,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import fr.amu.projetADA.beans.cv.CurriculumVitae;
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
 
@@ -47,6 +48,11 @@ public class SignUpViewController {
 		stringBuilder.append("My name is " + person.getFirstName() + " " + person.getName() + ". I was born in " + person.getBirthDay() + ".");
 		
 		person.setDescription(stringBuilder.toString());
+		
+		CurriculumVitae curriculumVitae = new CurriculumVitae();
+		curriculumVitae.setTitle("Mon premier CV");
+		
+		person.setCurriculumVitae(curriculumVitae);
 		
 		personManager.addPerson(person);
 

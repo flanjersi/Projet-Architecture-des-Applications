@@ -12,9 +12,10 @@
 		<h:form id="form">
 
 			<div class="ui-g" style="background-color: white;">
-				<DIV class="ui-g-12 ui-md-4 ui-lg-4"/>
+				<DIV class="ui-g-12 ui-md-4 ui-lg-4" />
 				<div class="ui-g-12 ui-md-4 ui-lg-4"
-					style="display: flex; justify-content: center; align-items: center">Curriculums Vitae</div>
+					style="display: flex; justify-content: center; align-items: center">Curriculums
+					Vitae</div>
 				<DIV class="ui-g-12 ui-md-4 ui-lg-4">
 					<p:inputText style="width:100%" placeholder="Search"
 						value="#{curriculumVitaeView.filter}">
@@ -31,8 +32,36 @@
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="6,12,16, 32">
 
-				<p:panel header="#{cv.title}" style="text-align:center">
-				</p:panel>
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-12 ui-lg-12">
+						<h:outputText value="#{cv.title}" />
+					</div>
+				</div>
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+						<h:outputText value="#{cv.person.firstName}" />
+						<h:outputText value="#{cv.person.name}" />
+					</div>
+				</div>
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+						<h:outputText value="#{cv.createdIn}" />
+					</div>
+				</div>
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+						<h:outputText value="#{cv.modifiedIn}" />
+					</div>
+				</div>
+
+				<h:outputText
+					rendered="#{curriculumVitaeView.curriculumsVitae.rowIndex lt curriculumVitaeView.curriculumsVitae.pageSize - 1}">
+					<hr />
+				</h:outputText>
 			</p:dataGrid>
 		</h:form>
 	</ui:define>

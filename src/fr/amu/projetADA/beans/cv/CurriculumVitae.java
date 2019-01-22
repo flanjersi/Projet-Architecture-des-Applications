@@ -71,7 +71,10 @@ public class CurriculumVitae implements Serializable{
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "curriculumVitae")
 	private Person person;
 	
-	public CurriculumVitae() {}
+	public CurriculumVitae() {
+		this.createdIn = new Date(System.currentTimeMillis());
+		this.modifiedIn = new Date(System.currentTimeMillis());
+	}
 	
 	public long getId() {
 		return id;

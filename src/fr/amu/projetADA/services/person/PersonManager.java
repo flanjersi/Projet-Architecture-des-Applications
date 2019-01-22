@@ -30,7 +30,10 @@ public interface PersonManager {
 	
 	public Person findByEmailAndPassword(String email,String pwd);
 	
-	public List<Person> findByNamesAndFirstName(String value, int limit, int offset); 
-	public long countByNamesAndFirstName(String value); 
+	public List<Person> findByNamesAndFirstName(String name, String firstName, int limit, int offset); 
+	public long countByNamesAndFirstName(String name, String firstName); 
+	
+	public List<Person> findByNamesAndFirstNameByPattern(String value, int limit, int offset); 
+	public long countByNamesAndFirstNameByPattern(String value); 
 	
 }
