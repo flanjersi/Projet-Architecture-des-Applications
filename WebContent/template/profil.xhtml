@@ -10,6 +10,7 @@
 	background: white;
 	font-family: "Source Sans Pro", "Trebuchet MS", "Helvetica Neue",
 		Helvetica, Arial, sans-serif;
+		border:15px;
 }
 
 .names {
@@ -20,12 +21,20 @@
 	font-size: 20px;
 }
 
-
 .mail {
 	margin-left: auto;
 }
-.desc{
-	font-size:20px;
+
+.desc {
+	font-size: 20px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:20px;
+	
+}
+.title{
+	text-align:center !important;
+	font-size: 30px;
 }
 </style>
 
@@ -45,7 +54,18 @@
 					<f:setPropertyActionListener value="#{person}"
 						target="#{personView.person}" />
 				</p:commandButton>
+
+
+				<p:commandButton ajax="false" icon="fa fa-trash-o"
+					onclick="PF('confirmDeleteDialog').show();">
+					<f:param name="i" value="3" />
+				</p:commandButton>
+				<p:commandButton ajax="false" icon="fa fa-sign-out"
+					action="#{personView.logout()}">
+					<f:param name="i" value="3" />
+				</p:commandButton>
 			</div>
+
 		</div>
 		<div class="ui-g">
 			<div class="ui-g-6 ">
@@ -65,35 +85,23 @@
 			</div>
 			<div class="ui-g-6 ">
 				<h:outputText rendered="#{not empty person.webSite}">
-					<h:outputText value="Website: #{person.webSite}" style="float:right;" />
+					<h:outputText value="Website: #{person.webSite}"
+						style="float:right;" />
 				</h:outputText>
 			</div>
 		</div>
-	<div class="desc">
-		<h:outputText rendered="#{not empty person.description}">
-			<h:outputText value="Description: #{person.description}" />
-		</h:outputText>
-</div>
-
-
-
+		<hr />
+		<div class=" ui-g desc">
+			<h:outputText rendered="#{not empty person.description}">
+				<div class="ui-g-12 title">Description</div>
+				<br />
+				<h:outputText value=" #{person.description}" />
+			</h:outputText>
+		</div>
 	</div>
 
-	<p:commandButton ajax="false" value="Log out"
-		action="#{personView.logout()}">
-		<f:param name="i" value="3" />
-	</p:commandButton>
-
-	<p:commandButton ajax="false" value="Delete"
-		action="#{personView.delete()}">
-		<f:param name="i" value="3" />
-	</p:commandButton>
 
 </h:form>
-
-<p:commandButton value="Add people"
-	onclick="PF('addPersonDialog').show();">
-</p:commandButton>
 
 
 
@@ -160,6 +168,14 @@
 	resizable="false" responsive="true" draggable="false" width="50%">
 	<ui:include src="/template/signup.xhtml"></ui:include>
 </p:dialog>
-
+<p:dialog header="Confirm delete" widgetVar="confirmDeleteDialog"
+	modal="true" resizable="false" responsive="true" draggable="false">
+	<p:commandButton ajax="false" value="Confirm"
+		action="#{personView.delete()}">
+	</p:commandButton>
+	<p:commandButton ajax="false" value="Cancel"
+		action="PF('confirmDeleteDialog').hide()">
+	</p:commandButton>
+</p:dialog>
 
 </html>
