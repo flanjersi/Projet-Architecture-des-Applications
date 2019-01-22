@@ -52,11 +52,6 @@
 
 </h:form>
 
-<p:commandButton value="Add people"
-	onclick="PF('addPersonDialog').show();">
-</p:commandButton>
-
-
 <p:commandButton value="Edit profil"
 	onclick="PF('personDialog').show();">
 	<f:setPropertyActionListener value="#{person}"
@@ -110,7 +105,6 @@
 		<p:inputText type="text" value="#{personUpdate.webSite}"
 			class="form-control" id="inputWebsite" placeholder="Website" />
 
-
 		<div>
 			<p:commandButton class="signup" value="Save"
 				action="#{personView.edit()}" update="personInformations"
@@ -120,11 +114,5 @@
 
 	</h:form>
 </p:dialog>
-
-<p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"
-	resizable="false" responsive="true" draggable="false" width="50%">
-	<ui:include src="/template/signup.xhtml"></ui:include>
-</p:dialog>
-
 
 </html>

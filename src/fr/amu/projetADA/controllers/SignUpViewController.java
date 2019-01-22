@@ -25,6 +25,14 @@ public class SignUpViewController {
 	private Person person = new Person();
 
 	public void save() {
+		if(!personViewController.isLogged()) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "You are not logged ! Please sign in before add people", "You are not logged ! Please sign in before add people");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        
+	        return;			
+		}
+		
+		
 		if(personManager.findByemail(person.getEmail()) != null) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email already use", "Email already use");
 	        FacesContext.getCurrentInstance().addMessage(null, msg);

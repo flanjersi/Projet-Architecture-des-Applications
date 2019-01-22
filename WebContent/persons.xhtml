@@ -17,7 +17,11 @@
 
 		<h:form id="form">
 			<div class="ui-g" style="background-color: white;">
-				<DIV class="ui-g-4 ui-md-4 ui-lg-4" />
+				<DIV class="ui-g-12 ui-md-4 ui-lg-4">
+					<p:commandButton value="Add people" rendered="#{not empty personView.person}"
+						onclick="PF('addPersonDialog').show();">
+					</p:commandButton>
+				</DIV>
 				<div class="ui-g-12 ui-md-4 ui-lg-4"
 					style="display: flex; justify-content: center; align-items: center">Users</div>
 				<DIV class="ui-g-12 ui-md-4 ui-lg-4">
@@ -116,6 +120,12 @@
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
+
+		<p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"
+			resizable="false" responsive="true" draggable="false" width="50%">
+			<ui:include src="/template/signup.xhtml"></ui:include>
+		</p:dialog>
+
 	</ui:define>
 	<ui:define name="title">YouCV</ui:define>
 </ui:composition>
