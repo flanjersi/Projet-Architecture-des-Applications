@@ -49,7 +49,7 @@
 
 			</div>
 			<div style="margin-top: 5px; margin-left: auto; margin-right: 5px;">
-				<p:commandButton icon="fa fa-edit"
+				<p:commandButton icon="fa fa-edit" update=""
 					onclick="PF('personDialog').show();">
 					<f:setPropertyActionListener value="#{person}"
 						target="#{personView.person}" />
@@ -105,62 +105,134 @@
 
 
 
-<p:dialog header="Edit profil" widgetVar="personDialog" modal="true"
-	resizable="false" responsive="true" draggable="false">
+<p:dialog id="personDialog" header="Edit profil" 
+	widgetVar="personDialog" modal="true" width="70%" resizable="false"
+	responsive="true" draggable="false">
+	
 	<c:set var="personUpdate" value="#{personView.person}" />
-	<h:form>
+	
+	<p:ajax event="close" process="@this" update="@this" />
+		
+	<p:tabView id="tabViewEditPerson">
+		<p:ajax event="tabChange" process="@this" update="updatePasswordForm, updateInformationForm" />
+		
+		<p:tab title="Informations">
+			<h:form id="updateInformationForm">
+				<p:messages />
 
-		<label for="inputName">Name</label>
-		<p:inputText type="text" value="#{personUpdate.name}"
-			class="form-control" id="inputName" placeholder="Name"
-			required="true" requiredMessage="Name required" />
-
-		<label for="inputFirstname">Firstname</label>
-		<p:inputText type="text" value="#{personUpdate.firstName}"
-			class="form-control" id="inputFirstname" placeholder="Firstname"
-			required="true" requiredMessage="Firstname required" />
-
-		<label for="inputEmail">Email</label>
-		<p:inputText type="email" value="#{personUpdate.email}"
-			class="form-control" id="inputEmail" placeholder="Email"
-			required="true" requiredMessage="Email required" />
-
-		<label for="inputPassword">Password</label>
-		<p:inputText type="password" value="#{personUpdate.password}"
-			class="form-control" id="inputPassword" placeholder="Password"
-			required="true" requiredMessage="Password required" />
+				<p:panelGrid columns="3" layout="grid">
+					<h:outputText value="Name :" />
+					<p:inputText type="text" value="#{personUpdate.name}"
+						class="form-control" id="inputName" placeholder="Name"
+						required="true" requiredMessage="Name required" />
+					<p:message for="inputName" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
 
 
-		<label for="inputBirthday">Birthday</label>
-		<p:calendar pattern="dd/MM/yyyy" id="inputBirthday"
-			value="#{personUpdate.birthDay}" navigator="true" yearRange="c-120:c"
-			maxdate="today" required="true" requiredMessage="Birthday required" />
+					<h:outputText value="First name :" />
+					<p:inputText type="text" value="#{personUpdate.firstName}"
+						class="form-control" id="inputFirstName" placeholder="Firstname"
+						required="true" requiredMessage="Firstname required" />
+					<p:message for="inputFirstName" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
 
 
-		<label for="inputStatus">Status</label>
-		<p:inputText type="text" value="#{personUpdate.status}"
-			class="form-control" id="inputStatus" placeholder="Status" />
+					<h:outputText value="Email :" />
+					<p:inputText type="email" value="#{personUpdate.email}"
+						class="form-control" id="inputEmail" placeholder="Email"
+						required="true" requiredMessage="Email required" />
+					<p:message for="inputEmail" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+					<h:outputText value="Birthday :" />
+					<p:calendar pattern="dd/MM/yyyy" id="inputBirthday"
+						value="#{personUpdate.birthDay}" navigator="true"
+						yearRange="c-120:c" maxdate="today" required="true"
+						requiredMessage="Birthday required" />
+					<p:message for="inputBirthday" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+					<h:outputText value="Status :" />
+					<p:inputText type="text" value="#{personUpdate.status}"
+						class="form-control" id="inputStatus" placeholder="Status" />
+					<p:message for="inputStatus" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
 
 
-		<label for="inputDescription">About You</label>
-		<p:inputTextarea type="text" value="#{personUpdate.description}"
-			class="form-control" id="inputDescription"
-			placeholder="Describe you in few words" maxlength="200" />
+					<h:outputText value="About you :" />
+					<p:inputTextarea type="text" value="#{personUpdate.description}"
+						class="form-control" id="inputDescription"
+						placeholder="Describe you in few words" maxlength="200" />
+					<p:message for="inputDescription" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
 
 
-		<label for="inputWebsite">Website</label>
-		<p:inputText type="text" value="#{personUpdate.webSite}"
-			class="form-control" id="inputWebsite" placeholder="Website" />
+					<h:outputText value="Website :" />
+					<p:inputText type="text" value="#{personUpdate.webSite}"
+						class="form-control" id="inputWebsite" placeholder="Website" />
+					<p:message for="inputWebsite" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+				</p:panelGrid>
+				<p:commandButton class="signup" value="Save"
+					action="#{personView.edit()}"
+					update="updateInformationForm, personInformations"
+					icon="fa fa-check">
+				</p:commandButton>
+
+			</h:form>
+		</p:tab>
+		<p:tab title="Security">
+			<h:form id="updatePasswordForm">
+				<p:messages/>
+
+				<p:panelGrid columns="3" layout="grid">
+					<h:outputText value="Current password :" />
+					<p:inputText type="password"
+						value="#{personView.currentPasswordEdit}" class="form-control"
+						id="inputCurrentPassword" placeholder="Current password"
+						required="true" requiredMessage="Password required" />
+					<p:message for="inputCurrentPassword" showDetail="false"
+						display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+					<h:outputText value="New password :" />
+					<p:inputText type="password" value="#{personView.newPasswordEdit}"
+						class="form-control" id="inputPassword" placeholder="New password"
+						required="true" requiredMessage="Password required" />
+					<p:message for="inputPassword" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+					<h:outputText value="Confirm new password :" />
+					<p:inputText type="password"
+						value="#{personView.confirmNewPasswordEdit}" class="form-control"
+						id="inputConfirmPassword" placeholder="Confirm password"
+						required="true" requiredMessage="Password required" />
+					<p:message for="inputConfirmPassword" showDetail="false"
+						display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+				</p:panelGrid>
+
+				<p:commandButton class="signup" value="Save"
+					action="#{personView.editPassword()}" update="updatePasswordForm"
+					icon="fa fa-check">
+				</p:commandButton>
+			</h:form>
+		</p:tab>
+	</p:tabView>
 
 
-		<div>
-			<p:commandButton class="signup" value="Save"
-				action="#{personView.edit()}" update="personInformations"
-				icon="fa fa-check" onclick="PF('personDialog').hide()">
-			</p:commandButton>
-		</div>
 
-	</h:form>
 </p:dialog>
 
 <p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"

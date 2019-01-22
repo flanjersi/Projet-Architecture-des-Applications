@@ -34,23 +34,6 @@ public class SignInViewController {
 
 	private String passwordFirstConnexion;
 
-	@PostConstruct
-	public void init() {
-		if(personManager.findByemail("jeremy.gros@youcv.fr") != null) {
-			Person personJeremy = new Person("Jérémy", "Gros", new Date(System.currentTimeMillis()), "jeremy.gros", "jeremy.gros@youcv.fr");
-			personManager.addPerson(personJeremy);
-		}
-		
-		if(personManager.findByemail("timothee.goibeault@youcv.fr") != null) {
-			Person personTimothee = new Person("Timothee-Swann", "Goibeault", new Date(System.currentTimeMillis()), "timothee.goibeault", "timothee.goibeault@youcv.fr");
-			personManager.addPerson(personTimothee);
-		}
-		
-		if(personManager.findByemail("youcef.guellil@youcv.fr") != null) {
-			Person personRamzi = new Person("Youcef", "Guellil", new Date(System.currentTimeMillis()), "youcef.guellil", "youcef.guellil@youcv.fr");			
-			personManager.addPerson(personRamzi);
-		}
-	}
 	public void login() throws IOException {
 		Person p = personManager.findByemail(email);
 
@@ -80,7 +63,7 @@ public class SignInViewController {
 
 		person = personManager.updatePerson(person);
 
-		personViewController.login(person.getEmail(), person.getPassword());	
+		personViewController.login(email, passwordFirstConnexion);	
 
 		FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml");
 	}

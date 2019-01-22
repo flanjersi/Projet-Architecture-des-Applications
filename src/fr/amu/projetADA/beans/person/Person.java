@@ -107,7 +107,7 @@ public class Person implements Serializable{
 		this.firstName = firstName;
 		this.name = name;
 		this.birthDay = birthday;
-		this.password = password;
+		this.password = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);;
 		this.email = email;
 	}
 
@@ -158,8 +158,8 @@ public class Person implements Serializable{
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String password) {		
+		this.password = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 	}
 
 	public String getEmail() {
@@ -210,7 +210,6 @@ public class Person implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
 	
 
 	public Date getLastConnexion() {
@@ -311,7 +310,5 @@ public class Person implements Serializable{
 
 		return true;
 	}	
-
-
 
 }
