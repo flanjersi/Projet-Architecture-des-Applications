@@ -13,13 +13,19 @@
 }
 
 .names {
-	font-size: 30px;
-	float: left;
+	font-size: 30px !important;
 }
 
-.bd {
-	float: right;
+.ui-g-6 {
 	font-size: 20px;
+}
+
+
+.mail {
+	margin-left: auto;
+}
+.desc{
+	font-size:20px;
 }
 </style>
 
@@ -27,35 +33,47 @@
 	<c:set var="person" value="#{personView.person}" />
 
 	<div class="infos">
+		<div class="ui-g">
+			<div class="ui-g-6 names">
 
-		<div class="names">
+				<h:outputText value="#{person.name} #{person.firstName}" />
 
-			<h:outputText value="#{person.name} #{person.firstName}" />
+			</div>
+			<div style="margin-top: 5px; margin-left: auto; margin-right: 5px;">
+				<p:commandButton icon="fa fa-edit"
+					onclick="PF('personDialog').show();">
+					<f:setPropertyActionListener value="#{person}"
+						target="#{personView.person}" />
+				</p:commandButton>
+			</div>
 		</div>
-
-		<div class="bd">
-			<h:outputText value="#{person.birthDay}">
-				<f:convertDateTime pattern="dd.MM.yyyy" />
-			</h:outputText>
+		<div class="ui-g">
+			<div class="ui-g-6 ">
+				<h:outputText value="#{person.birthDay}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</div>
+			<div class="ui-g-6" style="margin-left: auto;">
+				<h:outputText value="Email: #{person.email}" style="float:right;" />
+			</div>
 		</div>
-		<div>
-			<h:outputText value="Email: #{person.email}" />
+		<div class="ui-g">
+			<div class="ui-g-6 ">
+				<h:outputText rendered="#{not empty person.status}">
+					<h:outputText value="Status: #{person.status}" />
+				</h:outputText>
+			</div>
+			<div class="ui-g-6 ">
+				<h:outputText rendered="#{not empty person.webSite}">
+					<h:outputText value="Website: #{person.webSite}" style="float:right;" />
+				</h:outputText>
+			</div>
 		</div>
-		<p>
-			<h:outputText rendered="#{not empty person.status}">
-				<h:outputText value="Status: #{person.status}" />
-			</h:outputText>
-		</p>
-		<p>
-			<h:outputText rendered="#{not empty person.description}">
-				<h:outputText value="Description: #{person.description}" />
-			</h:outputText>
-		</p>
-		<p>
-			<h:outputText rendered="#{not empty person.webSite}">
-				<h:outputText value="Website: #{person.webSite}" />
-			</h:outputText>
-		</p>
+	<div class="desc">
+		<h:outputText rendered="#{not empty person.description}">
+			<h:outputText value="Description: #{person.description}" />
+		</h:outputText>
+</div>
 
 
 
@@ -78,11 +96,7 @@
 </p:commandButton>
 
 
-<p:commandButton value="Edit profil"
-	onclick="PF('personDialog').show();">
-	<f:setPropertyActionListener value="#{person}"
-		target="#{personView.person}" />
-</p:commandButton>
+
 
 <p:dialog header="Edit profil" widgetVar="personDialog" modal="true"
 	resizable="false" responsive="true" draggable="false">
