@@ -7,11 +7,25 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <style type="text/css">
 .infos {
-	background:white;
-	font-family: "Source Sans Pro","Trebuchet MS","Helvetica Neue",Helvetica,Arial,sans-serif;
+	background: white;
+	font-family: "Source Sans Pro", "Trebuchet MS", "Helvetica Neue",
+		Helvetica, Arial, sans-serif;
 }
-.names{
-	font-sizepx;
+
+.names {
+	font-size: 30px !important;
+}
+
+.ui-g-6 {
+	font-size: 20px;
+}
+
+
+.mail {
+	margin-left: auto;
+}
+.desc{
+	font-size:20px;
 }
 </style>
 
@@ -19,34 +33,47 @@
 	<c:set var="person" value="#{personView.person}" />
 
 	<div class="infos">
+		<div class="ui-g">
+			<div class="ui-g-6 names">
 
-		<div class="names">
-		
-			<h:outputText value="#{person.name} #{person.firstName}" />
+				<h:outputText value="#{person.name} #{person.firstName}" />
+
+			</div>
+			<div style="margin-top: 5px; margin-left: auto; margin-right: 5px;">
+				<p:commandButton icon="fa fa-edit"
+					onclick="PF('personDialog').show();">
+					<f:setPropertyActionListener value="#{person}"
+						target="#{personView.person}" />
+				</p:commandButton>
+			</div>
 		</div>
-		<p>
-			<h:outputText value="Email: #{person.email}" />
-		</p>
-		<p>Birthday: 
-			<h:outputText value="#{person.birthDay}" >
-			<f:convertDateTime pattern="dd.MM.yyyy"/>
-			</h:outputText>
-		</p>
-		<p>
-			<h:outputText rendered="#{not empty person.status}">
-			<h:outputText value="Status: #{person.status}" />
-			</h:outputText>
-		</p>
-		<p>
+		<div class="ui-g">
+			<div class="ui-g-6 ">
+				<h:outputText value="#{person.birthDay}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</div>
+			<div class="ui-g-6" style="margin-left: auto;">
+				<h:outputText value="Email: #{person.email}" style="float:right;" />
+			</div>
+		</div>
+		<div class="ui-g">
+			<div class="ui-g-6 ">
+				<h:outputText rendered="#{not empty person.status}">
+					<h:outputText value="Status: #{person.status}" />
+				</h:outputText>
+			</div>
+			<div class="ui-g-6 ">
+				<h:outputText rendered="#{not empty person.webSite}">
+					<h:outputText value="Website: #{person.webSite}" style="float:right;" />
+				</h:outputText>
+			</div>
+		</div>
+	<div class="desc">
 		<h:outputText rendered="#{not empty person.description}">
 			<h:outputText value="Description: #{person.description}" />
-			</h:outputText>
-		</p>
-		<p>
-		<h:outputText rendered="#{not empty person.webSite}">
-			<h:outputText value="Website: #{person.webSite}" />
-			</h:outputText>
-		</p>
+		</h:outputText>
+</div>
 
 
 
@@ -64,11 +91,12 @@
 
 </h:form>
 
-<p:commandButton value="Edit profil"
-	onclick="PF('personDialog').show();">
-	<f:setPropertyActionListener value="#{person}"
-		target="#{personView.person}" />
+<p:commandButton value="Add people"
+	onclick="PF('addPersonDialog').show();">
 </p:commandButton>
+
+
+
 
 <p:dialog header="Edit profil" widgetVar="personDialog" modal="true"
 	resizable="false" responsive="true" draggable="false">
@@ -117,6 +145,7 @@
 		<p:inputText type="text" value="#{personUpdate.webSite}"
 			class="form-control" id="inputWebsite" placeholder="Website" />
 
+
 		<div>
 			<p:commandButton class="signup" value="Save"
 				action="#{personView.edit()}" update="personInformations"
@@ -126,5 +155,11 @@
 
 	</h:form>
 </p:dialog>
+
+<p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"
+	resizable="false" responsive="true" draggable="false" width="50%">
+	<ui:include src="/template/signup.xhtml"></ui:include>
+</p:dialog>
+
 
 </html>
