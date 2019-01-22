@@ -29,6 +29,9 @@ public class CurriculumVitaeViewController {
 	
 	private CurriculumVitae selectedCV;
 	
+	private String filter;
+
+	
 	@PostConstruct
 	public void init() {	
 		curriculumsViate = new LazyDataModel<CurriculumVitae>() {
@@ -62,6 +65,16 @@ public class CurriculumVitaeViewController {
 
 	public void setCurriculumsVitae(LazyDataModel<CurriculumVitae> curriculumsViate) {
 		this.curriculumsViate = curriculumsViate;
+	}
+
+
+	public String getFilter() {
+		return filter;
+	}
+
+
+	public void setFilter(String filter) {
+		this.filter = filter;
 	}
 	
 }

@@ -10,14 +10,28 @@
 
 	<ui:define name="content">
 		<h:form id="form">
-			<p:dataGrid id="cvs" var="cv" value="#{curriculumVitaeView.curriculumsVitae}"
-				columns="1" layout="grid" rows="12" paginator="true" lazy="true"
+
+			<div class="ui-g" style="background-color: white;">
+				<DIV class="ui-g-12 ui-md-4 ui-lg-4"/>
+				<div class="ui-g-12 ui-md-4 ui-lg-4"
+					style="display: flex; justify-content: center; align-items: center">Curriculums Vitae</div>
+				<DIV class="ui-g-12 ui-md-4 ui-lg-4">
+					<p:inputText style="width:100%" placeholder="Search"
+						value="#{curriculumVitaeView.filter}">
+						<p:ajax event="keyup" update="cvs"></p:ajax>
+					</p:inputText>
+				</DIV>
+			</div>
+
+
+			<p:dataGrid id="cvs" var="cv"
+				value="#{curriculumVitaeView.curriculumsVitae}" columns="1"
+				layout="grid" rows="12" paginator="true" lazy="true"
 				paginatorPosition="both"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="6,12,16, 32">
 
-				<p:panel header="#{cv.title}"
-					style="text-align:center">
+				<p:panel header="#{cv.title}" style="text-align:center">
 				</p:panel>
 			</p:dataGrid>
 		</h:form>
