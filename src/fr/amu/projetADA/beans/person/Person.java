@@ -38,11 +38,11 @@ import fr.amu.projetADA.beans.cv.CurriculumVitae;
 @NamedQuery(name = "findAllPersons", query = "From Person"),
 @NamedQuery(name = "findByFirstName", query = "SELECT p From Person p WHERE p.firstName = :firstName"),
 @NamedQuery(name = "findByNames", query = "SELECT p From Person p WHERE p.name like Concat('%',:name,'%')"),
-@NamedQuery(name = "findByNamesAndFirstName", query = "SELECT p From Person p WHERE p.name like Concat('%',:name,'%') OR p.firstName like Concat('%',:fisrtName,'%') "),
+@NamedQuery(name = "findByNamesAndFirstName", query = "SELECT p From Person p WHERE p.name like Concat(:name,'%') OR p.firstName like Concat(:firstName,'%') ORDER BY p.firstName, p.name"),
 @NamedQuery(name = "findByEmail", query = "SELECT p From Person p WHERE p.email = :email"),
 @NamedQuery(name = "findByEmailAndPwd", query = "SELECT p From Person p WHERE p.email = :email and p.password = :pwd"),
 @NamedQuery(name = "countPersons", query = "SELECT count(p.id) From Person p"),
-@NamedQuery(name = "countPersonsByNamesAndFirstName", query = "SELECT count(p.id) From Person p WHERE p.name like Concat('%',:name,'%') OR p.firstName like Concat('%',:fisrtName,'%')"),
+@NamedQuery(name = "countPersonsByNamesAndFirstName", query = "SELECT count(p.id) From Person p WHERE p.name like Concat(:name,'%') OR p.firstName like Concat(:firstName,'%')"),
 })
 public class Person implements Serializable{
 
@@ -86,6 +86,12 @@ public class Person implements Serializable{
 	@Basic(optional = true)
 	@Column(nullable = true)
 	private String status;
+	
+	@Basic(optional = true)
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = true)
+	private Date lastConnexion;
+	
 		
 	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinColumn(name="person_id", referencedColumnName="id")
@@ -202,6 +208,14 @@ public class Person implements Serializable{
 	}
 	
 	
+
+	public Date getLastConnexion() {
+		return lastConnexion;
+	}
+
+	public void setLastConnexion(Date lastConnexion) {
+		this.lastConnexion = lastConnexion;
+	}
 
 	@Override
 	public String toString() {

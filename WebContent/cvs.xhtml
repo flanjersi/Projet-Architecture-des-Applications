@@ -6,6 +6,8 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/mylayout.xhtml">
+	<ui:param name="activeIndex" value="2" />
+
 	<ui:define name="content">
 		<h:form id="form">
 			<p:dataGrid id="cvs" var="cv" value="#{curriculumVitaeView.curriculumsVitae}"

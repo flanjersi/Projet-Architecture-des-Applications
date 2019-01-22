@@ -6,53 +6,53 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<h:form>
+<h:form id="addPerson">
 	<c:set var="person" value="#{signUpView.person}" />
-	<div class="form-group col-md-6">
-		<label for="inputEmail4">Email</label>
-		<p:inputText type="email" value="#{person.email}" class="form-control"
-			id="inputEmail4" placeholder="Email" required="true"
-			requiredMessage="Email required" />
-	</div>
-	<div class="form-group col-md-6">
-		<label for="inputPassword4">Password</label>
-		<p:inputText type="password" value="#{person.password}"
-			class="form-control" id="inputPassword4" placeholder="Password"
-			required="true" requiredMessage="Password required" />
-	</div>
 
-	<div class="form-group col-md-6">
-		<label for="inputName">Name</label>
-		<p:inputText type="text" value="#{person.name}" class="form-control"
-			id="inputName" placeholder="Name" required="true"
-			requiredMessage="Name required" />
-	</div>
-	<div class="form-group col-md-6">
-		<label for="inputFirstname">Firstname</label>
+	<p:messages/>
+
+	<p:panelGrid columns="3" layout="grid">
+
+		<h:outputText value="FirstName" />
 		<p:inputText type="text" value="#{person.firstName}"
 			class="form-control" id="inputFirstname" placeholder="Firstname"
 			required="true" requiredMessage="Firstname required" />
-	</div>
-	<div class="form-group col-md-6">
-		<label for="inputWebsite">Website</label>
-		<p:inputText type="text" value="#{person.webSite}"
-			class="form-control" id="inputWebsite" placeholder="Website" />
-	</div>
+		<p:message for="inputFirstname" showDetail="false" display="icon">
+			<p:autoUpdate />
+		</p:message>
 
 
-	<div class="form-group col-md-2">
-		<label for="inputBirthday">Birthday</label>
-		<p:outputLabel for="restricted" value="Restricted:" />
-		<p:calendar pattern="dd/MM/yyyy" id="restricted"
+		<h:outputText value="Name" />
+		<p:inputText type="text" value="#{person.name}" class="form-control"
+			id="inputName" placeholder="Name" required="true"
+			requiredMessage="Name required" />
+		<p:message for="inputName" showDetail="false" display="icon">
+			<p:autoUpdate />
+		</p:message>
+
+
+		<h:outputText value="Birthday" />
+		<p:calendar pattern="dd/MM/yyyy" id="inputBirthday"
 			value="#{person.birthDay}" navigator="true" yearRange="c-120:c"
 			maxdate="today" required="true" requiredMessage="Birthday required" />
-	</div>
+		<p:message for="inputBirthday" showDetail="false" display="icon">
+			<p:autoUpdate />
+		</p:message>
 
-	<div class="col-md-6">
-		<p:commandButton ajax="false" class="signup" value="Sign Up"
-			action="#{signUpView.save()}" icon="fa fa-check">
-			<f:param name="i" value="3" />
-		</p:commandButton>
-	</div>
+		<h:outputText value="Email" />
+		<p:inputText type="email" value="#{person.email}" class="form-control"
+			id="inputEmail" placeholder="Email" required="true"
+			requiredMessage="Email required" />
+		<p:message for="inputEmail" showDetail="false" display="icon">
+			<p:autoUpdate />
+		</p:message>
+
+	</p:panelGrid>
+
+	<p:commandButton class="signup" value="Sign Up" update="addPerson"
+		action="#{signUpView.save()}" icon="fa fa-check">
+	</p:commandButton>
+
+
 </h:form>
 </html>

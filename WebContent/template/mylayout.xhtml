@@ -7,10 +7,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <style type="text/css">
 body {
-	background-image:url("sea.jpg");
-	background-repeat:no-repeat;
+	background-image: url("sea.jpg");
+	background-repeat: no-repeat;
 	background-size: cover;
-	background-attachment:fixed;
+	background-attachment: fixed;
 }
 footer{
 	float:bottom;
@@ -25,16 +25,18 @@ footer{
 	<h:outputScript library="webjars"
 		name="bootstrap/3.3.7/js/bootstrap.js" />
 </h:head>
-<h:body >
+<h:body>
 	<!-- Mon menu -->
 
-	<ui:include src="/template/menu.xhtml" />
+	<ui:include src="/template/menu.xhtml">
+		<ui:param name="activeIndex" value="#{activeIndex}" />
+	</ui:include>
 
 
 
 
 	<ui:debug />
-	<div class="container" style="margin-top:50px;">
+	<div class="container" style="margin-top: 50px;">
 		<ui:insert name="content">
 		</ui:insert>
 		<h:messages />

@@ -1,16 +1,19 @@
 package fr.amu.projetADA.controllers;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
 
 
 @ManagedBean(name = "signUpView")
-@SessionScoped
+@RequestScoped
 public class SignUpViewController {
 
 	@ManagedProperty("#{personView}")
@@ -21,21 +24,28 @@ public class SignUpViewController {
 
 	private Person person = new Person();
 
-	public String save() {
-		if(personManager.findByemail(person.getEmail()) != null)
-			return "profil";
-
+	public void save() {
+		if(personManager.findByemail(person.getEmail()) != null) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email already use", "Email already use");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        
+	        return;
+		}
+		
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Person added", "Person added");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+		person.setPassword("default");
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("My name is " + person.getFirstName() + " " + person.getName() + ". I was born in " + person.getBirthDay() + ".");
+		
+		person.setDescription(stringBuilder.toString());
+		
 		personManager.addPerson(person);
-
-		/*if(personViewController.getPerson() == null) {
-			personViewController.setPerson(person);
-
-		}*/
-
 
 		person = new Person();
 
-		return "profil";
 	}
 
 	public Person getPerson() {
