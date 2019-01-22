@@ -46,8 +46,8 @@ public class PersonsViewController {
 
 				}
 				else {
-					persons.setRowCount((int) personManager.countByNamesAndFirstName(filter));
-					return personManager.findByNamesAndFirstName(filter, pageSize, first);
+					persons.setRowCount((int) personManager.countByNamesAndFirstNameByPattern(filter));
+					return personManager.findByNamesAndFirstNameByPattern(filter, pageSize, first);
 				}
 			}
 

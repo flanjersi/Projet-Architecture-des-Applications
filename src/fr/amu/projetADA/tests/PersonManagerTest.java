@@ -161,7 +161,7 @@ public class PersonManagerTest {
     
     
     @Test
-    public void testfindByNamesAndFirstName() {
+    public void testfindByNamesAndFirstNameByPattern() {
     	Person person1 = new Person("Youcef", "Guelil", new Date(System.currentTimeMillis()), "1234", "example340@example.com");
     	Person person2 = new Person("Rami", "Guelzil", new Date(System.currentTimeMillis()), "1234", "example3400@example.com");
     	Person person3 = new Person("Ramzi", "Guelil", new Date(System.currentTimeMillis()), "1234", "example3434@example.com");
@@ -170,8 +170,8 @@ public class PersonManagerTest {
     	personManager.addPerson(person2);
     	personManager.addPerson(person3);
 
-    	Assert.assertEquals(2, personManager.findByNamesAndFirstName("z", -1, 0).size());
-    	Assert.assertEquals(0, personManager.findByNamesAndFirstName("w", -1, 0).size());
+    	Assert.assertEquals(2, personManager.findByNamesAndFirstNameByPattern("ram", -1, 0).size());
+    	Assert.assertEquals(0, personManager.findByNamesAndFirstNameByPattern("ramzz", -1, 0).size());
     	
     	personManager.removePerson(person1);	
     	personManager.removePerson(person2);	

@@ -14,8 +14,6 @@ import org.primefaces.model.SortOrder;
 import fr.amu.projetADA.beans.cv.CurriculumVitae;
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.curriculumVitae.CurriculumVitaeManager;
-import fr.amu.projetADA.services.person.PersonManager;
-import io.codearte.jfairy.Fairy;
 
 @ManagedBean(name="curriculumVitaeView")
 @SessionScoped
@@ -27,13 +25,11 @@ public class CurriculumVitaeViewController {
 	
 	private LazyDataModel<CurriculumVitae> curriculumsViate;
 	
-	private CurriculumVitae selectedCV;
-	
 	private String filter;
 
 	
 	@PostConstruct
-	public void init() {	
+	public void init() {		
 		curriculumsViate = new LazyDataModel<CurriculumVitae>() {
 
 			private static final long serialVersionUID = 1L;

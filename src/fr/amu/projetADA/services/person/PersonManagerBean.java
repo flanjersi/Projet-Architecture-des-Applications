@@ -88,31 +88,50 @@ public class PersonManagerBean implements PersonManager{
 		return q.getSingleResult().longValue();
 	}
 
-
 	@Override
-	public List<Person> findByNamesAndFirstName(String value, int limit, int offset) {
+	public List<Person> findByNamesAndFirstName(String name, String firstName, int limit, int offset) {
 		TypedQuery<Person> q = em.createNamedQuery("findByNamesAndFirstName", Person.class)
-				.setParameter("name", value)
-				.setParameter("firstName", value);
+				.setParameter("name", name)
+				.setParameter("firstName", firstName);
 		
 		q.setFirstResult(offset);
 
 		if(limit > 0) q.setMaxResults(limit);
-
-
+		
 		return q.getResultList();
 	}
 
-	//TODO TEST
 	@Override
-	public long countByNamesAndFirstName(String value) {
+	public long countByNamesAndFirstName(String name, String firstName) {
 		TypedQuery<Long> q = em.createNamedQuery("countPersonsByNamesAndFirstName", Long.class)
-				.setParameter("name", value)
-				.setParameter("firstName", value);
+				.setParameter("name", name)
+				.setParameter("firstName", firstName);
 	
 
 		return q.getSingleResult().longValue();	
 	}
+
+	@Override
+	public List<Person> findByNamesAndFirstNameByPattern(String value, int limit, int offset) {
+		TypedQuery<Person> q = em.createNamedQuery("findByNamesAndFirstNameByPattern", Person.class)
+				.setParameter("str", value);
+		
+		q.setFirstResult(offset);
+
+		if(limit > 0) q.setMaxResults(limit);
+		
+		return q.getResultList();
+	}
+
+	@Override
+	public long countByNamesAndFirstNameByPattern(String value) {
+		TypedQuery<Long> q = em.createNamedQuery("countPersonsByNamesAndFirstNameByPattern", Long.class)
+				.setParameter("str", value);
+
+		return q.getSingleResult().longValue();	
+	}
+	
+	
 
 
 
