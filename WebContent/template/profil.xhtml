@@ -5,35 +5,47 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-
+<style type="text/css">
+.infos {
+	background:white;
+	font-family: "Source Sans Pro","Trebuchet MS","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.names{
+	font-sizepx;
+}
+</style>
 
 <h:form id="personInformations">
 	<c:set var="person" value="#{personView.person}" />
 
-	<div>
+	<div class="infos">
+
+		<div class="names">
+		
+			<h:outputText value="#{person.name} #{person.firstName}" />
+		</div>
 		<p>
-			<h:outputText value="#{person.id}" />
+			<h:outputText value="Email: #{person.email}" />
+		</p>
+		<p>Birthday: 
+			<h:outputText value="#{person.birthDay}" >
+			<f:convertDateTime pattern="dd.MM.yyyy"/>
+			</h:outputText>
 		</p>
 		<p>
-			<h:outputText value="#{person.name}" />
+			<h:outputText rendered="#{not empty person.status}">
+			<h:outputText value="Status: #{person.status}" />
+			</h:outputText>
 		</p>
 		<p>
-			<h:outputText value="#{person.firstName}" />
+		<h:outputText rendered="#{not empty person.description}">
+			<h:outputText value="Description: #{person.description}" />
+			</h:outputText>
 		</p>
 		<p>
-			<h:outputText value="#{person.email}" />
-		</p>
-		<p>
-			<h:outputText value="#{person.birthDay}" />
-		</p>
-		<p>
-			<h:outputText value="#{person.status}" />
-		</p>
-		<p>
-			<h:outputText value="#{person.description}" />
-		</p>
-		<p>
-			<h:outputText value="#{person.webSite}" />
+		<h:outputText rendered="#{not empty person.webSite}">
+			<h:outputText value="Website: #{person.webSite}" />
+			</h:outputText>
 		</p>
 
 
