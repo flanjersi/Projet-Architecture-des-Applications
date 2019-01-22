@@ -26,15 +26,13 @@
 	</div>
 
 	<div class="ui-g">
-		<div class="ui-g-3">
+		<div class="ui-g-6 ui-md-3 ui-lg-3">
 			<p:commandButton class="signin" value="Sign In"
 				action="#{signInView.login()}" update="formSignIn"
 				icon="fa fa-check">
 			</p:commandButton>
 		</div>
-		<div class="ui-g-1" />
-
-		<div class="ui-g-3">
+		<div class="ui-g-6 ui-md-3 ui-lg-3">
 			<p:commandButton value="First Connexion"
 				onclick="PF('firstConnexion').show();" icon="fa fa-check" />
 		</div>
@@ -45,7 +43,7 @@
 	modal="true" resizable="false" responsive="true" draggable="false">
 
 	<h:form id="formFirstConnexion">
-		<p:messages closable="true" />
+		<p:messages/>
 
 		<div class="form-group col-md-6">
 			<p:inputText type="email" value="#{signInView.emailFirstConnexion}"
