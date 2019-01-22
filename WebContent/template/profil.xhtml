@@ -10,7 +10,7 @@
 	background: white;
 	font-family: "Source Sans Pro", "Trebuchet MS", "Helvetica Neue",
 		Helvetica, Arial, sans-serif;
-		border:15px;
+	border: 15px;
 }
 
 .names {
@@ -27,13 +27,13 @@
 
 .desc {
 	font-size: 20px;
-	padding-left:10px;
-	padding-right:10px;
-	padding-bottom:20px;
-	
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
 }
-.title{
-	text-align:center !important;
+
+.title {
+	text-align: center !important;
 	font-size: 30px;
 }
 </style>
@@ -56,9 +56,8 @@
 				</p:commandButton>
 
 
-				<p:commandButton ajax="false" icon="fa fa-trash-o"
+				<p:commandButton icon="fa fa-trash-o"
 					onclick="PF('confirmDeleteDialog').show();">
-					<f:param name="i" value="3" />
 				</p:commandButton>
 				<p:commandButton ajax="false" icon="fa fa-sign-out"
 					action="#{personView.logout()}">
@@ -168,14 +167,18 @@
 	resizable="false" responsive="true" draggable="false" width="50%">
 	<ui:include src="/template/signup.xhtml"></ui:include>
 </p:dialog>
+
 <p:dialog header="Confirm delete" widgetVar="confirmDeleteDialog"
 	modal="true" resizable="false" responsive="true" draggable="false">
-	<p:commandButton ajax="false" value="Confirm"
-		action="#{personView.delete()}">
-	</p:commandButton>
-	<p:commandButton ajax="false" value="Cancel"
-		action="PF('confirmDeleteDialog').hide()">
-	</p:commandButton>
+	<h:form>
+		<p:commandButton ajax="false" value="Confirm"
+			action="#{personView.delete()}">
+		</p:commandButton>
+		<p:commandButton value="Cancel"
+			action="PF('confirmDeleteDialog').hide()">
+		</p:commandButton>
+	</h:form>
+
 </p:dialog>
 
 </html>
