@@ -9,20 +9,20 @@
 <h:form id="addPerson">
 	<c:set var="person" value="#{signUpView.person}" />
 
-	<p:messages/>
+	<p:messages />
 
 	<p:panelGrid columns="3" layout="grid">
 
-		<h:outputText value="FirstName" />
+		<h:outputText value="First name : " />
 		<p:inputText type="text" value="#{person.firstName}"
 			class="form-control" id="inputFirstname" placeholder="Firstname"
-			required="true" requiredMessage="Firstname required" />
+			required="true" requiredMessage="First name required" />
 		<p:message for="inputFirstname" showDetail="false" display="icon">
 			<p:autoUpdate />
 		</p:message>
 
 
-		<h:outputText value="Name" />
+		<h:outputText value="Name :" />
 		<p:inputText type="text" value="#{person.name}" class="form-control"
 			id="inputName" placeholder="Name" required="true"
 			requiredMessage="Name required" />
@@ -31,7 +31,7 @@
 		</p:message>
 
 
-		<h:outputText value="Birthday" />
+		<h:outputText value="Birthday : " />
 		<p:calendar pattern="dd/MM/yyyy" id="inputBirthday"
 			value="#{person.birthDay}" navigator="true" yearRange="c-120:c"
 			maxdate="today" required="true" requiredMessage="Birthday required" />
@@ -39,13 +39,18 @@
 			<p:autoUpdate />
 		</p:message>
 
-		<h:outputText value="Email" />
+		<h:outputText value="Email : " />
 		<p:inputText type="email" value="#{person.email}" class="form-control"
 			id="inputEmail" placeholder="Email" required="true"
 			requiredMessage="Email required" />
 		<p:message for="inputEmail" showDetail="false" display="icon">
 			<p:autoUpdate />
 		</p:message>
+
+		<h:outputText value="Password : " />
+		<p:inputText type="password" value="#{person.password}"
+			class="form-control" id="inputPassword" placeholder="Password"
+			required="true" requiredMessage="Password required" />
 
 	</p:panelGrid>
 

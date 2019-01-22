@@ -32,10 +32,6 @@
 				icon="fa fa-check">
 			</p:commandButton>
 		</div>
-		<div class="ui-g-6 ui-md-3 ui-lg-3">
-			<p:commandButton value="First Connexion"
-				onclick="PF('firstConnexion').show();" icon="fa fa-check" />
-		</div>
 	</div>
 </h:form>
 
@@ -45,11 +41,6 @@
 	<h:form id="formFirstConnexion">
 		<p:messages/>
 
-		<div class="form-group col-md-6">
-			<p:inputText type="email" value="#{signInView.emailFirstConnexion}"
-				class="form-control" id="inputEmail" placeholder="Email"
-				required="true" requiredMessage="Email required" />
-		</div>
 		<div class="form-group col-md-6">
 			<p:inputText type="password"
 				value="#{signInView.passwordFirstConnexion}" class="form-control"

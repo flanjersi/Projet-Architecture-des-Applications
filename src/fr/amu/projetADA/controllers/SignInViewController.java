@@ -10,13 +10,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
+import org.primefaces.PrimeFaces;
 
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
 
 @ManagedBean(name = "signInView")
-@RequestScoped
+@ViewScoped
 public class SignInViewController {
 
 	@ManagedProperty("#{personView}")
@@ -28,15 +31,16 @@ public class SignInViewController {
 	private String email;
 	private String password;
 
-	private String emailFirstConnexion;
 	private String passwordFirstConnexion;
 
 	public void login() throws IOException {
 		Person p = personManager.findByemail(email);
 
 		if(p != null && p.getLastConnexion() == null) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "It's your first connexion, click on 'First Connexion'", "It's your first connexion, click on 'First Connexion'");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "It's your first connexion, set your new password", "It's your first connexion, set your new password");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			PrimeFaces.current().executeScript("PF('firstConnexion').show();");
+
 			return;
 		}
 
@@ -46,33 +50,21 @@ public class SignInViewController {
 
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unknow email or password", "Unknow email or password");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		
+
 		return;
 	}
 
-	public void firstConnexion() {
-		Person person = personManager.findByemail(emailFirstConnexion);
+	public void firstConnexion() throws IOException {
+		Person person = personManager.findByemail(email);
 
-		if(person ==  null) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unknow email", "Unknow email");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		else if(person.getLastConnexion() != null) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password already set", "Password already set");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Success");
-			FacesContext.getCurrentInstance().addMessage(null, msg);		
+		person.setPassword(passwordFirstConnexion);
+		person.setLastConnexion(new Date(System.currentTimeMillis()));
 
-			person.setPassword(passwordFirstConnexion);
-			person.setLastConnexion(new Date(System.currentTimeMillis()));
+		person = personManager.updatePerson(person);
 
-			person = personManager.updatePerson(person);
+		personViewController.login(person.getEmail(), person.getPassword());	
 
-			personViewController.login(person.getEmail(), person.getPassword());	
-		}
-
+		FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml");
 	}
 
 
@@ -98,17 +90,6 @@ public class SignInViewController {
 
 	public PersonViewController getPersonViewController() {
 		return personViewController;
-	}
-
-
-
-
-	public String getEmailFirstConnexion() {
-		return emailFirstConnexion;
-	}
-
-	public void setEmailFirstConnexion(String emailFirstConnexion) {
-		this.emailFirstConnexion = emailFirstConnexion;
 	}
 
 	public String getPasswordFirstConnexion() {

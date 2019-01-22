@@ -35,8 +35,6 @@ public class SignUpViewController {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Person added", "Person added");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         
-		person.setPassword("default");
-		
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("My name is " + person.getFirstName() + " " + person.getName() + ". I was born in " + person.getBirthDay() + ".");
 		
