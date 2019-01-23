@@ -11,6 +11,7 @@
 	font-family: "Source Sans Pro", "Trebuchet MS", "Helvetica Neue",
 		Helvetica, Arial, sans-serif;
 	border: 15px;
+	border-radius: 10px;
 }
 
 .names {
@@ -59,9 +60,9 @@
 				<p:commandButton icon="fa fa-trash-o"
 					onclick="PF('confirmDeleteDialog').show();">
 				</p:commandButton>
+
 				<p:commandButton ajax="false" icon="fa fa-sign-out"
 					action="#{personView.logout()}">
-					<f:param name="i" value="3" />
 				</p:commandButton>
 			</div>
 
@@ -97,25 +98,71 @@
 				<h:outputText value=" #{person.description}" />
 			</h:outputText>
 		</div>
+		<hr />
+		<div class=" ui-g desc">
+			<div class="ui-g-12 title">
+				Experiences
+				<p:commandButton style="float:right;" icon="fa fa-plus"
+					action="#{activityPersonView.experience()}"
+					onclick="PF('addActivityDialog').show();">
+				</p:commandButton>
+			</div>
+
+
+			<br />
+		</div>
+		<hr />
+		<div class=" ui-g desc">
+			<div class="ui-g-12 title">
+				Formations
+				<p:commandButton style="float:right;" icon="fa fa-plus"
+					action="PF('addActivityDialog').show();">
+				</p:commandButton>
+			</div>
+			<br />
+
+		</div>
+		<hr />
+		<div class=" ui-g desc">
+			<div class="ui-g-12 title">
+				Certifications
+
+				<p:commandButton style="float:right;" icon="fa fa-plus"
+					action="PF('addActivityDialog').show();" />
+			</div>
+			<br />
+
+		</div>
+		<hr />
+		<div class=" ui-g desc">
+			<div class="ui-g-12 title">
+				Projets
+				<p:commandButton style="float:right;" icon="fa fa-plus"
+					action="PF('addActivityDialog').show();" />
+
+			</div>
+
+			<br />
+
+		</div>
 	</div>
 
 
 </h:form>
 
 
-
-
-<p:dialog id="personDialog" header="Edit profil" 
+<p:dialog id="personDialog" header="Edit profil"
 	widgetVar="personDialog" modal="true" width="70%" resizable="false"
 	responsive="true" draggable="false">
-	
+
 	<c:set var="personUpdate" value="#{personView.person}" />
-	
+
 	<p:ajax event="close" process="@this" update="@this" />
-		
+
 	<p:tabView id="tabViewEditPerson">
-		<p:ajax event="tabChange" process="@this" update="updatePasswordForm, updateInformationForm" />
-		
+		<p:ajax event="tabChange" process="@this"
+			update="updatePasswordForm, updateInformationForm" />
+
 		<p:tab title="Informations">
 			<h:form id="updateInformationForm">
 				<p:messages />
@@ -190,7 +237,7 @@
 		</p:tab>
 		<p:tab title="Security">
 			<h:form id="updatePasswordForm">
-				<p:messages/>
+				<p:messages />
 
 				<p:panelGrid columns="3" layout="grid">
 					<h:outputText value="Current password :" />
@@ -238,6 +285,73 @@
 <p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"
 	resizable="false" responsive="true" draggable="false" width="50%">
 	<ui:include src="/template/signup.xhtml"></ui:include>
+</p:dialog>
+
+<p:dialog header="Add new activity" widgetVar="addActivityDialog" modal="true"
+	resizable="false" responsive="true" draggable="false">
+
+	<c:set var="newActivity" value="#{activityPersonView.activity}" />
+
+	<h:form id="addNewActivityForm">
+		<p:messages />
+
+		<h:outputText value="Type :" />
+		<h:outputText value="#{newActivity.type}" />
+ 
+		<p:panelGrid columns="3" layout="grid">
+
+			<!-- 			<h:outputText value="Title :" />
+			<p:inputText type="text" value="#{activityPersonView.activity.title}"
+				class="form-control" id="inputTitle" placeholder="Title"
+				required="true" requiredMessage="Title required" />
+			<p:message for="inputTitle" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+ -->
+			<!-- 
+			<h:outputText value="Description :" />
+			<p:inputTextarea type="text" value="#{newActivity.description}"
+				class="form-control" id="inputDescription"
+				placeholder="Write the description here"
+				requiredMessage="Description required" />
+			<p:message for="inputDescription" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+
+
+			<h:outputText value="Begin :" />
+			<p:calendar pattern="dd/MM/yyyy" id="inputBegin"
+				value="#{newActivity.begin}" navigator="true" yearRange="c-120:c"
+				maxdate="today" required="true"
+				requiredMessage="Begin date required" />
+			<p:message for="inputBegin" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+
+			<h:outputText value="End :" />
+			<p:calendar pattern="dd/MM/yyyy" id="inputEnd"
+				value="#{newActivity.end}" navigator="true" yearRange="c-120:c"
+				required="true" requiredMessage="End date required" />
+			<p:message for="inputEnd" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+
+			<h:outputText value="Website :" />
+			<p:inputText type="text" value="#{newActivity.webSite}"
+				class="form-control" id="inputWebsite" placeholder="Website" />
+			<p:message for="inputWebsite" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+ -->
+		</p:panelGrid>
+		<p:commandButton class="signup" value="Save"
+			action="#{activityPersonView.add()}"
+			update="addNewActivityForm, personInformations" icon="fa fa-check">
+		</p:commandButton>
+
+	</h:form>
+
+
 </p:dialog>
 
 <p:dialog header="Confirm delete" widgetVar="confirmDeleteDialog"
