@@ -28,6 +28,8 @@ public class PersonsViewController {
 
 	private String filter;
 
+	private int nbData;
+
 	@PostConstruct
 	public void init() {
 
@@ -42,12 +44,21 @@ public class PersonsViewController {
 				if(filter == null || filter.length() == 0){
 					persons.setRowCount((int) personManager.countNbPerson());
 
-					return personManager.findAllPerson(pageSize, first);
+					List<Person> personsData = personManager.findAllPerson(pageSize, first);
+
+					setNbData(personsData.size());
+
+					return personsData;
 
 				}
 				else {
 					persons.setRowCount((int) personManager.countByNamesAndFirstNameByPattern(filter));
-					return personManager.findByNamesAndFirstNameByPattern(filter, pageSize, first);
+
+					List<Person> personsData = personManager.findByNamesAndFirstNameByPattern(filter, pageSize, first);
+
+					setNbData(personsData.size());
+					
+					return personsData;
 				}
 			}
 
@@ -91,6 +102,18 @@ public class PersonsViewController {
 
 	public void setFilter(String filter) {
 		this.filter = filter;
+	}
+
+
+
+	public int getNbData() {
+		return nbData;
+	}
+
+
+
+	public void setNbData(int nbData) {
+		this.nbData = nbData;
 	}
 
 
