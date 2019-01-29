@@ -18,5 +18,4 @@ public interface ActivityManager {
 	public List<Activity> findAllActivity();
 
 	public List<Activity> findByTitle(String title);
-
 }

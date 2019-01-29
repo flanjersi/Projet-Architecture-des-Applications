@@ -1,5 +1,6 @@
 package fr.amu.projetADA.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +14,12 @@ import org.primefaces.model.SortOrder;
 
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
-import io.codearte.jfairy.Fairy;
 
 @ManagedBean(name = "personsView")
 @SessionScoped
-public class PersonsViewController {
+public class PersonsViewController implements Serializable{
+
+	private static final long serialVersionUID = -8813884141809137537L;
 
 	private Person selectedPerson;
 

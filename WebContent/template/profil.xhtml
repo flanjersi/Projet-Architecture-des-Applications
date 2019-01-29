@@ -5,8 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
 <style type="text/css">
-.infos {
+#infosPerson {
 	background: white;
 	font-family: "Source Sans Pro", "Trebuchet MS", "Helvetica Neue",
 		Helvetica, Arial, sans-serif;
@@ -39,10 +40,10 @@
 }
 </style>
 
-<h:form id="personInformations">
-	<c:set var="person" value="#{personView.person}" />
+<h:form id="infosPersonForm">
+	<div id="infosPerson">
+		<c:set var="person" value="#{personView.person}" />
 
-	<div class="infos">
 		<div class="ui-g">
 			<div class="ui-g-6 names">
 
@@ -50,7 +51,8 @@
 
 			</div>
 			<div style="margin-top: 5px; margin-left: auto; margin-right: 5px;">
-				<p:commandButton icon="fa fa-edit" update=""
+
+				<p:commandButton icon="fa fa-edit"
 					onclick="PF('personDialog').show();">
 					<f:setPropertyActionListener value="#{person}"
 						target="#{personView.person}" />
@@ -64,6 +66,7 @@
 				<p:commandButton ajax="false" icon="fa fa-sign-out"
 					action="#{personView.logout()}">
 				</p:commandButton>
+
 			</div>
 
 		</div>
@@ -108,48 +111,80 @@
 				</p:commandButton>
 			</div>
 
-
+			<ui:include src="listOfActivity.xhtml">
+				<ui:param name="listOfActivity" value="#{personView.experiences}" />
+			</ui:include>
 			<br />
 		</div>
 		<hr />
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Formations
+
 				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="PF('addActivityDialog').show();">
+					action="#{activityPersonView.formation()}"
+					onclick="PF('addActivityDialog').show();">
 				</p:commandButton>
 			</div>
+
+			<ui:include src="listOfActivity.xhtml">
+				<ui:param name="listOfActivity" value="#{personView.formations}" />
+			</ui:include>
 			<br />
 
 		</div>
+		<hr />
+
+		<div class=" ui-g desc">
+			<div class="ui-g-12 title">
+				Projets
+
+				<p:commandButton style="float:right;" icon="fa fa-plus"
+					action="#{activityPersonView.projet()}"
+					onclick="PF('addActivityDialog').show();" />
+			</div>
+
+			<ui:include src="listOfActivity.xhtml">
+				<ui:param name="listOfActivity" value="#{personView.projets}" />
+			</ui:include>
+
+			<br />
+		</div>
+
 		<hr />
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Certifications
 
 				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="PF('addActivityDialog').show();" />
-			</div>
-			<br />
-
-		</div>
-		<hr />
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Projets
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="PF('addActivityDialog').show();" />
+					action="#{activityPersonView.certification()}"
+					onclick="PF('addActivityDialog').show();" />
 
 			</div>
 
+			<ui:include src="listOfActivity.xhtml">
+				<ui:param name="listOfActivity" value="#{personView.certifications}" />
+			</ui:include>
 			<br />
 
 		</div>
+
 	</div>
-
-
 </h:form>
 
+
+
+<p:dialog header="Confirm delete" widgetVar="confirmDeleteDialog"
+	modal="true" resizable="false" responsive="true" draggable="false">
+	<h:form>
+		<p:commandButton ajax="false" value="Confirm"
+			action="#{personView.delete()}">
+		</p:commandButton>
+		<p:commandButton value="Cancel"
+			action="PF('confirmDeleteDialog').hide()">
+		</p:commandButton>
+	</h:form>
+</p:dialog>
 
 <p:dialog id="personDialog" header="Edit profil"
 	widgetVar="personDialog" modal="true" width="70%" resizable="false"
@@ -161,7 +196,7 @@
 
 	<p:tabView id="tabViewEditPerson">
 		<p:ajax event="tabChange" process="@this"
-			update="updatePasswordForm, updateInformationForm" />
+			update="updatePasswordForm updateInformationForm" />
 
 		<p:tab title="Informations">
 			<h:form id="updateInformationForm">
@@ -229,8 +264,7 @@
 				</p:panelGrid>
 				<p:commandButton class="signup" value="Save"
 					action="#{personView.edit()}"
-					update="updateInformationForm, personInformations"
-					icon="fa fa-check">
+					update="updateInformationForm infosPersonForm" icon="fa fa-check">
 				</p:commandButton>
 
 			</h:form>
@@ -276,6 +310,31 @@
 				</p:commandButton>
 			</h:form>
 		</p:tab>
+		<c:if test="#{not empty personView.person.curriculumVitae}">
+			<p:tab title="Curriculum vitae">
+				<h:form id="updateTitleCV">
+					<p:messages />
+
+					<p:panelGrid columns="3" layout="grid">
+						<h:outputText value="Title :" />
+						<p:inputText type="text"
+							value="#{personView.person.curriculumVitae.title}"
+							class="form-control" id="inputCVTitle"
+							placeholder="Current title" required="true"
+							requiredMessage="Title required" />
+						<p:message for="inputCVTitle" showDetail="false" display="icon">
+							<p:autoUpdate />
+						</p:message>
+					</p:panelGrid>
+
+					<p:commandButton value="Save" action="#{personView.editCVTitle()}"
+						update="updateTitleCV" icon="fa fa-check">
+					</p:commandButton>
+				</h:form>
+			</p:tab>
+
+		</c:if>
+
 	</p:tabView>
 
 
@@ -287,28 +346,24 @@
 	<ui:include src="/template/signup.xhtml"></ui:include>
 </p:dialog>
 
-<p:dialog header="Add new activity" widgetVar="addActivityDialog" modal="true"
-	resizable="false" responsive="true" draggable="false">
+<p:dialog header="Add new activity" widgetVar="addActivityDialog"
+	width="70%" modal="true" resizable="false" responsive="true"
+	draggable="false">
 
 	<c:set var="newActivity" value="#{activityPersonView.activity}" />
 
 	<h:form id="addNewActivityForm">
 		<p:messages />
 
-		<h:outputText value="Type :" />
-		<h:outputText value="#{newActivity.type}" />
- 
 		<p:panelGrid columns="3" layout="grid">
 
-			<!-- 			<h:outputText value="Title :" />
-			<p:inputText type="text" value="#{activityPersonView.activity.title}"
+			<h:outputText value="Title :" />
+			<p:inputText type="text" value="#{newActivity.title}"
 				class="form-control" id="inputTitle" placeholder="Title"
 				required="true" requiredMessage="Title required" />
 			<p:message for="inputTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
- -->
-			<!-- 
 			<h:outputText value="Description :" />
 			<p:inputTextarea type="text" value="#{newActivity.description}"
 				class="form-control" id="inputDescription"
@@ -342,11 +397,11 @@
 			<p:message for="inputWebsite" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
- -->
+
 		</p:panelGrid>
 		<p:commandButton class="signup" value="Save"
 			action="#{activityPersonView.add()}"
-			update="addNewActivityForm, personInformations" icon="fa fa-check">
+			update="addNewActivityForm infosPersonForm" icon="fa fa-check">
 		</p:commandButton>
 
 	</h:form>
@@ -362,6 +417,28 @@
 		</p:commandButton>
 		<p:commandButton value="Cancel"
 			action="PF('confirmDeleteDialog').hide()">
+		</p:commandButton>
+	</h:form>
+
+</p:dialog>
+
+<p:dialog header="Add curiculum vitae" widgetVar="addCVDialog"
+	width="50%" modal="true" resizable="false" responsive="true"
+	draggable="false">
+	<h:form>
+		<p:panelGrid columns="3" layout="grid">
+			<h:outputText value="Title :" />
+			<p:inputText type="text" value="#{personView.cvTitle}"
+				class="form-control" id="inputCVTitle" placeholder="Title"
+				required="true" requiredMessage="Title required" />
+			<p:message for="inputCVTitle" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+		</p:panelGrid>
+
+		<p:commandButton class="signup" value="Add"
+			action="#{personView.addCV()}" update="infosPersonForm"
+			icon="fa fa-check">
 		</p:commandButton>
 	</h:form>
 

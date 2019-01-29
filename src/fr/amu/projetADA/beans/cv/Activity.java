@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
 @Table(name = "Activity")
 @NamedQueries({
 	@NamedQuery(name = "findAllActivity", query = "From Activity"),
-	@NamedQuery(name = "findByTitle", query = "From Activity WHERE title LIKE CONCAT('%',:title,'%')"),
+	@NamedQuery(name = "findByTitle", query = "From Activity WHERE title LIKE CONCAT('%',:title,'%')")	
 })
 public class Activity implements Serializable {
 

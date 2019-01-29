@@ -1,13 +1,14 @@
 package fr.amu.projetADA.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
@@ -16,8 +17,10 @@ import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
 
 @ManagedBean(name = "signInView")
-@ViewScoped
-public class SignInViewController {
+@RequestScoped
+public class SignInViewController implements Serializable {
+
+	private static final long serialVersionUID = 3583933366273493082L;
 
 	@ManagedProperty("#{personView}")
 	private PersonViewController personViewController;
@@ -30,7 +33,7 @@ public class SignInViewController {
 
 	private String passwordFirstConnexion;
 
-	public void login() throws IOException {
+	public String login() {
 		Person p = personManager.findByemail(email);
 
 		if(p != null && p.getLastConnexion() == null) {
@@ -38,17 +41,18 @@ public class SignInViewController {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			PrimeFaces.current().executeScript("PF('firstConnexion').show();");
 
-			return;
+			return null;
 		}
 
 		if(personViewController.login(email, password)) {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml");
+			return "profil?faces-redirect=true";
 		}
 
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unknow email or password", "Unknow email or password");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
+		return null;
 
-		return;
 	}
 
 	public void firstConnexion() throws IOException {

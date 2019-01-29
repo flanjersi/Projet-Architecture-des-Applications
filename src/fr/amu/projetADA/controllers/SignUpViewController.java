@@ -1,10 +1,11 @@
 package fr.amu.projetADA.controllers;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -14,8 +15,10 @@ import fr.amu.projetADA.services.person.PersonManager;
 
 
 @ManagedBean(name = "signUpView")
-@RequestScoped
-public class SignUpViewController {
+@SessionScoped
+public class SignUpViewController implements Serializable{
+
+	private static final long serialVersionUID = -8129774864627937380L;
 
 	@ManagedProperty("#{personView}")
 	private PersonViewController personViewController;

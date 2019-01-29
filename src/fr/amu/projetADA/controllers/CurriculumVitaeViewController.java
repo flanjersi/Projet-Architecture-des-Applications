@@ -1,5 +1,6 @@
 package fr.amu.projetADA.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +18,10 @@ import fr.amu.projetADA.services.curriculumVitae.CurriculumVitaeManager;
 
 @ManagedBean(name="curriculumVitaeView")
 @SessionScoped
-public class CurriculumVitaeViewController {
+public class CurriculumVitaeViewController implements Serializable{
 
-	
+	private static final long serialVersionUID = 7255657121709014514L;
+
 	@EJB
 	private CurriculumVitaeManager curriculumVitaeManager;
 	
@@ -29,7 +31,7 @@ public class CurriculumVitaeViewController {
 
 	
 	@PostConstruct
-	public void init() {		
+	public void init() {
 		curriculumsViate = new LazyDataModel<CurriculumVitae>() {
 
 			private static final long serialVersionUID = 1L;
