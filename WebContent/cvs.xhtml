@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="/template/mylayout.xhtml">
 	<ui:param name="activeIndex" value="2" />
@@ -34,27 +35,30 @@
 
 
 				<div class="ui-g">
-					<div class="ui-g-12 ui-md-12 ui-lg-12">
-						<h:outputText value="#{cv.title}" />
-					</div>
-				</div>
 
-				<div class="ui-g">
-					<div class="ui-g-12 ui-md-6 ui-lg-6">
-						<h:outputText value="#{cv.person.firstName}" />
+					<div class="ui-g-1 ">
+						<h:outputText value="#{cv.person.firstName} " />
 						<h:outputText value="#{cv.person.name}" />
 					</div>
-				</div>
 
-				<div class="ui-g">
-					<div class="ui-g-12 ui-md-6 ui-lg-6">
-						<h:outputText value="#{cv.createdIn}" />
+					<div class="ui-g-10" style="text-align: center; font-weight: bold;">
+						<h:outputText value="#{cv.title}" />
+					</div>
+					<div style="margin-top: 1px; margin-left: auto; margin-right: 5px;">
+						<p:commandLink update=":form:cvDetail"
+							oncomplete="PF('cvDialog').show()" title="View Detail">
+							<h:outputText styleClass="fa fa-search" style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{cv}"
+								target="#{curriculumVitaeView.selectedCV}" />
+						</p:commandLink>
 					</div>
 				</div>
 
+
+
 				<div class="ui-g">
 					<div class="ui-g-12 ui-md-6 ui-lg-6">
-						<h:outputText value="#{cv.modifiedIn}" />
+						<h:outputText value="Modified: #{cv.modifiedIn}" />
 					</div>
 				</div>
 
@@ -63,6 +67,39 @@
 					<hr />
 				</h:outputText>
 			</p:dataGrid>
+			<p:dialog header="CV Info" widgetVar="cvDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false" width="75%" responsive="true"
+				positionType="" onShow="PF('cvDialog').initPosition()" position="center center" draggable="false">
+				<p:outputPanel id="cvDetail" style="text-align:center;">
+					<!-- <p:panelGrid columns="2"
+				rendered="#{not empty personsView.selectedPerson}"
+				columnClasses="label,value">
+ -->
+
+
+				<div class="ui-g">
+
+					<div class="ui-g-2 ">
+						<h:outputText value="#{curriculumVitaeView.selectedCV.person.firstName} " />
+						<h:outputText value="#{curriculumVitaeView.selectedCV.person.name}" />
+					</div>
+
+					<div class="ui-g-8" style="text-align: center; font-weight: bold;">
+						<h:outputText value="#{curriculumVitaeView.selectedCV.title}" />
+					</div>
+					
+					<div class="ui-g-2">
+						<h:outputText value="Modified: #{curriculumVitaeView.selectedCV.modifiedIn}" />
+					</div>
+				
+				</div>
+				<hr/>
+				<ui:include src="template/listOfActivity.xhtml">
+				<ui:param name="listOfActivity" value="#{curriculumVitaeView.selectedCV.activities}" />
+			</ui:include>
+				</p:outputPanel>
+			</p:dialog>
+
 		</h:form>
 	</ui:define>
 	<ui:define name="title">YouCV</ui:define>

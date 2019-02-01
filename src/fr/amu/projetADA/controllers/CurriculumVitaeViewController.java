@@ -25,14 +25,18 @@ public class CurriculumVitaeViewController implements Serializable{
 	@EJB
 	private CurriculumVitaeManager curriculumVitaeManager;
 	
-	private LazyDataModel<CurriculumVitae> curriculumsViate;
+	private LazyDataModel<CurriculumVitae> curriculumsVitae;
 	
+	private CurriculumVitae selectedCV;
+
+
+
 	private String filter;
 
 	
 	@PostConstruct
 	public void init() {
-		curriculumsViate = new LazyDataModel<CurriculumVitae>() {
+		curriculumsVitae = new LazyDataModel<CurriculumVitae>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -40,7 +44,7 @@ public class CurriculumVitaeViewController implements Serializable{
 			public List<CurriculumVitae> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 					Map<String, Object> filters) {
 				
-				curriculumsViate.setRowCount((int) curriculumVitaeManager.countNbCurriculumVitae());
+				curriculumsVitae.setRowCount((int) curriculumVitaeManager.countNbCurriculumVitae());
 				
 				return curriculumVitaeManager.findAllCurriculumVitae(pageSize, first);
 			}
@@ -48,12 +52,21 @@ public class CurriculumVitaeViewController implements Serializable{
 	}
 	
 	
+	public CurriculumVitae getSelectedCV() {
+		return selectedCV;
+	}
+
+
+	public void setSelectedCV(CurriculumVitae selectedCV) {
+		this.selectedCV = selectedCV;
+	}
+	
 	public String seeProfil(Person person) {
 		return "persons";
 	}
  
 	public LazyDataModel<CurriculumVitae> getCurriculumsVitae() {
-		return curriculumsViate;
+		return curriculumsVitae;
 	}
 
 	public void setPersonManager(CurriculumVitaeManager curriculumVitaeManager) {
@@ -62,7 +75,7 @@ public class CurriculumVitaeViewController implements Serializable{
 
 
 	public void setCurriculumsVitae(LazyDataModel<CurriculumVitae> curriculumsViate) {
-		this.curriculumsViate = curriculumsViate;
+		this.curriculumsVitae = curriculumsViate;
 	}
 
 
