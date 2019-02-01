@@ -212,11 +212,7 @@ public class PersonViewController implements Serializable{
 			return;
 		}
 		
-		CurriculumVitae curriculumVitae = new CurriculumVitae();
-		
-		curriculumVitae.setTitle(cvTitle);
-		curriculumVitae.setCreatedIn(new Date(System.currentTimeMillis()));
-		curriculumVitae.setModifiedIn(new Date(System.currentTimeMillis()));
+		CurriculumVitae curriculumVitae = new CurriculumVitae(cvTitle);
 		
 		getPerson().setCurriculumVitae(curriculumVitae);
 		personManager.updatePerson(getPerson());

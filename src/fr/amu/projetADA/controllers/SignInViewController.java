@@ -33,7 +33,7 @@ public class SignInViewController implements Serializable {
 	private String passwordFirstConnexion;
 
 	public String login() {
-		Person p = personManager.findByemail(email);
+		Person p = personManager.findByEmailAndPassword(email, password);
 
 		if(p != null && p.getLastConnexion() == null) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "It's your first connexion, set your new password", "It's your first connexion, set your new password");

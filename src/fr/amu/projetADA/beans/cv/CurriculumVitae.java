@@ -53,7 +53,6 @@ public class CurriculumVitae implements Serializable{
 	@Column(nullable = false)
 	private String title;
 	
-
 	@Basic(optional = true)
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
@@ -74,6 +73,12 @@ public class CurriculumVitae implements Serializable{
 	public CurriculumVitae() {
 		this.createdIn = new Date(System.currentTimeMillis());
 		this.modifiedIn = new Date(System.currentTimeMillis());
+	}
+	
+	public CurriculumVitae(String title) {
+		this.createdIn = new Date(System.currentTimeMillis());
+		this.modifiedIn = new Date(System.currentTimeMillis());
+		this.title = title;
 	}
 	
 	public long getId() {

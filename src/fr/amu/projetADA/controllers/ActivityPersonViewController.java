@@ -42,7 +42,7 @@ public class ActivityPersonViewController implements Serializable{
 
 	public void add() {
 		if(personViewController.getPerson().getCurriculumVitae() == null) {
-			PrimeFaces.current().executeScript("PF('addCVDialog').show();");
+			PrimeFaces.current().executeScript("PF('addActivityDialog').hide();PF('addCVDialog').show();");
 			return;
 		}
 		
@@ -51,7 +51,7 @@ public class ActivityPersonViewController implements Serializable{
 		
 		activity = new Activity();
 		
-		PrimeFaces.current().executeScript("PF('addActivityDialog').show();");
+		PrimeFaces.current().executeScript("PF('addActivityDialog').hide();");
 	}
 	
 	public void experience() {
