@@ -37,8 +37,6 @@
 .title {
 	text-align: center !important;
 	font-size: 30px;
-	border-bottom: 1px solid #000;
-	border-top: 1px solid #000; 
 }
 </style>
 
@@ -49,7 +47,7 @@
 		<div class="ui-g">
 			<div class="ui-g-6 names">
 
-				<h:outputText value="#{person.firstName} #{person.name}" />
+				<h:outputText value="#{person.name} #{person.firstName}" />
 
 			</div>
 			<div style="margin-top: 5px; margin-left: auto; margin-right: 5px;">
@@ -95,7 +93,7 @@
 				</h:outputText>
 			</div>
 		</div>
-		
+		<hr />
 		<div class=" ui-g desc">
 			<h:outputText rendered="#{not empty person.description}">
 				<div class="ui-g-12 title">Description</div>
@@ -103,15 +101,24 @@
 				<h:outputText value=" #{person.description}" />
 			</h:outputText>
 		</div>
-	
+		<hr />
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Experiences
 
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.experience()}"
-					onclick="PF('addActivityDialog').show();">
-				</p:commandButton>
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.experience()}"
+							onclick="PF('addActivityDialog').show();">
+						</p:commandButton>
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
 
 			</div>
 
@@ -120,15 +127,24 @@
 			</ui:include>
 			<br />
 		</div>
-		
+		<hr />
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Formations
 
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.formation()}"
-					onclick="PF('addActivityDialog').show();">
-				</p:commandButton>
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.formation()}"
+							onclick="PF('addActivityDialog').show();">
+						</p:commandButton>
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
 			</div>
 
 			<ui:include src="listOfActivity.xhtml">
@@ -137,15 +153,24 @@
 			<br />
 
 		</div>
-		
+		<hr />
 
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Projets
 
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.projet()}"
-					onclick="PF('addActivityDialog').show();" />
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.projet()}"
+							onclick="PF('addActivityDialog').show();" />
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
 
 			</div>
 
@@ -156,14 +181,23 @@
 			<br />
 		</div>
 
-		
+		<hr />
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Certifications
 
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.certification()}"
-					onclick="PF('addActivityDialog').show();" />
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.certification()}"
+							onclick="PF('addActivityDialog').show();" />
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
 			</div>
 
 			<ui:include src="listOfActivity.xhtml">
@@ -423,7 +457,7 @@
 </p:dialog>
 
 <p:dialog header="Add curiculum vitae" widgetVar="addCVDialog"
-	width="50%" modal="true" closable="false" closeOnEscape="false" resizable="false" responsive="true"
+	width="50%" modal="true" resizable="false" responsive="true"
 	draggable="false">
 	<h:form>
 		<p:panelGrid columns="3" layout="grid">
