@@ -1,8 +1,10 @@
 package fr.amu.projetADA.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -12,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import fr.amu.projetADA.beans.cv.Activity;
 import fr.amu.projetADA.beans.cv.CurriculumVitae;
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.curriculumVitae.CurriculumVitaeManager;
@@ -24,36 +27,64 @@ public class CurriculumVitaeViewController implements Serializable{
 
 	@EJB
 	private CurriculumVitaeManager curriculumVitaeManager;
-	
-	private LazyDataModel<CurriculumVitae> curriculumsViate;
-	
+
+	private LazyDataModel<CurriculumVitae> curriculumsVitae;
+
+	private CurriculumVitae selectedCV;
+
+	private int nbData;
+
 	private String filter;
 
-	
+
 	@PostConstruct
 	public void init() {
-		curriculumsViate = new LazyDataModel<CurriculumVitae>() {
+		curriculumsVitae = new LazyDataModel<CurriculumVitae>() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public List<CurriculumVitae> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 					Map<String, Object> filters) {
-				
-				curriculumsViate.setRowCount((int) curriculumVitaeManager.countNbCurriculumVitae());
-				
-				return curriculumVitaeManager.findAllCurriculumVitae(pageSize, first);
+
+			//	if(filter == null || filter.length() == 0){
+					curriculumsVitae.setRowCount((int) curriculumVitaeManager.countNbCurriculumVitae());
+					List<CurriculumVitae> cvsData = curriculumVitaeManager.findAllCurriculumVitae(pageSize, first);
+					setNbData(cvsData.size());
+					
+					return curriculumVitaeManager.findAllCurriculumVitae(pageSize, first);
+				/*}
+				else {
+					curriculumsVitae.setRowCount((int) curriculumVitaeManager.
+				}*/
 			}
 		};	
 	}
-	
-	
+
+	public int getNbData() {
+		return nbData;
+	}
+
+
+	public void setNbData(int nbData) {
+		this.nbData = nbData;
+	}
+
+	public CurriculumVitae getSelectedCV() {
+		return selectedCV;
+	}
+
+
+	public void setSelectedCV(CurriculumVitae selectedCV) {
+		this.selectedCV = selectedCV;
+	}
+
 	public String seeProfil(Person person) {
 		return "persons";
 	}
- 
+
 	public LazyDataModel<CurriculumVitae> getCurriculumsVitae() {
-		return curriculumsViate;
+		return curriculumsVitae;
 	}
 
 	public void setPersonManager(CurriculumVitaeManager curriculumVitaeManager) {
@@ -62,7 +93,7 @@ public class CurriculumVitaeViewController implements Serializable{
 
 
 	public void setCurriculumsVitae(LazyDataModel<CurriculumVitae> curriculumsViate) {
-		this.curriculumsViate = curriculumsViate;
+		this.curriculumsVitae = curriculumsViate;
 	}
 
 
@@ -74,5 +105,34 @@ public class CurriculumVitaeViewController implements Serializable{
 	public void setFilter(String filter) {
 		this.filter = filter;
 	}
-	
+
+
+	public List<Activity> getExperiences(){		
+		return filterActivitiesByType("Experience");
+	}
+
+	public List<Activity> getFormations(){
+		return filterActivitiesByType("Formation");
+	}
+
+	public List<Activity> getCertifications(){
+		return filterActivitiesByType("Certification");
+	}
+
+	public List<Activity> getProjets(){
+		return filterActivitiesByType("Projet");
+	}
+
+	private List<Activity> filterActivitiesByType(String type){
+		if(getSelectedCV() == null) {
+			return new ArrayList<>();
+		}
+
+		return getSelectedCV().getActivities()
+				.stream()
+				.filter(act -> act.getType().equals(type))
+				.collect(Collectors.toList());
+	}
+
+
 }

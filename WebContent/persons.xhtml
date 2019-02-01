@@ -77,39 +77,29 @@
 
 			</p:dataGrid>
 			<br />
-			<p:dialog header="Person Info" widgetVar="personDialog" modal="true" width="70%"
-				showEffect="fade" hideEffect="fade" resizable="false" responsive="true"
-				positionType="absolute" draggable="false">
-				<p:outputPanel id="personDetail" style="text-align:center;">
-					<p>
+			<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false"
+				positionType="absolute" draggable="false" responsive="true" width="50%">
+				<p:outputPanel id="personDetail" >
+					 <p:panelGrid columns="2" layout="grid" responsive="true"
+				rendered="#{not empty personsView.selectedPerson}"
+				columnClasses="ui-grid-col-3,ui-grid-col-9">
+
 						<h:outputText value="Name: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.name}" />
-					</p>
-					<p>
 						<h:outputText value="FirstName: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.firstName}" />
-					</p>
-					<p>
 						<h:outputText value="Birthday: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.birthDay}" />
-					</p>
-					<p>
 						<h:outputText value="Email: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.email}" />
-					</p>
-					<p>
 						<h:outputText value="Website: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.webSite}" />
-					</p>
-					<p>
 						<h:outputText value="Description: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.description}" />
-					</p>
-					<p>
 						<h:outputText value="Curriculum Vitae: " style="color:#3c8dbc;" />
-						<h:outputText
-							value="#{personsView.selectedPerson.curriculumVitae.title}" />
-					</p>
+						<h:link	value="#{personsView.selectedPerson.curriculumVitae.title}" />
+					</p:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
@@ -121,7 +111,7 @@
 
 			<h:form id="addPersonForm">
 				<c:set var="person" value="#{signUpView.person}" />
-				
+
 				<p:messages/>
 
 				<p:panelGrid columns="3" layout="grid" columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3">
@@ -160,7 +150,7 @@
 						<f:validateRegex
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</p:inputText>
-					
+
 					<p:message for="inputEmail" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
