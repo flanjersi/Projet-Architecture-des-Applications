@@ -1,8 +1,10 @@
 package fr.amu.projetADA.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -12,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import fr.amu.projetADA.beans.cv.Activity;
 import fr.amu.projetADA.beans.cv.CurriculumVitae;
 import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.curriculumVitae.CurriculumVitaeManager;
@@ -87,5 +90,34 @@ public class CurriculumVitaeViewController implements Serializable{
 	public void setFilter(String filter) {
 		this.filter = filter;
 	}
+	
+
+	public List<Activity> getExperiences(){		
+		return filterActivitiesByType("Experience");
+	}
+
+	public List<Activity> getFormations(){
+		return filterActivitiesByType("Formation");
+	}
+
+	public List<Activity> getCertifications(){
+		return filterActivitiesByType("Certification");
+	}
+
+	public List<Activity> getProjets(){
+		return filterActivitiesByType("Projet");
+	}
+	
+	private List<Activity> filterActivitiesByType(String type){
+		if(getSelectedCV() == null) {
+			return new ArrayList<>();
+		}
+					
+		return getSelectedCV().getActivities()
+				.stream()
+				.filter(act -> act.getType().equals(type))
+				.collect(Collectors.toList());
+	}
+
 	
 }
