@@ -9,28 +9,34 @@
 
 <c:set var="counter" value="0"></c:set>
 <c:forEach var="activity" items="#{listOfActivity}">
-<c:set var="counter" value="#{counter + 1}"></c:set>
-	<div class="ui-g-12">
-		<b><h:outputText value="#{activity.title}" /></b>
-	</div>
-	<br />
-	<div class="ui-g-12">
-		<h:outputText value="#{activity.begin}" />
-	</div>
-	<div class="ui-g-12">
-		<h:outputText value="#{activity.end}" />
-	</div>
-	<div class="ui-g-12">
-		<h:outputText value="#{activity.description}" />
-	</div>
-	<div class="ui-g-12">
-		<h:outputText value="#{activity.webSite}" />
-		<h:outputText
-					rendered="#{counter lt listOfActivity.size()}">
-					<hr />
-		</h:outputText>
-	</div>
+	<c:set var="counter" value="#{counter + 1}"></c:set>
 
+	<div class="ui-g-12">
+		<div class="ui-g-4">
+			<h:outputText value="#{activity.begin} to " >
+			<f:convertDateTime pattern="dd.MM.yyyy" />
+			</h:outputText>
+			<h:outputText value="#{activity.end}" >
+			<f:convertDateTime pattern="dd.MM.yyyy" />
+			</h:outputText>
+		</div>
+		<div class="ui-g-4" style="text-align: center;">
+			<b><h:outputText value="#{activity.title}" /></b>
+		</div>
+		<div class="ui-g-4" style="text-align: right">
+			<h:outputText value="#{activity.webSite}" />
+
+		</div>
+	</div>
+	<div class="ui-g-12">
+	<div class="ui-g-1"/>
+	<div class="ui-g-10">	
+			<h:outputText value="#{activity.description}" />
+	</div>
+	</div>
+	<h:outputText rendered="#{counter lt listOfActivity.size()}">
+		<hr />
+	</h:outputText>
 </c:forEach>
 
 

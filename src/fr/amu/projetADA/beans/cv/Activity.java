@@ -38,7 +38,7 @@ public class Activity implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long id	;
 	
 	@Basic(optional = false)
 	@Column(nullable = false)
