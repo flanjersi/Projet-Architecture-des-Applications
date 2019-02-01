@@ -7,8 +7,9 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
-
+<c:set var="counter" value="0"></c:set>
 <c:forEach var="activity" items="#{listOfActivity}">
+<c:set var="counter" value="#{counter + 1}"></c:set>
 	<div class="ui-g-12">
 		<b><h:outputText value="#{activity.title}" /></b>
 	</div>
@@ -24,7 +25,10 @@
 	</div>
 	<div class="ui-g-12">
 		<h:outputText value="#{activity.webSite}" />
-		<hr />
+		<h:outputText
+					rendered="#{counter lt listOfActivity.size()}">
+					<hr />
+		</h:outputText>
 	</div>
 
 </c:forEach>

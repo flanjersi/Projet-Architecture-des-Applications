@@ -78,40 +78,27 @@
 			<br />
 			<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
 				showEffect="fade" hideEffect="fade" resizable="false"
-				positionType="absolute" draggable="false">
-				<p:outputPanel id="personDetail" style="text-align:center;">
-					<!-- <p:panelGrid columns="2"
+				positionType="absolute" draggable="false" responsive="true" width="50%">
+				<p:outputPanel id="personDetail" >
+					 <p:panelGrid columns="2" layout="grid" responsive="true"
 				rendered="#{not empty personsView.selectedPerson}"
-				columnClasses="label,value">
- -->
-					<p>
+				columnClasses="ui-grid-col-3,ui-grid-col-9">
+ 
 						<h:outputText value="Name: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.name}" />
-					</p>
-					<p>
 						<h:outputText value="FirstName: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.firstName}" />
-					</p>
-					<p>
 						<h:outputText value="Birthday: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.birthDay}" />
-					</p>
-					<p>
 						<h:outputText value="Email: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.email}" />
-					</p>
-					<p>
 						<h:outputText value="Website: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.webSite}" />
-					</p>
-					<p>
 						<h:outputText value="Description: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.description}" />
-					</p>
-					<p>
 						<h:outputText value="Curriculum Vitae: " style="color:#3c8dbc;" />
 						<h:link	value="#{personsView.selectedPerson.curriculumVitae.title}" />
-					</p>
+					</p:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>

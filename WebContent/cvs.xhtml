@@ -78,7 +78,7 @@
 				</div>
 
 				<h:outputText
-					rendered="#{curriculumVitaeView.curriculumsVitae.rowIndex lt curriculumVitaeView.curriculumsVitae.pageSize - 1}">
+					rendered="#{curriculumVitaeView.curriculumsVitae.rowIndex lt curriculumVitaeView.nbData -1}">
 					<hr />
 				</h:outputText>
 			</p:dataGrid>
