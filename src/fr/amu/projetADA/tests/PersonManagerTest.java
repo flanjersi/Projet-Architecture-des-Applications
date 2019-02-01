@@ -69,6 +69,8 @@ public class PersonManagerTest {
   
     	personManager.addPerson(person2);
     	personManager.addPerson(person);
+    
+    	personManager.removePerson(person2);
     }
     
     @Test

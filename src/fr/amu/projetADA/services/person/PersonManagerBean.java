@@ -72,9 +72,7 @@ public class PersonManagerBean implements PersonManager{
 	}
 
 	public Person findByEmailAndPassword(String email,String pwd) {
-		String pwdHashed = org.apache.commons.codec.digest.DigestUtils.sha256Hex(pwd);
-		
-		TypedQuery<Person> q = em.createNamedQuery("findByEmailAndPwd", Person.class).setParameter("email", email).setParameter("pwd", pwdHashed);	
+		TypedQuery<Person> q = em.createNamedQuery("findByEmailAndPwd", Person.class).setParameter("email", email).setParameter("pwd", pwd);	
 
 		try {
 			return q.getSingleResult();

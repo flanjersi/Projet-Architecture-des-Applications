@@ -105,10 +105,21 @@
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Experiences
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.experience()}"
-					onclick="PF('addActivityDialog').show();">
-				</p:commandButton>
+
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.experience()}"
+							onclick="PF('addActivityDialog').show();">
+						</p:commandButton>
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
+
 			</div>
 
 			<ui:include src="listOfActivity.xhtml">
@@ -121,10 +132,19 @@
 			<div class="ui-g-12 title">
 				Formations
 
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.formation()}"
-					onclick="PF('addActivityDialog').show();">
-				</p:commandButton>
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.formation()}"
+							onclick="PF('addActivityDialog').show();">
+						</p:commandButton>
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
 			</div>
 
 			<ui:include src="listOfActivity.xhtml">
@@ -139,9 +159,19 @@
 			<div class="ui-g-12 title">
 				Projets
 
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.projet()}"
-					onclick="PF('addActivityDialog').show();" />
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.projet()}"
+							onclick="PF('addActivityDialog').show();" />
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
+
 			</div>
 
 			<ui:include src="listOfActivity.xhtml">
@@ -156,10 +186,18 @@
 			<div class="ui-g-12 title">
 				Certifications
 
-				<p:commandButton style="float:right;" icon="fa fa-plus"
-					action="#{activityPersonView.certification()}"
-					onclick="PF('addActivityDialog').show();" />
-
+				<c:choose>
+					<c:when test="#{not empty personView.person.curriculumVitae}">
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.certification()}"
+							onclick="PF('addActivityDialog').show();" />
+					</c:when>
+					<c:otherwise>
+						<p:commandButton style="float:right;" icon="fa fa-plus"
+							onclick="PF('addCVDialog').show();">
+						</p:commandButton>
+					</c:otherwise>
+				</c:choose>
 			</div>
 
 			<ui:include src="listOfActivity.xhtml">
@@ -341,10 +379,6 @@
 
 </p:dialog>
 
-<p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"
-	resizable="false" responsive="true" draggable="false" width="50%">
-	<ui:include src="/template/signup.xhtml"></ui:include>
-</p:dialog>
 
 <p:dialog header="Add new activity" widgetVar="addActivityDialog"
 	width="70%" modal="true" resizable="false" responsive="true"

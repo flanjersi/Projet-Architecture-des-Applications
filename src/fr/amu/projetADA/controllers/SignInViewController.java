@@ -1,6 +1,5 @@
 package fr.amu.projetADA.controllers;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,7 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
@@ -17,7 +16,7 @@ import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.person.PersonManager;
 
 @ManagedBean(name = "signInView")
-@RequestScoped
+@ViewScoped
 public class SignInViewController implements Serializable {
 
 	private static final long serialVersionUID = 3583933366273493082L;
@@ -55,17 +54,17 @@ public class SignInViewController implements Serializable {
 
 	}
 
-	public void firstConnexion() throws IOException {
+	public String firstConnexion() {
 		Person person = personManager.findByemail(email);
 
 		person.setPassword(passwordFirstConnexion);
 		person.setLastConnexion(new Date(System.currentTimeMillis()));
 
-		person = personManager.updatePerson(person);
+		personManager.updatePerson(person);
 
 		personViewController.login(email, passwordFirstConnexion);	
 
-		FacesContext.getCurrentInstance().getExternalContext().redirect("profil.xhtml");
+		return "profil?faces-redirect=true";
 	}
 
 
