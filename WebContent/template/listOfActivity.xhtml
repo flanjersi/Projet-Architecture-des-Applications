@@ -12,10 +12,14 @@
 	<c:set var="counter" value="#{counter + 1}"></c:set>
 
 	<div class="ui-g-12">
+	<h:outputText rendered="#{ counter gt 1 }">
+		<hr />
+	</h:outputText>
 		<div class="ui-g-4">
-			<h:outputText value="#{activity.begin} to " >
+			<h:outputText value="#{activity.begin}" >
 			<f:convertDateTime pattern="dd.MM.yyyy" />
 			</h:outputText>
+			<h:outputText value=" to " />
 			<h:outputText value="#{activity.end}" >
 			<f:convertDateTime pattern="dd.MM.yyyy" />
 			</h:outputText>
@@ -34,9 +38,7 @@
 			<h:outputText value="#{activity.description}" />
 	</div>
 	</div>
-	<h:outputText rendered="#{counter lt listOfActivity.size()}">
-		<hr />
-	</h:outputText>
+	
 </c:forEach>
 
 

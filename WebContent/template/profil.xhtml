@@ -37,6 +37,8 @@
 .title {
 	text-align: center !important;
 	font-size: 30px;
+	border-bottom: 1px solid #000;
+	border-top: 1px solid #000; 
 }
 </style>
 
@@ -93,7 +95,7 @@
 				</h:outputText>
 			</div>
 		</div>
-		<hr />
+		
 		<div class=" ui-g desc">
 			<h:outputText rendered="#{not empty person.description}">
 				<div class="ui-g-12 title">Description</div>
@@ -101,7 +103,7 @@
 				<h:outputText value=" #{person.description}" />
 			</h:outputText>
 		</div>
-		<hr />
+	
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Experiences
@@ -127,7 +129,7 @@
 			</ui:include>
 			<br />
 		</div>
-		<hr />
+		
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Formations
@@ -153,7 +155,7 @@
 			<br />
 
 		</div>
-		<hr />
+		
 
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
@@ -181,7 +183,7 @@
 			<br />
 		</div>
 
-		<hr />
+		
 		<div class=" ui-g desc">
 			<div class="ui-g-12 title">
 				Certifications
