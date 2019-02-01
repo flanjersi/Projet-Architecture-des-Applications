@@ -53,6 +53,21 @@ public class CurriculumVitaeManagerBean implements CurriculumVitaeManager{
 
 		return q.getSingleResult().longValue();
 	}
+	
+	@Override
+	public List<CurriculumVitae> findCvByTitle(String title, int limit, int offset) {	
+		TypedQuery<CurriculumVitae> q = em.createNamedQuery("findCurriculumVitaeByTitle", CurriculumVitae.class).setParameter("title", title);
+		q.setFirstResult(offset);
+		if(limit > 0) q.setMaxResults(limit);
+		return q.getResultList();
+	}
 
+	@Override
+	public List<CurriculumVitae> findCvByActivity(String title, int limit, int offset) {	
+		TypedQuery<CurriculumVitae> q = em.createNamedQuery("findCurriculumVitae", CurriculumVitae.class).setParameter("title", title);
+		q.setFirstResult(offset);
+		if(limit > 0) q.setMaxResults(limit);
+		return q.getResultList();
+	}
 
 }

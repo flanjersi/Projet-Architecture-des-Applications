@@ -36,8 +36,11 @@ import fr.amu.projetADA.beans.person.Person;
 
 @NamedQueries({
 @NamedQuery(name = "findAllCurriculumVitae", query = "From CurriculumVitae"),
-@NamedQuery(name = "countCurriculumsVitae", query = "SELECT count(cv.id) From CurriculumVitae cv")
+@NamedQuery(name = "countCurriculumsVitae", query = "SELECT count(cv.id) From CurriculumVitae cv"),
+@NamedQuery(name = "findCurriculumVitaeByTitle", query = "From CurriculumVitae WHERE LOWER(title) LIKE CONCAT('%',LOWER(:title),'%')"),
+@NamedQuery(name = "findCurriculumVitaeByActivity", query = "From CurriculumVitae WHERE LOWER(title) LIKE CONCAT('%',LOWER(:title),'%')")
 })
+
 public class CurriculumVitae implements Serializable{
 
 	private static final long serialVersionUID = 1L;

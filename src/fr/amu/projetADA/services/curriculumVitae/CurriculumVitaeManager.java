@@ -19,4 +19,8 @@ public interface CurriculumVitaeManager {
 
 	public long countNbCurriculumVitae();
 	
+	public List<CurriculumVitae> findCvByTitle(String title, int limit, int offset);
+	
+	public List<CurriculumVitae> findCvByActivity(String title, int limit, int offset);
+	
 }

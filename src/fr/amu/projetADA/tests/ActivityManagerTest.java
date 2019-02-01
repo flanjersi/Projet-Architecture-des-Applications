@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.amu.projetADA.beans.cv.Activity;
@@ -42,37 +43,32 @@ public class ActivityManagerTest {
 	
 	@Before
     public void setUp() throws Exception {
-        EJBContainer.createEJBContainer().getContext().bind("inject", this);
-    
-        person = new Person("Jérémy", "Gros", getNowDate(), "1234", "example@example.com");	
-    
-        curriculumVitae = new CurriculumVitae();
-        curriculumVitae.setCreatedIn(getNowDate());
-        curriculumVitae.setTitle("Example cv");
-        
-        //Add curriculum vitae to person
-        person.setCurriculumVitae(curriculumVitae);
-        
-    	personManager.addPerson(person);
-	
-    	activity = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
-    	
-    	curriculumVitae.addActivity(activity);
-    	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
-    	activity = curriculumVitae.getActivities().get(0);
+     EJBContainer.createEJBContainer().getContext().bind("inject", this);
+   	 
+     person = new Person("Jeremy", "Gros", getNowDate(), "1234", "example@example.com");	
+	    
+     curriculumVitae = new CurriculumVitae();
+     curriculumVitae.setCreatedIn(getNowDate());
+     curriculumVitae.setTitle("Example cv");
+     person.setCurriculumVitae(curriculumVitae);
+ 	 personManager.addPerson(person);
+ 	 activity = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
+   	 curriculumVitae.addActivity(activity);
+  	 curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
+ 	 activity = curriculumVitae.getActivities().get(0);
+       
 	}
 
     @After
     public void tearDown() throws Exception {
     	personManager.removePerson(person);
-    	
     	EJBContainer.createEJBContainer().close();
     }
 
     @Test
-    public void testFindById() {
+    public void testFindById() { 	
     	Assert.assertNotNull(activityManager.findActivity(activity.getId()));
-    	Assert.assertNull(activityManager.findActivity(-1));
+    	Assert.assertNull(activityManager.findActivity(-1)); 
     }
     
     @Test
