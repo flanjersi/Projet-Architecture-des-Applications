@@ -6,7 +6,9 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import fr.amu.projetADA.beans.cv.CurriculumVitae;
@@ -29,33 +31,54 @@ public class SignUpViewController implements Serializable{
 	private Person person = new Person();
 
 	public void save() {
+		
 		if(!personViewController.isLogged()) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "You are not logged ! Please sign in before add people", "You are not logged ! Please sign in before add people");
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+					"You are not logged ! Please sign in before add people", 
+					"You are not logged ! Please sign in before add people");
+			
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(null, msg);
+	        fc.validationFailed();
+	        
+	        person.setPassword(null);
 	        
 	        return;			
 		}
 		
 		
-		if(personManager.findByemail(person.getEmail()) != null) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email already use", "Email already use");
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+		if(personManager.findByemail(person.getEmail()) != null) {	
+			/*
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					"Email already use", 
+					"Email already use");
+	        
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(null, msg);
+	        fc.validationFailed();
+	        */
+	        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+					"You are not logged ! Please sign in before add people", 
+					"You are not logged ! Please sign in before add people");
+			
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(null, msg);
+	        fc.validationFailed();
+	        
+	        
+	        person.setPassword(null);
 	        
 	        return;
 		}
 		
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Person added", "Person added");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage(null, msg);
         
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("My name is " + person.getFirstName() + " " + person.getName() + ". I was born in " + person.getBirthDay() + ".");
 		
 		person.setDescription(stringBuilder.toString());
-		
-		CurriculumVitae curriculumVitae = new CurriculumVitae();
-		curriculumVitae.setTitle("Mon premier CV");
-		
-		person.setCurriculumVitae(curriculumVitae);
 		
 		personManager.addPerson(person);
 
@@ -78,5 +101,9 @@ public class SignUpViewController implements Serializable{
 
 	public void setPersonViewController(PersonViewController personViewController) {
 		this.personViewController = personViewController;
+	}
+	
+	public void handleClose() {
+		this.person = new Person();
 	}
 }

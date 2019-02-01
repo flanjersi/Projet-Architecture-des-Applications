@@ -37,8 +37,9 @@ public class CurriculumVitaeManagerTest {
     public void setUp() throws Exception {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);
     
-        person = new Person("Jeremy", "Gros", getNowDate(), "1234", "example@example.com");	
-    
+
+        person = new Person("Jeremy", "Gros", getNowDate(), "1234", "exampleTestCV@example.com");	
+
         curriculumVitae = new CurriculumVitae();
         curriculumVitae.setCreatedIn(getNowDate());
         curriculumVitae.setTitle("Example cv");
@@ -106,7 +107,9 @@ public class CurriculumVitaeManagerTest {
     public void testFindAll() {
     	// Add a another cv 
     	
-    	Person person = new Person("Jeremy", "Gros", getNowDate(), "1234", "example2@example.com");	
+
+    	Person person = new Person("Jeremy", "Gros", getNowDate(), "1234", "exampleTestFindAllCV@example.com");	
+
         
         CurriculumVitae curriculumVitae = new CurriculumVitae();
         curriculumVitae.setCreatedIn(getNowDate());
@@ -121,6 +124,8 @@ public class CurriculumVitaeManagerTest {
     	List<CurriculumVitae> cvs = curriculumVitaeManager.findAllCurriculumVitae(-1, 0);
     	Assert.assertNotNull(cvs);    	
     	Assert.assertTrue(cvs.size() >= 2);
+    	
+    	personManager.removePerson(person);
     }
     
     @Test

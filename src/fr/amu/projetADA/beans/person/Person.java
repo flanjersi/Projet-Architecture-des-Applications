@@ -95,10 +95,10 @@ public class Person implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
 	private Date lastConnexion;
-	
 		
-	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinColumn(name="person_id", referencedColumnName="id")
+
 	private CurriculumVitae curriculumVitae;
 
 	public Person() {}
@@ -107,7 +107,7 @@ public class Person implements Serializable{
 		this.firstName = firstName;
 		this.name = name;
 		this.birthDay = birthday;
-		this.password = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);;
+		this.password = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 		this.email = email;
 	}
 

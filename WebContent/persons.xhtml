@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="/template/mylayout.xhtml">
 	<ui:param name="activeIndex" value="1" />
@@ -45,19 +46,19 @@
 							<h:outputText value="#{person.status}" />
 						</h:outputText>
 					</div>
-					<div class="ui-g-10" style="text-align:center;font-weight: bold;">
+					<div class="ui-g-10" style="text-align: center; font-weight: bold;">
 						<h:outputText value="#{person.firstName} " />
 						<h:outputText value="#{person.name}" />
 					</div>
 
-						<div style="margin-top: 1px; margin-left: auto; margin-right: 5px;">
-							<p:commandLink update=":form:personDetail"
-								oncomplete="PF('personDialog').show()" title="View Detail">
-								<h:outputText styleClass="fa fa-search" style="margin:0 auto;" />
-								<f:setPropertyActionListener value="#{person}"
-									target="#{personsView.selectedPerson}" />
-							</p:commandLink>
-						</div>
+					<div style="margin-top: 1px; margin-left: auto; margin-right: 5px;">
+						<p:commandLink update=":form:personDetail"
+							oncomplete="PF('personDialog').show()" title="View Detail">
+							<h:outputText styleClass="fa fa-search" style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{person}"
+								target="#{personsView.selectedPerson}" />
+						</p:commandLink>
+					</div>
 
 				</div>
 				<div class="ui-g">
@@ -78,48 +79,97 @@
 			<br />
 			<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
 				showEffect="fade" hideEffect="fade" resizable="false"
-				positionType="absolute" draggable="false">
-				<p:outputPanel id="personDetail" style="text-align:center;">
-					<!-- <p:panelGrid columns="2"
+				positionType="absolute" draggable="false" responsive="true" width="50%">
+				<p:outputPanel id="personDetail" >
+					 <p:panelGrid columns="2" layout="grid" responsive="true"
 				rendered="#{not empty personsView.selectedPerson}"
-				columnClasses="label,value">
- -->
-					<p>
+				columnClasses="ui-grid-col-3,ui-grid-col-9">
+
 						<h:outputText value="Name: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.name}" />
-					</p>
-					<p>
 						<h:outputText value="FirstName: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.firstName}" />
-					</p>
-					<p>
 						<h:outputText value="Birthday: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.birthDay}" />
-					</p>
-					<p>
 						<h:outputText value="Email: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.email}" />
-					</p>
-					<p>
 						<h:outputText value="Website: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.webSite}" />
-					</p>
-					<p>
 						<h:outputText value="Description: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.description}" />
-					</p>
-					<p>
 						<h:outputText value="Curriculum Vitae: " style="color:#3c8dbc;" />
-						<h:outputText
-							value="#{personsView.selectedPerson.curriculumVitae.title}" />
-					</p>
+						<h:link	value="#{personsView.selectedPerson.curriculumVitae.title}" />
+					</p:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
 
 		<p:dialog header="Add Person" widgetVar="addPersonDialog" modal="true"
 			resizable="false" responsive="true" draggable="false" width="50%">
-			<ui:include src="/template/signup.xhtml"></ui:include>
+			<p:ajax event="close" update="addPersonForm"
+				listener="#{signUpView.handleClose}" />
+
+			<h:form id="addPersonForm">
+				<c:set var="person" value="#{signUpView.person}" />
+
+				<p:messages/>
+
+				<p:panelGrid columns="3" layout="grid" columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3">
+
+					<h:outputText value="First name : " />
+					<p:inputText type="text" value="#{person.firstName}"
+						class="form-control" id="inputFirstname" placeholder="Firstname"
+						required="true" requiredMessage="First name required" />
+					<p:message for="inputFirstname" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+
+					<h:outputText value="Name :" />
+					<p:inputText type="text" value="#{person.name}"
+						class="form-control" id="inputName" placeholder="Name"
+						required="true" requiredMessage="Name required" />
+					<p:message for="inputName" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+
+					<h:outputText value="Birthday : " />
+					<p:calendar pattern="dd/MM/yyyy" id="inputBirthday"
+						value="#{person.birthDay}" navigator="true" yearRange="c-120:c"
+						maxdate="today" required="true"
+						requiredMessage="Birthday required" />
+					<p:message for="inputBirthday" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+					<h:outputText value="Email : " />
+					<p:inputText type="email" value="#{person.email}"
+						class="form-control" id="inputEmail" placeholder="Email"
+						required="true" requiredMessage="Email required" validatorMessage="Invalid email format">
+						<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+
+					<p:message for="inputEmail" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+					<h:outputText value="Password : " />
+					<p:inputText type="password" value="#{person.password}"
+						class="form-control" id="inputPassword" placeholder="Password"
+						required="true" requiredMessage="Password required" />
+					<p:message for="inputPassword" showDetail="false" display="icon">
+						<p:autoUpdate />
+					</p:message>
+
+				</p:panelGrid>
+
+				<p:commandButton value="Sign Up"
+					update=":addPersonForm :form:persons" action="#{signUpView.save()}"
+					icon="fa fa-check">
+				</p:commandButton>
+			</h:form>
 		</p:dialog>
 
 	</ui:define>

@@ -72,7 +72,7 @@ public class PersonViewController implements Serializable{
 
 
 	public boolean login(String login, String pwd) {	
-		Person p = personManager.findByEmailAndPassword(login, pwd);
+		Person p = personManager.findByEmailAndPassword(login, org.apache.commons.codec.digest.DigestUtils.sha256Hex(pwd));
 
 		if(p == null)
 			return false;
@@ -208,6 +208,10 @@ public class PersonViewController implements Serializable{
 	}
 	
 	public void addCV() {
+		if(getPerson().getCurriculumVitae() != null) {
+			return;
+		}
+		
 		CurriculumVitae curriculumVitae = new CurriculumVitae();
 		
 		curriculumVitae.setTitle(cvTitle);
@@ -217,7 +221,7 @@ public class PersonViewController implements Serializable{
 		getPerson().setCurriculumVitae(curriculumVitae);
 		personManager.updatePerson(getPerson());
 		
-		PrimeFaces.current().executeScript("PF('addCVDialog').show();");
+		PrimeFaces.current().executeScript("PF('addCVDialog').hide();PF('addActivityDialog').show();");
 	}
 
 

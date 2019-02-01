@@ -1,9 +1,7 @@
 package fr.amu.projetADA.tests;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -78,7 +76,6 @@ public class ActivityManagerTest {
     	Activity activityUpdate = activityManager.updateActivity(activity);
     	
     	System.out.println(activityUpdate);
-    	curriculumVitae.getActivities().stream().forEach(a -> System.out.println(a));
     	
     	Assert.assertTrue(curriculumVitae.getActivities().contains(activityUpdate));	
     	Assert.assertTrue(activity.equals(activityManager.findActivity(activity.getId())));

@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -67,11 +68,10 @@ public class CurriculumVitae implements Serializable{
 	@Column(nullable = true)
 	private Date createdIn;
 	
-	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "curriculumVitae")
 	private List<Activity> activities = new ArrayList<>();
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "curriculumVitae")
+	@OneToOne(fetch = FetchType.LAZY)
 	private Person person;
 	
 	public CurriculumVitae() {
@@ -139,7 +139,7 @@ public class CurriculumVitae implements Serializable{
 	@Override
 	public String toString() {
 		return "CurriculumVitae [id=" + id + ", title=" + title + ", modifiedIn=" + modifiedIn + ", createdIn="
-				+ createdIn + ", activities=" + activities + "]";
+				+ createdIn + ", activities=" + getActivities() + "]";
 	}
 
 	@Override
