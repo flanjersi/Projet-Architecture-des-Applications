@@ -115,6 +115,7 @@
 					</c:when>
 					<c:otherwise>
 						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.experience()}"
 							onclick="PF('addCVDialog').show();">
 						</p:commandButton>
 					</c:otherwise>
@@ -141,6 +142,7 @@
 					</c:when>
 					<c:otherwise>
 						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.formation()}"
 							onclick="PF('addCVDialog').show();">
 						</p:commandButton>
 					</c:otherwise>
@@ -167,6 +169,7 @@
 					</c:when>
 					<c:otherwise>
 						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.projet()}"
 							onclick="PF('addCVDialog').show();">
 						</p:commandButton>
 					</c:otherwise>
@@ -194,6 +197,7 @@
 					</c:when>
 					<c:otherwise>
 						<p:commandButton style="float:right;" icon="fa fa-plus"
+							action="#{activityPersonView.certification()}"
 							onclick="PF('addCVDialog').show();">
 						</p:commandButton>
 					</c:otherwise>
@@ -420,7 +424,7 @@
 			<h:outputText value="End :" />
 			<p:calendar pattern="dd/MM/yyyy" id="inputEnd"
 				value="#{newActivity.end}" navigator="true" yearRange="c-120:c"
-				required="true" requiredMessage="End date required" />
+				required="false"/>
 			<p:message for="inputEnd" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -450,7 +454,7 @@
 			action="#{personView.delete()}">
 		</p:commandButton>
 		<p:commandButton value="Cancel"
-			action="PF('confirmDeleteDialog').hide()">
+			onclick="PF('confirmDeleteDialog').hide()">
 		</p:commandButton>
 	</h:form>
 

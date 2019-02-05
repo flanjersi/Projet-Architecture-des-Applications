@@ -96,9 +96,8 @@ public class Person implements Serializable{
 	@Column(nullable = true)
 	private Date lastConnexion;
 		
-	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="person_id", referencedColumnName="id")
-
 	private CurriculumVitae curriculumVitae;
 
 	public Person() {}

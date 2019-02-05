@@ -71,7 +71,7 @@ public class CurriculumVitaeManagerTest {
     
     @Test
     public void testUpdateCurriculumVitae() {
-    	Activity activity = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
+    	Activity activity = new Activity("Formation", "Master 2 Informatique", getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	

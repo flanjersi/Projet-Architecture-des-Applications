@@ -67,7 +67,7 @@ public class CurriculumVitae implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "curriculumVitae")
 	private List<Activity> activities = new ArrayList<>();
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Person person;
 	
 	public CurriculumVitae() {

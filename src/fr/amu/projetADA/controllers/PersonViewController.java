@@ -71,17 +71,13 @@ public class PersonViewController implements Serializable{
 	}
 
 
-	public boolean login(String login, String pwd) {	
-		Person p = personManager.findByEmailAndPassword(login, org.apache.commons.codec.digest.DigestUtils.sha256Hex(pwd));
-
+	public void setConnectedPerson(Person p) {	
 		if(p == null)
-			return false;
+			return;
 
 		p.setLastConnexion(new Date(System.currentTimeMillis()));
 		p = personManager.updatePerson(p);
 		connectedUser.setPersonLogged(p);
-
-		return true;
 	}
 
 	public String logout() {

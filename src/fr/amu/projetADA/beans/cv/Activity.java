@@ -56,9 +56,9 @@ public class Activity implements Serializable {
 	@Column(nullable = false)
 	private Date begin;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Date end;
 	
 	@Basic(optional = true)
@@ -70,11 +70,10 @@ public class Activity implements Serializable {
 	
 	public Activity() {	}
 
-	public Activity(String type, String title, Date begin, Date end) {
+	public Activity(String type, String title, Date begin) {
 		this.type  = type;
 		this.title = title;
 		this.begin = begin;
-		this.end = end;
 	}
 
 	public long getId() {
