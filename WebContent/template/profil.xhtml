@@ -51,22 +51,20 @@
 
 			</div>
 			<div style="margin-top: 5px; margin-left: auto; margin-right: 5px;">
+				<p:commandLink onclick="PF('personDialog').show();">
+					<h:outputText styleClass="fa fa-edit fa-2x" style="margin: 3px" />
 
-				<p:commandButton icon="fa fa-edit"
-					onclick="PF('personDialog').show();">
 					<f:setPropertyActionListener value="#{person}"
 						target="#{personView.person}" />
-				</p:commandButton>
+				</p:commandLink>
 
+				<p:commandLink onclick="PF('confirmDeleteDialog').show();">
+					<h:outputText styleClass="fa fa-trash-o fa-2x" style="margin: 3px" />
+				</p:commandLink>
 
-				<p:commandButton icon="fa fa-trash-o"
-					onclick="PF('confirmDeleteDialog').show();">
-				</p:commandButton>
-
-				<p:commandButton ajax="false" icon="fa fa-sign-out"
-					action="#{personView.logout()}">
-				</p:commandButton>
-
+				<p:commandLink ajax="false" action="#{personView.logout()}">
+					<h:outputText styleClass="fa fa-sign-out fa-2x" style="margin: 5px" />
+				</p:commandLink>
 			</div>
 
 		</div>
@@ -108,16 +106,22 @@
 
 				<c:choose>
 					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.experience()}"
 							onclick="PF('addActivityDialog').show();">
-						</p:commandButton>
+
+							<h:outputText styleClass="fa fa-plus" />
+
+						</p:commandLink>
 					</c:when>
 					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.experience()}"
 							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
+
+							<h:outputText styleClass="fa fa-plus" />
+
+						</p:commandLink>
 					</c:otherwise>
 				</c:choose>
 
@@ -135,16 +139,22 @@
 
 				<c:choose>
 					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.formation()}"
 							onclick="PF('addActivityDialog').show();">
-						</p:commandButton>
+
+							<h:outputText styleClass="fa fa-plus" />
+
+						</p:commandLink>
 					</c:when>
 					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.formation()}"
 							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
+
+							<h:outputText styleClass="fa fa-plus" />
+
+						</p:commandLink>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -163,15 +173,22 @@
 
 				<c:choose>
 					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.projet()}"
-							onclick="PF('addActivityDialog').show();" />
+							onclick="PF('addActivityDialog').show();">
+
+							<h:outputText styleClass="fa fa-plus" />
+
+						</p:commandLink>
 					</c:when>
 					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.projet()}"
 							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
+
+							<h:outputText styleClass="fa fa-plus" />
+
+						</p:commandLink>
 					</c:otherwise>
 				</c:choose>
 
@@ -191,15 +208,20 @@
 
 				<c:choose>
 					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.certification()}"
-							onclick="PF('addActivityDialog').show();" />
+							onclick="PF('addActivityDialog').show();">
+
+							<h:outputText styleClass="fa fa-plus" />
+						</p:commandLink>
 					</c:when>
 					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.certification()}"
 							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
+
+							<h:outputText styleClass="fa fa-plus" />
+						</p:commandLink>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -248,7 +270,7 @@
 					<h:outputText value="Name :" />
 					<p:inputText type="text" value="#{personUpdate.name}"
 						class="form-control" id="inputName" placeholder="Name"
-						required="true" requiredMessage="Name required" maxlength="100"/>
+						required="true" requiredMessage="Name required" maxlength="100" />
 					<p:message for="inputName" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -257,7 +279,8 @@
 					<h:outputText value="First name :" />
 					<p:inputText type="text" value="#{personUpdate.firstName}"
 						class="form-control" id="inputFirstName" placeholder="Firstname"
-						required="true" requiredMessage="Firstname required" maxlength="100"/>
+						required="true" requiredMessage="Firstname required"
+						maxlength="100" />
 					<p:message for="inputFirstName" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -266,7 +289,7 @@
 					<h:outputText value="Email :" />
 					<p:inputText type="email" value="#{personUpdate.email}"
 						class="form-control" id="inputEmail" placeholder="Email"
-						required="true" requiredMessage="Email required" maxlength="100"/>
+						required="true" requiredMessage="Email required" maxlength="100" />
 					<p:message for="inputEmail" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -282,8 +305,9 @@
 
 					<h:outputText value="Status :" />
 					<p:inputText type="text" value="#{personUpdate.status}"
-						class="form-control" id="inputStatus" placeholder="Status" maxlength="100"/>
-					<p:message for="inputStatus" showDetail="false" display="icon" >
+						class="form-control" id="inputStatus" placeholder="Status"
+						maxlength="100" />
+					<p:message for="inputStatus" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
 
@@ -299,7 +323,8 @@
 
 					<h:outputText value="Website :" />
 					<p:inputText type="text" value="#{personUpdate.webSite}"
-						class="form-control" id="inputWebsite" placeholder="Website" maxlength="200"/>
+						class="form-control" id="inputWebsite" placeholder="Website"
+						maxlength="200" />
 					<p:message for="inputWebsite" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -363,7 +388,7 @@
 							value="#{personView.person.curriculumVitae.title}"
 							class="form-control" id="inputCVTitle"
 							placeholder="Current title" required="true"
-							requiredMessage="Title required" maxlength="100"/>
+							requiredMessage="Title required" maxlength="100" />
 						<p:message for="inputCVTitle" showDetail="false" display="icon">
 							<p:autoUpdate />
 						</p:message>
@@ -398,7 +423,7 @@
 			<h:outputText value="Title :" />
 			<p:inputText type="text" value="#{newActivity.title}"
 				class="form-control" id="inputTitle" placeholder="Title"
-				required="true" requiredMessage="Title required" maxlength="100"/>
+				required="true" requiredMessage="Title required" maxlength="100" />
 			<p:message for="inputTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -406,7 +431,7 @@
 			<p:inputTextarea type="text" value="#{newActivity.description}"
 				class="form-control" id="inputDescription"
 				placeholder="Write the description here"
-				requiredMessage="Description required" maxlength="3000"/>
+				requiredMessage="Description required" maxlength="3000" />
 			<p:message for="inputDescription" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -424,7 +449,7 @@
 			<h:outputText value="End :" />
 			<p:calendar pattern="dd/MM/yyyy" id="inputEnd"
 				value="#{newActivity.end}" navigator="true" yearRange="c-120:c"
-				required="false"/>
+				required="false" />
 			<p:message for="inputEnd" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -432,7 +457,8 @@
 			<h:outputText value="Website :" />
 			<p:inputText type="text" value="#{newActivity.webSite}"
 				class="form-control" id="inputWebsite" placeholder="Website" />
-			<p:message for="inputWebsite" showDetail="false" display="icon" maxlength="100">
+			<p:message for="inputWebsite" showDetail="false" display="icon"
+				maxlength="100">
 				<p:autoUpdate />
 			</p:message>
 
@@ -445,9 +471,9 @@
 	</h:form>
 </p:dialog>
 
-<p:dialog id="editActivityDialog" header="Edit activity" widgetVar="editActivityDialog"
-	width="70%" modal="true" resizable="false" responsive="true"
-	draggable="false">
+<p:dialog id="editActivityDialog" header="Edit activity"
+	widgetVar="editActivityDialog" width="70%" modal="true"
+	resizable="false" responsive="true" draggable="false">
 
 	<c:set var="editActivity" value="#{activityPersonView.updateActivity}" />
 
@@ -459,7 +485,7 @@
 			<h:outputText value="Title :" />
 			<p:inputText type="text" value="#{editActivity.title}"
 				class="form-control" id="inputTitle" placeholder="Title"
-				required="true" requiredMessage="Title required" maxlength="100"/>
+				required="true" requiredMessage="Title required" maxlength="100" />
 			<p:message for="inputTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -467,7 +493,7 @@
 			<p:inputTextarea type="text" value="#{editActivity.description}"
 				class="form-control" id="inputDescription"
 				placeholder="Write the description here"
-				requiredMessage="Description required" maxlength="3000"/>
+				requiredMessage="Description required" maxlength="3000" />
 			<p:message for="inputDescription" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -485,7 +511,7 @@
 			<h:outputText value="End :" />
 			<p:calendar pattern="dd/MM/yyyy" id="inputEnd"
 				value="#{editActivity.end}" navigator="true" yearRange="c-120:c"
-				required="false"/>
+				required="false" />
 			<p:message for="inputEnd" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -493,16 +519,16 @@
 			<h:outputText value="Website :" />
 			<p:inputText type="text" value="#{editActivity.webSite}"
 				class="form-control" id="inputWebsite" placeholder="Website" />
-			<p:message for="inputWebsite" showDetail="false" display="icon" maxlength="100">
+			<p:message for="inputWebsite" showDetail="false" display="icon"
+				maxlength="100">
 				<p:autoUpdate />
 			</p:message>
 
 		</p:panelGrid>
-		
+
 		<p:commandButton class="signup" value="Save"
 			action="#{activityPersonView.update()}"
-			update="editActivityForm infosPersonForm" 
-			icon="fa fa-check">
+			update="editActivityForm infosPersonForm" icon="fa fa-check">
 		</p:commandButton>
 
 	</h:form>
@@ -529,7 +555,7 @@
 			<h:outputText value="Title :" />
 			<p:inputText type="text" value="#{personView.cvTitle}"
 				class="form-control" id="inputCVTitle" placeholder="Title"
-				required="true" requiredMessage="Title required" maxlength="100"/>
+				required="true" requiredMessage="Title required" maxlength="100" />
 			<p:message for="inputCVTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
