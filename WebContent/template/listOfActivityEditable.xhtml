@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<c:set var="counter" value="0" />
+<c:forEach var="currentActivity" items="#{listOfActivity}">
+	<c:set var="counter" value="#{counter + 1}"/>
+
+	<div class="ui-g-12">
+		<h:outputText rendered="#{ counter > 1 }">
+			<hr />
+		</h:outputText>
+	</div>
+
+	<ui:include src="activity.xhtml">
+		<ui:param name="activity" value="#{currentActivity}" />
+	</ui:include>
+
+	<div class="ui-g-12">
+		<div class="ui-g-9" />
+		<div class="ui-g-1" />
+		<div class="ui-g-1">
+
+			<p:commandLink oncomplete="PF('editActivityDialog').show()"
+				update="infosPersonForm editActivityDialog">
+				<h:outputText styleClass="fa fa-edit" style="margin:0 auto;" />
+
+				<f:setPropertyActionListener value="#{currentActivity}"
+					target="#{activityPersonView.updateActivity}" />
+
+			</p:commandLink>
+
+		</div>
+
+		<div class="ui-g-1">
+			<p:commandLink action="#{activityPersonView.remove(currentActivity)}"
+				update="infosPersonForm">
+				<h:outputText styleClass="fa fa-trash-o" style="margin:0 auto;" />
+			</p:commandLink>
+		</div>
+	</div>
+</c:forEach>
+
+
+
+</html>

@@ -33,7 +33,14 @@ public class SignInViewController implements Serializable {
 	private String passwordFirstConnexion;
 
 	public String login() {
-		Person p = personManager.findByemail(email);
+		Person p = personManager.findByEmailAndPassword(email, org.apache.commons.codec.digest.DigestUtils.sha256Hex(password));
+
+		if(p == null) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unknow email or password", "Unknow email or password");
+			FacesContext.getCurrentInstance().addMessage(null, msg);	
+			
+			return null;
+		}
 
 		if(p != null && p.getLastConnexion() == null) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "It's your first connexion, set your new password", "It's your first connexion, set your new password");
@@ -42,16 +49,10 @@ public class SignInViewController implements Serializable {
 
 			return null;
 		}
-
-		if(personViewController.login(email, password)) {
-			return "profil?faces-redirect=true";
-		}
-
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unknow email or password", "Unknow email or password");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 		
-		return null;
-
+		personViewController.setConnectedPerson(p);
+		
+		return "profil?faces-redirect=true";
 	}
 
 	public String firstConnexion() {
@@ -62,8 +63,8 @@ public class SignInViewController implements Serializable {
 
 		personManager.updatePerson(person);
 
-		personViewController.login(email, passwordFirstConnexion);	
-
+		personViewController.setConnectedPerson(person);
+		
 		return "profil?faces-redirect=true";
 	}
 

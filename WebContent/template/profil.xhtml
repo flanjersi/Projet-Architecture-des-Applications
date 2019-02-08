@@ -37,6 +37,23 @@
 .title {
 	text-align: center !important;
 	font-size: 30px;
+	border-bottom: 1px solid #000;
+	border-top: 1px solid #000;
+}
+
+.panelCV {
+	border-bottom: 3px solid #337ab7;
+	border-top: 3px solid #337ab7;
+}
+
+.titleCV {
+	text-align: center !important;
+	font-size: 30px;
+	margin: auto;
+}
+
+.iconCV {
+	margin: auto;
 }
 </style>
 
@@ -51,22 +68,20 @@
 
 			</div>
 			<div style="margin-top: 5px; margin-left: auto; margin-right: 5px;">
+				<p:commandLink onclick="PF('personDialog').show();">
+					<h:outputText styleClass="fa fa-edit fa-2x" style="margin: 3px" />
 
-				<p:commandButton icon="fa fa-edit"
-					onclick="PF('personDialog').show();">
 					<f:setPropertyActionListener value="#{person}"
 						target="#{personView.person}" />
-				</p:commandButton>
+				</p:commandLink>
 
+				<p:commandLink onclick="PF('confirmDeleteDialog').show();">
+					<h:outputText styleClass="fa fa-trash-o fa-2x" style="margin: 3px" />
+				</p:commandLink>
 
-				<p:commandButton icon="fa fa-trash-o"
-					onclick="PF('confirmDeleteDialog').show();">
-				</p:commandButton>
-
-				<p:commandButton ajax="false" icon="fa fa-sign-out"
-					action="#{personView.logout()}">
-				</p:commandButton>
-
+				<p:commandLink ajax="false" action="#{personView.logout()}">
+					<h:outputText styleClass="fa fa-sign-out fa-2x" style="margin: 5px" />
+				</p:commandLink>
 			</div>
 
 		</div>
@@ -93,119 +108,155 @@
 				</h:outputText>
 			</div>
 		</div>
-		<hr />
 		<div class=" ui-g desc">
+			<div class="ui-g-12 title">Description</div>
+			<br />
 			<h:outputText rendered="#{not empty person.description}">
-				<div class="ui-g-12 title">Description</div>
-				<br />
-				<h:outputText value=" #{person.description}" />
+				<div class="ui-g-1" />
+
+				<div class="ui-g-10">
+					<h:outputText value=" #{person.description}" />
+				</div>
+
+				<div class="ui-g-1" />
+
 			</h:outputText>
 		</div>
-		<hr />
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Experiences
 
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+
+		<c:choose>
+			<c:when test="#{not empty personView.person.curriculumVitae}">
+				<div class="ui-g desc panelCV">
+					<div class="ui-g-4">
+						<div class="ui-g-12">
+							<div style="float: left">
+								<i> <h:outputText value="Created in: " /> <h:outputText
+										value="#{personView.person.curriculumVitae.createdIn}">
+										<f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+								</i>
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g-4 titleCV">
+						<h:outputText value="#{personView.person.curriculumVitae.title}" />
+					</div>
+
+					<div class="ui-g-4 iconCV">
+						<div class="ui-g-12">
+							<div style="float: right">
+								<i> <h:outputText value="Modified in: " /> <h:outputText
+										value="#{personView.person.curriculumVitae.modifiedIn}">
+										<f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+								</i>
+							</div>
+						</div>
+
+						<p:commandLink style="float:right;"
+							onclick="PF('confirmDeleteCVDialog').show();">
+							<h:outputText styleClass="fa fa-trash-o fa-2x" />
+						</p:commandLink>
+					</div>
+				</div>
+
+				<div class="ui-g-12" />
+
+				<div class="ui-g desc">
+					<div class="ui-g-12 title">
+						Experiences
+
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.experience()}"
 							onclick="PF('addActivityDialog').show();">
-						</p:commandButton>
-					</c:when>
-					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
-							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
-					</c:otherwise>
-				</c:choose>
 
-			</div>
+							<h:outputText styleClass="fa fa-plus" />
 
-			<ui:include src="listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.experiences}" />
-			</ui:include>
-			<br />
-		</div>
-		<hr />
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Formations
+						</p:commandLink>
 
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+					</div>
+
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity" value="#{personView.experiences}" />
+					</ui:include>
+
+
+					<br />
+				</div>
+
+
+				<div class=" ui-g desc">
+					<div class="ui-g-12 title">
+						Formations
+
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.formation()}"
 							onclick="PF('addActivityDialog').show();">
-						</p:commandButton>
-					</c:when>
-					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
-							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
-					</c:otherwise>
-				</c:choose>
-			</div>
 
-			<ui:include src="listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.formations}" />
-			</ui:include>
-			<br />
+							<h:outputText styleClass="fa fa-plus" />
 
-		</div>
-		<hr />
+						</p:commandLink>
 
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Projets
+					</div>
 
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity" value="#{personView.formations}" />
+					</ui:include>
+
+					<br />
+
+				</div>
+
+				<div class=" ui-g desc">
+					<div class="ui-g-12 title">
+						Projets
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.projet()}"
-							onclick="PF('addActivityDialog').show();" />
-					</c:when>
-					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
-							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
-					</c:otherwise>
-				</c:choose>
+							onclick="PF('addActivityDialog').show();">
 
-			</div>
+							<h:outputText styleClass="fa fa-plus" />
 
-			<ui:include src="listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.projets}" />
-			</ui:include>
+						</p:commandLink>
 
-			<br />
-		</div>
 
-		<hr />
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Certifications
+					</div>
 
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
-						<p:commandButton style="float:right;" icon="fa fa-plus"
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity" value="#{personView.projets}" />
+					</ui:include>
+
+					<br />
+				</div>
+
+				<div class=" ui-g desc">
+					<div class="ui-g-12 title">
+						Certifications
+
+						<p:commandLink style="float:right;"
 							action="#{activityPersonView.certification()}"
-							onclick="PF('addActivityDialog').show();" />
-					</c:when>
-					<c:otherwise>
-						<p:commandButton style="float:right;" icon="fa fa-plus"
-							onclick="PF('addCVDialog').show();">
-						</p:commandButton>
-					</c:otherwise>
-				</c:choose>
-			</div>
+							onclick="PF('addActivityDialog').show();">
 
-			<ui:include src="listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.certifications}" />
-			</ui:include>
-			<br />
+							<h:outputText styleClass="fa fa-plus" />
+						</p:commandLink>
 
-		</div>
+					</div>
+
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity"
+							value="#{personView.certifications}" />
+					</ui:include>
+					<br />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="ui-g-12">
+					<p:commandButton value="Add CV" icon="fa fa-plus"
+						onclick="PF('addCVDialog').show();">
+					</p:commandButton>
+				</div>
+			</c:otherwise>
+		</c:choose>
 
 	</div>
 </h:form>
@@ -244,7 +295,7 @@
 					<h:outputText value="Name :" />
 					<p:inputText type="text" value="#{personUpdate.name}"
 						class="form-control" id="inputName" placeholder="Name"
-						required="true" requiredMessage="Name required" />
+						required="true" requiredMessage="Name required" maxlength="100" />
 					<p:message for="inputName" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -253,7 +304,8 @@
 					<h:outputText value="First name :" />
 					<p:inputText type="text" value="#{personUpdate.firstName}"
 						class="form-control" id="inputFirstName" placeholder="Firstname"
-						required="true" requiredMessage="Firstname required" />
+						required="true" requiredMessage="Firstname required"
+						maxlength="100" />
 					<p:message for="inputFirstName" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -262,7 +314,7 @@
 					<h:outputText value="Email :" />
 					<p:inputText type="email" value="#{personUpdate.email}"
 						class="form-control" id="inputEmail" placeholder="Email"
-						required="true" requiredMessage="Email required" />
+						required="true" requiredMessage="Email required" maxlength="100" />
 					<p:message for="inputEmail" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -278,7 +330,8 @@
 
 					<h:outputText value="Status :" />
 					<p:inputText type="text" value="#{personUpdate.status}"
-						class="form-control" id="inputStatus" placeholder="Status" />
+						class="form-control" id="inputStatus" placeholder="Status"
+						maxlength="100" />
 					<p:message for="inputStatus" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -295,7 +348,8 @@
 
 					<h:outputText value="Website :" />
 					<p:inputText type="text" value="#{personUpdate.webSite}"
-						class="form-control" id="inputWebsite" placeholder="Website" />
+						class="form-control" id="inputWebsite" placeholder="Website"
+						maxlength="200" />
 					<p:message for="inputWebsite" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -359,14 +413,14 @@
 							value="#{personView.person.curriculumVitae.title}"
 							class="form-control" id="inputCVTitle"
 							placeholder="Current title" required="true"
-							requiredMessage="Title required" />
+							requiredMessage="Title required" maxlength="100" />
 						<p:message for="inputCVTitle" showDetail="false" display="icon">
 							<p:autoUpdate />
 						</p:message>
 					</p:panelGrid>
 
 					<p:commandButton value="Save" action="#{personView.editCVTitle()}"
-						update="updateTitleCV" icon="fa fa-check">
+						update="updateTitleCV :infosPersonForm" icon="fa fa-check">
 					</p:commandButton>
 				</h:form>
 			</p:tab>
@@ -374,9 +428,6 @@
 		</c:if>
 
 	</p:tabView>
-
-
-
 </p:dialog>
 
 
@@ -394,7 +445,7 @@
 			<h:outputText value="Title :" />
 			<p:inputText type="text" value="#{newActivity.title}"
 				class="form-control" id="inputTitle" placeholder="Title"
-				required="true" requiredMessage="Title required" />
+				required="true" requiredMessage="Title required" maxlength="100" />
 			<p:message for="inputTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -402,7 +453,7 @@
 			<p:inputTextarea type="text" value="#{newActivity.description}"
 				class="form-control" id="inputDescription"
 				placeholder="Write the description here"
-				requiredMessage="Description required" />
+				requiredMessage="Description required" maxlength="3000" />
 			<p:message for="inputDescription" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -420,7 +471,7 @@
 			<h:outputText value="End :" />
 			<p:calendar pattern="dd/MM/yyyy" id="inputEnd"
 				value="#{newActivity.end}" navigator="true" yearRange="c-120:c"
-				required="true" requiredMessage="End date required" />
+				required="false" />
 			<p:message for="inputEnd" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -428,7 +479,8 @@
 			<h:outputText value="Website :" />
 			<p:inputText type="text" value="#{newActivity.webSite}"
 				class="form-control" id="inputWebsite" placeholder="Website" />
-			<p:message for="inputWebsite" showDetail="false" display="icon">
+			<p:message for="inputWebsite" showDetail="false" display="icon"
+				maxlength="100">
 				<p:autoUpdate />
 			</p:message>
 
@@ -439,8 +491,69 @@
 		</p:commandButton>
 
 	</h:form>
+</p:dialog>
+
+<p:dialog id="editActivityDialog" header="Edit activity"
+	widgetVar="editActivityDialog" width="70%" modal="true"
+	resizable="false" responsive="true" draggable="false">
+
+	<c:set var="editActivity" value="#{activityPersonView.updateActivity}" />
+
+	<h:form id="editActivityForm">
+		<p:messages />
+
+		<p:panelGrid columns="3" layout="grid">
+
+			<h:outputText value="Title :" />
+			<p:inputText type="text" value="#{editActivity.title}"
+				class="form-control" id="inputTitle" placeholder="Title"
+				required="true" requiredMessage="Title required" maxlength="100" />
+			<p:message for="inputTitle" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+			<h:outputText value="Description :" />
+			<p:inputTextarea type="text" value="#{editActivity.description}"
+				class="form-control" id="inputDescription"
+				placeholder="Write the description here"
+				requiredMessage="Description required" maxlength="3000" />
+			<p:message for="inputDescription" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
 
 
+			<h:outputText value="Begin :" />
+			<p:calendar pattern="dd/MM/yyyy" id="inputBegin"
+				value="#{editActivity.begin}" navigator="true" yearRange="c-120:c"
+				maxdate="today" required="true"
+				requiredMessage="Begin date required" />
+			<p:message for="inputBegin" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+
+			<h:outputText value="End :" />
+			<p:calendar pattern="dd/MM/yyyy" id="inputEnd"
+				value="#{editActivity.end}" navigator="true" yearRange="c-120:c"
+				required="false" />
+			<p:message for="inputEnd" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+
+			<h:outputText value="Website :" />
+			<p:inputText type="text" value="#{editActivity.webSite}"
+				class="form-control" id="inputWebsite" placeholder="Website" />
+			<p:message for="inputWebsite" showDetail="false" display="icon"
+				maxlength="100">
+				<p:autoUpdate />
+			</p:message>
+
+		</p:panelGrid>
+
+		<p:commandButton class="signup" value="Save"
+			action="#{activityPersonView.update()}"
+			update="editActivityForm infosPersonForm" icon="fa fa-check">
+		</p:commandButton>
+
+	</h:form>
 </p:dialog>
 
 <p:dialog header="Confirm delete" widgetVar="confirmDeleteDialog"
@@ -450,11 +563,23 @@
 			action="#{personView.delete()}">
 		</p:commandButton>
 		<p:commandButton value="Cancel"
-			action="PF('confirmDeleteDialog').hide()">
+			onclick="PF('confirmDeleteDialog').hide()">
 		</p:commandButton>
 	</h:form>
-
 </p:dialog>
+
+<p:dialog header="Confirm delete CV" widgetVar="confirmDeleteCVDialog"
+	modal="true" resizable="false" responsive="true" draggable="false">
+	<h:form>
+		<p:commandButton ajax="false" value="Confirm" onclick="PF('confirmDeleteCVDialog').hide();"
+			action="#{personView.deleteCV()}">
+		</p:commandButton>
+		<p:commandButton value="Cancel"
+			onclick="PF('confirmDeleteDialog').hide()">
+		</p:commandButton>
+	</h:form>
+</p:dialog>
+
 
 <p:dialog header="Add curiculum vitae" widgetVar="addCVDialog"
 	width="50%" modal="true" resizable="false" responsive="true"
@@ -464,13 +589,13 @@
 			<h:outputText value="Title :" />
 			<p:inputText type="text" value="#{personView.cvTitle}"
 				class="form-control" id="inputCVTitle" placeholder="Title"
-				required="true" requiredMessage="Title required" />
+				required="true" requiredMessage="Title required" maxlength="100" />
 			<p:message for="inputCVTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
 		</p:panelGrid>
 
-		<p:commandButton class="signup" value="Add"
+		<p:commandButton value="Add" onclick="PF('addCVDialog').hide();"
 			action="#{personView.addCV()}" update="infosPersonForm"
 			icon="fa fa-check">
 		</p:commandButton>

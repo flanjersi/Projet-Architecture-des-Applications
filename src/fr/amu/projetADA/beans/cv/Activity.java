@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,24 +32,28 @@ import javax.persistence.TemporalType;
 })
 public class Activity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8785601244478399979L;
+
 	private final static Logger logger = Logger.getLogger(Activity.class.getName());
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id	;
 	
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String type;
 	
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String title;
 	
 	@Basic(optional = true)
-	@Column(nullable = true)
+	@Column(nullable = true, length = 3000)
 	private String description;
 	
 	@Basic(optional = false)
@@ -56,25 +61,25 @@ public class Activity implements Serializable {
 	@Column(nullable = false)
 	private Date begin;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Date end;
 	
 	@Basic(optional = true)
-	@Column(nullable = true)
+	@Column(nullable = true, length = 100)
 	private String webSite;
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name="curriculumVitae_id")
 	private CurriculumVitae curriculumVitae;
 	
 	public Activity() {	}
 
-	public Activity(String type, String title, Date begin, Date end) {
+	public Activity(String type, String title, Date begin) {
 		this.type  = type;
 		this.title = title;
 		this.begin = begin;
-		this.end = end;
 	}
 
 	public long getId() {

@@ -41,25 +41,32 @@ public class ActivityManagerTest {
 	
 	@Before
     public void setUp() throws Exception {
-     EJBContainer.createEJBContainer().getContext().bind("inject", this);
-   	 
-     person = new Person("Jeremy", "Gros", getNowDate(), "1234", "example@example.com");	
-	    
-     curriculumVitae = new CurriculumVitae();
-     curriculumVitae.setCreatedIn(getNowDate());
-     curriculumVitae.setTitle("Example cv");
-     person.setCurriculumVitae(curriculumVitae);
- 	 personManager.addPerson(person);
- 	 activity = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
-   	 curriculumVitae.addActivity(activity);
-  	 curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
- 	 activity = curriculumVitae.getActivities().get(0);
-       
+
+        EJBContainer.createEJBContainer().getContext().bind("inject", this);
+    
+        person = new Person("J�r�my", "Gros", getNowDate(), "1234", "example@example.com");	
+    
+        curriculumVitae = new CurriculumVitae();
+        curriculumVitae.setCreatedIn(getNowDate());
+        curriculumVitae.setTitle("Example cv");
+        
+        //Add curriculum vitae to person
+        person.setCurriculumVitae(curriculumVitae);
+        
+    	personManager.addPerson(person);
+	
+    	activity = new Activity("Formation", "Master 2 Informatique", getNowDate());
+    	
+    	curriculumVitae.addActivity(activity);
+    	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
+    	activity = curriculumVitae.getActivities().get(0);
+
 	}
 
     @After
     public void tearDown() throws Exception {
     	personManager.removePerson(person);
+
     	EJBContainer.createEJBContainer().close();
     }
 
@@ -84,7 +91,7 @@ public class ActivityManagerTest {
     @Test
     public void testRemoveActivity() {
     	
-    	Activity activityAdded = new Activity("Formation", "Master 1 Informatique", getNowDate(), getNowDate());
+    	Activity activityAdded = new Activity("Formation", "Master 1 Informatique", getNowDate());
     	
     	curriculumVitae.addActivity(activityAdded);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -103,7 +110,7 @@ public class ActivityManagerTest {
     @Test
     public void testFindAll() {
     	// Add other activity
-    	Activity activity = new Activity("Formation", "Master 1 Informatique", getNowDate(), getNowDate());
+    	Activity activity = new Activity("Formation", "Master 1 Informatique", getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);
@@ -114,7 +121,7 @@ public class ActivityManagerTest {
     
     @Test
     public void findActivitiesByTitle() {
-    	Activity activity = new Activity("Formation", "Licence Informatique", getNowDate(), getNowDate());
+    	Activity activity = new Activity("Formation", "Licence Informatique", getNowDate());
     	
     	curriculumVitae.addActivity(activity);
     	curriculumVitae = curriculumVitaeManager.updateCurriculumVitae(curriculumVitae);

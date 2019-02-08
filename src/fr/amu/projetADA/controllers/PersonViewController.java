@@ -71,17 +71,13 @@ public class PersonViewController implements Serializable{
 	}
 
 
-	public boolean login(String login, String pwd) {	
-		Person p = personManager.findByEmailAndPassword(login, org.apache.commons.codec.digest.DigestUtils.sha256Hex(pwd));
-
+	public void setConnectedPerson(Person p) {	
 		if(p == null)
-			return false;
+			return;
 
 		p.setLastConnexion(new Date(System.currentTimeMillis()));
 		p = personManager.updatePerson(p);
 		connectedUser.setPersonLogged(p);
-
-		return true;
 	}
 
 	public String logout() {
@@ -101,6 +97,12 @@ public class PersonViewController implements Serializable{
 		return "profil?faces-redirect=true";
 	}
 
+	public void deleteCV() {
+		getPerson().setCurriculumVitae(null);
+		
+		personManager.updatePerson(getPerson());
+	}
+	
 	public boolean isLogged()  {
 		return connectedUser.getPersonLogged() != null;
 	}
@@ -212,16 +214,11 @@ public class PersonViewController implements Serializable{
 			return;
 		}
 		
-		CurriculumVitae curriculumVitae = new CurriculumVitae();
-		
-		curriculumVitae.setTitle(cvTitle);
-		curriculumVitae.setCreatedIn(new Date(System.currentTimeMillis()));
-		curriculumVitae.setModifiedIn(new Date(System.currentTimeMillis()));
+		CurriculumVitae curriculumVitae = new CurriculumVitae(cvTitle);
 		
 		getPerson().setCurriculumVitae(curriculumVitae);
 		personManager.updatePerson(getPerson());
 		
-		PrimeFaces.current().executeScript("PF('addCVDialog').hide();PF('addActivityDialog').show();");
 	}
 
 

@@ -3,7 +3,6 @@ package fr.amu.projetADA.controllers;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -12,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.PrimeFaces;
 
 import fr.amu.projetADA.beans.cv.Activity;
+import fr.amu.projetADA.services.activity.ActivityManager;
 import fr.amu.projetADA.services.person.PersonManager;
 
 @ManagedBean(name = "activityPersonView")
@@ -23,10 +23,15 @@ public class ActivityPersonViewController implements Serializable{
 	@EJB
 	private PersonManager personManager;
 	
+	@EJB
+	private ActivityManager activityManager;
+	
 	@ManagedProperty("#{personView}")
 	private PersonViewController personViewController;
 
 	private Activity activity;
+	
+	private Activity updateActivity;
 	
 	public ActivityPersonViewController() {
 		activity = new Activity();		
@@ -42,7 +47,7 @@ public class ActivityPersonViewController implements Serializable{
 
 	public void add() {
 		if(personViewController.getPerson().getCurriculumVitae() == null) {
-			PrimeFaces.current().executeScript("PF('addCVDialog').show();");
+			PrimeFaces.current().executeScript("PF('addActivityDialog').hide();PF('addCVDialog').show();");
 			return;
 		}
 		
@@ -51,7 +56,29 @@ public class ActivityPersonViewController implements Serializable{
 		
 		activity = new Activity();
 		
-		PrimeFaces.current().executeScript("PF('addActivityDialog').show();");
+		PrimeFaces.current().executeScript("PF('addActivityDialog').hide();");
+	}
+	
+	public void update() {
+		if(personViewController.getPerson().getCurriculumVitae() == null) {
+			return;
+		}
+		
+		activityManager.updateActivity(updateActivity);
+		
+		PrimeFaces.current().executeScript("PF('editActivityDialog').hide();");	
+	}
+	
+	public void remove(Activity activity) {
+		if(personViewController.getPerson().getCurriculumVitae() == null) {
+			return;
+		}
+		
+		personViewController
+			.getPerson()
+			.getCurriculumVitae().getActivities().remove(activity);
+		
+		personManager.updatePerson(personViewController.getPerson());
 	}
 	
 	public void experience() {
@@ -76,6 +103,14 @@ public class ActivityPersonViewController implements Serializable{
 
 	public void setPersonViewController(PersonViewController personViewController) {
 		this.personViewController = personViewController;
+	}
+
+	public Activity getUpdateActivity() {
+		return updateActivity;
+	}
+
+	public void setUpdateActivity(Activity updateActivity) {
+		this.updateActivity = updateActivity;
 	}
 	
 	

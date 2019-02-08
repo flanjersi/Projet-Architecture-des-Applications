@@ -36,27 +36,32 @@ import fr.amu.projetADA.beans.person.Person;
 @Table(name = "CurriculumVitae")
 
 @NamedQueries({
-@NamedQuery(name = "findAllCurriculumVitae", query = "From CurriculumVitae"),
+
+@NamedQuery(name = "findAllCurriculumVitae", query = "SELECT DISTINCT cv From CurriculumVitae cv"),
 @NamedQuery(name = "countCurriculumsVitae", query = "SELECT count(cv.id) From CurriculumVitae cv"),
 @NamedQuery(name = "findCurriculumVitaeByTitle", query = "From CurriculumVitae WHERE LOWER(title) LIKE CONCAT('%',LOWER(:title),'%')"),
 @NamedQuery(name = "findCurriculumVitaeByActivity", query = "SELECT cv from CurriculumVitae cv join cv.activities activity where LOWER(activity.title) LIKE CONCAT('%',LOWER(:title),'%')")
+
 })
 
 public class CurriculumVitae implements Serializable{
 
-	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8445949215240599361L;
+
 	private final static Logger logger = Logger.getLogger(CurriculumVitae.class.getName());
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String title;
 	
-
 	@Basic(optional = true)
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
@@ -71,12 +76,19 @@ public class CurriculumVitae implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "curriculumVitae")
 	private List<Activity> activities = new ArrayList<>();
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="curriculumVitae")
+	@JoinColumn(name="person_id")
 	private Person person;
 	
 	public CurriculumVitae() {
 		this.createdIn = new Date(System.currentTimeMillis());
 		this.modifiedIn = new Date(System.currentTimeMillis());
+	}
+	
+	public CurriculumVitae(String title) {
+		this.createdIn = new Date(System.currentTimeMillis());
+		this.modifiedIn = new Date(System.currentTimeMillis());
+		this.title = title;
 	}
 	
 	public long getId() {

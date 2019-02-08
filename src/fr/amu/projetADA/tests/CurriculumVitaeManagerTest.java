@@ -79,7 +79,9 @@ public class CurriculumVitaeManagerTest {
 
     @Test
     public void testUpdateCurriculumVitae() {
-    	Activity activity = new Activity("Formation", "Master 2 Informatiquee", getNowDate(), getNowDate());
+
+    	Activity activity = new Activity("Formation", "Master 2 Informatique", getNowDate());
+
     	
     	curriculumVitae.addActivity(activity);
     	
@@ -174,9 +176,9 @@ public class CurriculumVitaeManagerTest {
     	Person person2 = new Person("youcef", "guellil", getNowDate(), "1234", "example331@example.com");
     	Person person3 = new Person("youcef", "guellil", getNowDate(), "1234", "example3331@example.com");
     	
-    	Activity activity1 = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
-    	Activity activity2 = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
-    	Activity activity3 = new Activity("Formation", "Master 1 Informatique", getNowDate(), getNowDate());
+    	Activity activity1 = new Activity("Formation", "Master 2 Informatique", getNowDate());
+    	Activity activity2 = new Activity("Formation", "Master 2 Informatique", getNowDate());
+    	Activity activity3 = new Activity("Formation", "Master 1 Informatique", getNowDate());
        
     	CurriculumVitae curriculumVitae = new CurriculumVitae();
         CurriculumVitae curriculumVitae1 = new CurriculumVitae();
