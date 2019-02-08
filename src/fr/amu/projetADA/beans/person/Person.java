@@ -50,12 +50,16 @@ import fr.amu.projetADA.beans.cv.CurriculumVitae;
 )
 public class Person implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9080475780123353521L;
 
 	private final static Logger logger = Logger.getLogger(Person.class.getName());
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
 	@Basic(optional = false)
@@ -96,8 +100,7 @@ public class Person implements Serializable{
 	@Column(nullable = true)
 	private Date lastConnexion;
 		
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="person_id", referencedColumnName="id")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private CurriculumVitae curriculumVitae;
 
 	public Person() {}

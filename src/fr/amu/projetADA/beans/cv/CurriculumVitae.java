@@ -41,12 +41,16 @@ import fr.amu.projetADA.beans.person.Person;
 })
 public class CurriculumVitae implements Serializable{
 
-	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8445949215240599361L;
+
 	private final static Logger logger = Logger.getLogger(CurriculumVitae.class.getName());
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	
 	@Basic(optional = false)
@@ -67,7 +71,8 @@ public class CurriculumVitae implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "curriculumVitae")
 	private List<Activity> activities = new ArrayList<>();
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="curriculumVitae")
+	@JoinColumn(name="person_id")
 	private Person person;
 	
 	public CurriculumVitae() {

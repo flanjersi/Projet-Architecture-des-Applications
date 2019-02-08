@@ -64,7 +64,7 @@ public class ActivityManagerTest {
     @After
     public void tearDown() throws Exception {
     	personManager.removePerson(person);
-    	
+    
     	EJBContainer.createEJBContainer().close();
     }
 

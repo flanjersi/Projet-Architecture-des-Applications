@@ -97,6 +97,12 @@ public class PersonViewController implements Serializable{
 		return "profil?faces-redirect=true";
 	}
 
+	public void deleteCV() {
+		getPerson().setCurriculumVitae(null);
+		
+		personManager.updatePerson(getPerson());
+	}
+	
 	public boolean isLogged()  {
 		return connectedUser.getPersonLogged() != null;
 	}
@@ -213,7 +219,6 @@ public class PersonViewController implements Serializable{
 		getPerson().setCurriculumVitae(curriculumVitae);
 		personManager.updatePerson(getPerson());
 		
-		PrimeFaces.current().executeScript("PF('addCVDialog').hide();PF('addActivityDialog').show();");
 	}
 
 

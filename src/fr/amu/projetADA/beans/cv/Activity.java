@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,12 +32,16 @@ import javax.persistence.TemporalType;
 })
 public class Activity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8785601244478399979L;
+
 	private final static Logger logger = Logger.getLogger(Activity.class.getName());
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id	;
 	
 	@Basic(optional = false)
@@ -65,7 +70,8 @@ public class Activity implements Serializable {
 	@Column(nullable = true, length = 100)
 	private String webSite;
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name="curriculumVitae_id")
 	private CurriculumVitae curriculumVitae;
 	
 	public Activity() {	}

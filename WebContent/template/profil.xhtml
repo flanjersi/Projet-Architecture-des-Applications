@@ -37,8 +37,23 @@
 .title {
 	text-align: center !important;
 	font-size: 30px;
-	border-bottom: 1px solid #000; 
+	border-bottom: 1px solid #000;
 	border-top: 1px solid #000;
+}
+
+.panelCV {
+	border-bottom: 3px solid #337ab7;
+	border-top: 3px solid #337ab7;
+}
+
+.titleCV {
+	text-align: center !important;
+	font-size: 30px;
+	margin: auto;
+}
+
+.iconCV {
+	margin: auto;
 }
 </style>
 
@@ -94,18 +109,64 @@
 			</div>
 		</div>
 		<div class=" ui-g desc">
+			<div class="ui-g-12 title">Description</div>
+			<br />
 			<h:outputText rendered="#{not empty person.description}">
-				<div class="ui-g-12 title">Description</div>
-				<br />
-				<h:outputText value=" #{person.description}" />
+				<div class="ui-g-1" />
+
+				<div class="ui-g-10">
+					<h:outputText value=" #{person.description}" />
+				</div>
+
+				<div class="ui-g-1" />
+
 			</h:outputText>
 		</div>
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Experiences
 
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
+
+		<c:choose>
+			<c:when test="#{not empty personView.person.curriculumVitae}">
+				<div class="ui-g desc panelCV">
+					<div class="ui-g-4">
+						<div class="ui-g-12">
+							<div style="float: left">
+								<i> <h:outputText value="Created in: " /> <h:outputText
+										value="#{personView.person.curriculumVitae.createdIn}">
+										<f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+								</i>
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g-4 titleCV">
+						<h:outputText value="#{personView.person.curriculumVitae.title}" />
+					</div>
+
+					<div class="ui-g-4 iconCV">
+						<div class="ui-g-12">
+							<div style="float: right">
+								<i> <h:outputText value="Modified in: " /> <h:outputText
+										value="#{personView.person.curriculumVitae.modifiedIn}">
+										<f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+								</i>
+							</div>
+						</div>
+
+						<p:commandLink style="float:right;"
+							onclick="PF('confirmDeleteCVDialog').show();">
+							<h:outputText styleClass="fa fa-trash-o fa-2x" />
+						</p:commandLink>
+					</div>
+				</div>
+
+				<div class="ui-g-12" />
+
+				<div class="ui-g desc">
+					<div class="ui-g-12 title">
+						Experiences
+
 						<p:commandLink style="float:right;"
 							action="#{activityPersonView.experience()}"
 							onclick="PF('addActivityDialog').show();">
@@ -113,31 +174,22 @@
 							<h:outputText styleClass="fa fa-plus" />
 
 						</p:commandLink>
-					</c:when>
-					<c:otherwise>
-						<p:commandLink style="float:right;"
-							action="#{activityPersonView.experience()}"
-							onclick="PF('addCVDialog').show();">
 
-							<h:outputText styleClass="fa fa-plus" />
+					</div>
 
-						</p:commandLink>
-					</c:otherwise>
-				</c:choose>
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity" value="#{personView.experiences}" />
+					</ui:include>
 
-			</div>
 
-			<ui:include src="listOfActivityEditable.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.experiences}" />
-			</ui:include>
-			<br />
-		</div>
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Formations
+					<br />
+				</div>
 
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
+
+				<div class=" ui-g desc">
+					<div class="ui-g-12 title">
+						Formations
+
 						<p:commandLink style="float:right;"
 							action="#{activityPersonView.formation()}"
 							onclick="PF('addActivityDialog').show();">
@@ -145,32 +197,20 @@
 							<h:outputText styleClass="fa fa-plus" />
 
 						</p:commandLink>
-					</c:when>
-					<c:otherwise>
-						<p:commandLink style="float:right;"
-							action="#{activityPersonView.formation()}"
-							onclick="PF('addCVDialog').show();">
 
-							<h:outputText styleClass="fa fa-plus" />
+					</div>
 
-						</p:commandLink>
-					</c:otherwise>
-				</c:choose>
-			</div>
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity" value="#{personView.formations}" />
+					</ui:include>
 
-			<ui:include src="listOfActivityEditable.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.formations}" />
-			</ui:include>
-			<br />
+					<br />
 
-		</div>
+				</div>
 
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Projets
-
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
+				<div class=" ui-g desc">
+					<div class="ui-g-12 title">
+						Projets
 						<p:commandLink style="float:right;"
 							action="#{activityPersonView.projet()}"
 							onclick="PF('addActivityDialog').show();">
@@ -178,57 +218,45 @@
 							<h:outputText styleClass="fa fa-plus" />
 
 						</p:commandLink>
-					</c:when>
-					<c:otherwise>
-						<p:commandLink style="float:right;"
-							action="#{activityPersonView.projet()}"
-							onclick="PF('addCVDialog').show();">
 
-							<h:outputText styleClass="fa fa-plus" />
 
-						</p:commandLink>
-					</c:otherwise>
-				</c:choose>
+					</div>
 
-			</div>
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity" value="#{personView.projets}" />
+					</ui:include>
 
-			<ui:include src="listOfActivityEditable.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.projets}" />
-			</ui:include>
+					<br />
+				</div>
 
-			<br />
-		</div>
+				<div class=" ui-g desc">
+					<div class="ui-g-12 title">
+						Certifications
 
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Certifications
-
-				<c:choose>
-					<c:when test="#{not empty personView.person.curriculumVitae}">
 						<p:commandLink style="float:right;"
 							action="#{activityPersonView.certification()}"
 							onclick="PF('addActivityDialog').show();">
 
 							<h:outputText styleClass="fa fa-plus" />
 						</p:commandLink>
-					</c:when>
-					<c:otherwise>
-						<p:commandLink style="float:right;"
-							action="#{activityPersonView.certification()}"
-							onclick="PF('addCVDialog').show();">
 
-							<h:outputText styleClass="fa fa-plus" />
-						</p:commandLink>
-					</c:otherwise>
-				</c:choose>
-			</div>
+					</div>
 
-			<ui:include src="listOfActivityEditable.xhtml">
-				<ui:param name="listOfActivity" value="#{personView.certifications}" />
-			</ui:include>
-			<br />
-
-		</div>
+					<ui:include src="listOfActivityEditable.xhtml">
+						<ui:param name="listOfActivity"
+							value="#{personView.certifications}" />
+					</ui:include>
+					<br />
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="ui-g-12">
+					<p:commandButton value="Add CV" icon="fa fa-plus"
+						onclick="PF('addCVDialog').show();">
+					</p:commandButton>
+				</div>
+			</c:otherwise>
+		</c:choose>
 
 	</div>
 </h:form>
@@ -392,7 +420,7 @@
 					</p:panelGrid>
 
 					<p:commandButton value="Save" action="#{personView.editCVTitle()}"
-						update="updateTitleCV" icon="fa fa-check">
+						update="updateTitleCV :infosPersonForm" icon="fa fa-check">
 					</p:commandButton>
 				</h:form>
 			</p:tab>
@@ -400,9 +428,6 @@
 		</c:if>
 
 	</p:tabView>
-
-
-
 </p:dialog>
 
 
@@ -541,8 +566,20 @@
 			onclick="PF('confirmDeleteDialog').hide()">
 		</p:commandButton>
 	</h:form>
-
 </p:dialog>
+
+<p:dialog header="Confirm delete CV" widgetVar="confirmDeleteCVDialog"
+	modal="true" resizable="false" responsive="true" draggable="false">
+	<h:form>
+		<p:commandButton ajax="false" value="Confirm" onclick="PF('confirmDeleteCVDialog').hide();"
+			action="#{personView.deleteCV()}">
+		</p:commandButton>
+		<p:commandButton value="Cancel"
+			onclick="PF('confirmDeleteDialog').hide()">
+		</p:commandButton>
+	</h:form>
+</p:dialog>
+
 
 <p:dialog header="Add curiculum vitae" widgetVar="addCVDialog"
 	width="50%" modal="true" resizable="false" responsive="true"
@@ -558,7 +595,7 @@
 			</p:message>
 		</p:panelGrid>
 
-		<p:commandButton class="signup" value="Add"
+		<p:commandButton value="Add" onclick="PF('addCVDialog').hide();"
 			action="#{personView.addCV()}" update="infosPersonForm"
 			icon="fa fa-check">
 		</p:commandButton>
