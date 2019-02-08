@@ -47,16 +47,27 @@ public class CurriculumVitaeViewController implements Serializable{
 			public List<CurriculumVitae> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 					Map<String, Object> filters) {
 
-			//	if(filter == null || filter.length() == 0){
+				if(filter == null || filter.length() == 0){
 					curriculumsVitae.setRowCount((int) curriculumVitaeManager.countNbCurriculumVitae());
 					List<CurriculumVitae> cvsData = curriculumVitaeManager.findAllCurriculumVitae(pageSize, first);
 					setNbData(cvsData.size());
 					
-					return curriculumVitaeManager.findAllCurriculumVitae(pageSize, first);
-				/*}
+					return cvsData;
+				}
 				else {
-					curriculumsVitae.setRowCount((int) curriculumVitaeManager.
-				}*/
+					
+					curriculumsVitae.setRowCount((int) curriculumVitaeManager.sizeOfCvs(filter,pageSize,first));
+					List<CurriculumVitae> cvsByActivity = curriculumVitaeManager.findCvByActivity(filter,pageSize,first);
+					List<CurriculumVitae> cvsByTitle = curriculumVitaeManager.findCvByTitle(filter,pageSize,first);
+					List<CurriculumVitae> concatCvs = new ArrayList<>();
+					concatCvs.addAll(cvsByActivity);
+					concatCvs.addAll(cvsByTitle);
+		
+					//curriculumsVitae.setRowCount((int) curriculumVitaeManager.findCvByActivity(filter,pageSize,first));
+					
+					setNbData(concatCvs.size());
+					return concatCvs;
+				}
 			}
 		};	
 	}

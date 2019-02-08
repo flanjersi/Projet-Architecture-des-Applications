@@ -29,7 +29,7 @@ import fr.amu.projetADA.beans.person.Person;
 
 /**
  * Class which represents a curriculum vitae of a person
- * @author Jeremy
+ * @author Jeremy Youcef
  *
  */
 @Entity
@@ -39,7 +39,7 @@ import fr.amu.projetADA.beans.person.Person;
 @NamedQuery(name = "findAllCurriculumVitae", query = "From CurriculumVitae"),
 @NamedQuery(name = "countCurriculumsVitae", query = "SELECT count(cv.id) From CurriculumVitae cv"),
 @NamedQuery(name = "findCurriculumVitaeByTitle", query = "From CurriculumVitae WHERE LOWER(title) LIKE CONCAT('%',LOWER(:title),'%')"),
-@NamedQuery(name = "findCurriculumVitaeByActivity", query = "From CurriculumVitae WHERE LOWER(title) LIKE CONCAT('%',LOWER(:title),'%')")
+@NamedQuery(name = "findCurriculumVitaeByActivity", query = "SELECT cv from CurriculumVitae cv join cv.activities activity where LOWER(activity.title) LIKE CONCAT('%',LOWER(:title),'%')")
 })
 
 public class CurriculumVitae implements Serializable{

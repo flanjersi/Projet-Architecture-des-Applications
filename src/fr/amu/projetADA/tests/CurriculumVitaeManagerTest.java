@@ -17,6 +17,7 @@ import org.junit.Test;
 import fr.amu.projetADA.beans.cv.Activity;
 import fr.amu.projetADA.beans.cv.CurriculumVitae;
 import fr.amu.projetADA.beans.person.Person;
+import fr.amu.projetADA.services.activity.ActivityManager;
 import fr.amu.projetADA.services.curriculumVitae.CurriculumVitaeManager;
 import fr.amu.projetADA.services.person.PersonManager;
 
@@ -28,10 +29,15 @@ public class CurriculumVitaeManagerTest {
 
 	@EJB
     PersonManager personManager;
+	
+	@EJB
+    ActivityManager activityManager;
 
 	private Person person;
 	
 	private CurriculumVitae curriculumVitae;
+	
+	private Activity activity;
 	
 	@Before
     public void setUp() throws Exception {
@@ -65,14 +71,13 @@ public class CurriculumVitaeManagerTest {
     }
     
     @Test
-   
     public void testFindById() {
     	Assert.assertNotNull(curriculumVitaeManager.findCurriculumVitae(curriculumVitae.getId()));
     	Assert.assertNull(curriculumVitaeManager.findCurriculumVitae(-1));
     }
     
+
     @Test
-    @Ignore
     public void testUpdateCurriculumVitae() {
     	Activity activity = new Activity("Formation", "Master 2 Informatiquee", getNowDate(), getNowDate());
     	
@@ -89,7 +94,6 @@ public class CurriculumVitaeManagerTest {
     }
     
     @Test
-    @Ignore
     public void testRemoveCurriculumVitae() {
     	
     	long id = curriculumVitae.getId();
@@ -103,13 +107,9 @@ public class CurriculumVitaeManagerTest {
     }
     
     @Test
-    @Ignore
     public void testFindAll() {
-    	// Add a another cv 
     	
-
-    	Person person = new Person("Jeremy", "Gros", getNowDate(), "1234", "exampleTestFindAllCV@example.com");	
-
+    	Person person = new Person("Jeremy", "Gros", getNowDate(), "1234", "exampleTestFindAllCV@example.com");
         
         CurriculumVitae curriculumVitae = new CurriculumVitae();
         curriculumVitae.setCreatedIn(getNowDate());
@@ -129,7 +129,6 @@ public class CurriculumVitaeManagerTest {
     }
     
     @Test
-    @Ignore
     public void testfindCvByTitle() {
     	
     	Person person = new Person("youcef", "guellil", getNowDate(), "1234", "example3@example.com");	
@@ -139,12 +138,14 @@ public class CurriculumVitaeManagerTest {
         CurriculumVitae curriculumVitae = new CurriculumVitae();
         CurriculumVitae curriculumVitae1 = new CurriculumVitae();
         CurriculumVitae curriculumVitae2 = new CurriculumVitae();
+        
         curriculumVitae.setCreatedIn(getNowDate());
         curriculumVitae1.setCreatedIn(getNowDate());
         curriculumVitae2.setCreatedIn(getNowDate());
+        
         curriculumVitae.setTitle("Example cv1");
-        curriculumVitae.setTitle("Example cv1");
-        curriculumVitae.setTitle("Example cv2");
+        curriculumVitae1.setTitle("Example cv1");
+        curriculumVitae2.setTitle("Example cv2");
         
         person.setCurriculumVitae(curriculumVitae);
         person2.setCurriculumVitae(curriculumVitae1);
@@ -158,7 +159,59 @@ public class CurriculumVitaeManagerTest {
     	Assert.assertTrue(cvs.size() == 2);
     	
     	List<CurriculumVitae> cvs2 = curriculumVitaeManager.findCvByTitle("Example cv2",-1, 0);   	
-    	Assert.assertTrue(cvs.size() == 1);
+    	Assert.assertTrue(cvs2.size() == 1);
+    	
+    	personManager.removePerson(person);
+    	personManager.removePerson(person2);
+    	personManager.removePerson(person3);
+    }
+    
+    @Ignore
+    @Test
+    public void testfindCvByActivity() {
+    	
+    	Person person = new Person("youcef", "guellil", getNowDate(), "1234", "example31@example.com");	
+    	Person person2 = new Person("youcef", "guellil", getNowDate(), "1234", "example331@example.com");
+    	Person person3 = new Person("youcef", "guellil", getNowDate(), "1234", "example3331@example.com");
+    	
+    	Activity activity1 = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
+    	Activity activity2 = new Activity("Formation", "Master 2 Informatique", getNowDate(), getNowDate());
+    	Activity activity3 = new Activity("Formation", "Master 1 Informatique", getNowDate(), getNowDate());
+       
+    	CurriculumVitae curriculumVitae = new CurriculumVitae();
+        CurriculumVitae curriculumVitae1 = new CurriculumVitae();
+        CurriculumVitae curriculumVitae2 = new CurriculumVitae();
+        
+        curriculumVitae.setCreatedIn(getNowDate());
+        curriculumVitae1.setCreatedIn(getNowDate());
+        curriculumVitae2.setCreatedIn(getNowDate());
+        
+        curriculumVitae.setTitle("Example cv1");
+        curriculumVitae1.setTitle("Example cv1");
+        curriculumVitae2.setTitle("Example cv2");
+      
+        curriculumVitae.addActivity(activity1);
+      	curriculumVitae.addActivity(activity3);
+      	curriculumVitae1.addActivity(activity2);
+
+      	
+        person.setCurriculumVitae(curriculumVitae);
+        person2.setCurriculumVitae(curriculumVitae1);
+        person3.setCurriculumVitae(curriculumVitae2);
+               
+    	personManager.addPerson(person);
+    	personManager.addPerson(person2);
+    	personManager.addPerson(person3);
+    	
+    	List<CurriculumVitae> cvs = curriculumVitaeManager.findCvByActivity("Master 2 Informatique",-1, 0);   
+    	Assert.assertTrue(cvs.size() == 2);
+    	
+    	List<CurriculumVitae> cvs2 = curriculumVitaeManager.findCvByActivity("Master 1 Informatique",-1, 0);   	
+    	Assert.assertTrue(cvs2.size() == 1);
+    	
+//    	personManager.removePerson(person);
+//    	personManager.removePerson(person2);
+//    	personManager.removePerson(person3);
     }
     
     
