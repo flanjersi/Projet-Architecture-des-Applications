@@ -59,11 +59,11 @@ public class Person implements Serializable{
 	private long id;
 
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String firstName;
 
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String name;
 
 	@Basic(optional = false)
@@ -76,11 +76,11 @@ public class Person implements Serializable{
 	private String password;
 
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String email;
 
 	@Basic(optional = true)
-	@Column(nullable = true)
+	@Column(nullable = true, length = 200)
 	private String webSite;
 
 	@Basic(optional = true)
@@ -88,7 +88,7 @@ public class Person implements Serializable{
 	private String description;
 
 	@Basic(optional = true)
-	@Column(nullable = true)
+	@Column(nullable = true, length = 100)
 	private String status;
 	
 	@Basic(optional = true)

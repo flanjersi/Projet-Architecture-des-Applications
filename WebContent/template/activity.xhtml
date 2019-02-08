@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<div class="ui-g-12">
+	<div class="ui-g-4">
+		<h:outputText value="#{activity.begin}">
+			<f:convertDateTime pattern="dd.MM.yyyy" />
+		</h:outputText>
+		<h:outputText value=" to " />
+		<h:outputText value="#{activity.end}">
+			<f:convertDateTime pattern="dd.MM.yyyy" />
+		</h:outputText>
+	</div>
+	<div class="ui-g-4" style="text-align: center;">
+		<b><h:outputText value="#{activity.title}" /></b>
+	</div>
+	<div class="ui-g-4" style="text-align: right">
+		<h:outputText value="#{activity.webSite}" />
+	</div>
+</div>
+
+<div class="ui-g-12">
+	<div class="ui-g-1" />
+	<div class="ui-g-10">
+		<h:outputText value="#{activity.description}" />
+	</div>
+	<div class="ui-g-1" />
+
+
+</div>
+
+
+</html>

@@ -36,7 +36,7 @@ import fr.amu.projetADA.beans.person.Person;
 @Table(name = "CurriculumVitae")
 
 @NamedQueries({
-@NamedQuery(name = "findAllCurriculumVitae", query = "From CurriculumVitae"),
+@NamedQuery(name = "findAllCurriculumVitae", query = "SELECT DISTINCT cv From CurriculumVitae cv"),
 @NamedQuery(name = "countCurriculumsVitae", query = "SELECT count(cv.id) From CurriculumVitae cv")
 })
 public class CurriculumVitae implements Serializable{
@@ -50,7 +50,7 @@ public class CurriculumVitae implements Serializable{
 	private long id;
 	
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String title;
 	
 	@Basic(optional = true)

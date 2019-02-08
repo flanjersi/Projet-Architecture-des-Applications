@@ -11,34 +11,15 @@
 <c:forEach var="activity" items="#{listOfActivity}">
 	<c:set var="counter" value="#{counter + 1}"></c:set>
 
-	<div class="ui-g-12">
 	<h:outputText rendered="#{ counter gt 1 }">
 		<hr />
 	</h:outputText>
-		<div class="ui-g-4">
-			<h:outputText value="#{activity.begin}" >
-			<f:convertDateTime pattern="dd.MM.yyyy" />
-			</h:outputText>
-			<h:outputText value=" to " />
-			<h:outputText value="#{activity.end}" >
-			<f:convertDateTime pattern="dd.MM.yyyy" />
-			</h:outputText>
-		</div>
-		<div class="ui-g-4" style="text-align: center;">
-			<b><h:outputText value="#{activity.title}" /></b>
-		</div>
-		<div class="ui-g-4" style="text-align: right">
-			<h:outputText value="#{activity.webSite}" />
 
-		</div>
-	</div>
-	<div class="ui-g-12">
-	<div class="ui-g-1"/>
-	<div class="ui-g-10">	
-			<h:outputText value="#{activity.description}" />
-	</div>
-	</div>
-	
+	<ui:include src="activity.xhtml">
+		<ui:param name="activity" value="#{activity}" />
+	</ui:include>
+
+
 </c:forEach>
 
 

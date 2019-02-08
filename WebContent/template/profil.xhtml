@@ -123,7 +123,7 @@
 
 			</div>
 
-			<ui:include src="listOfActivity.xhtml">
+			<ui:include src="listOfActivityEditable.xhtml">
 				<ui:param name="listOfActivity" value="#{personView.experiences}" />
 			</ui:include>
 			<br />
@@ -149,7 +149,7 @@
 				</c:choose>
 			</div>
 
-			<ui:include src="listOfActivity.xhtml">
+			<ui:include src="listOfActivityEditable.xhtml">
 				<ui:param name="listOfActivity" value="#{personView.formations}" />
 			</ui:include>
 			<br />
@@ -177,7 +177,7 @@
 
 			</div>
 
-			<ui:include src="listOfActivity.xhtml">
+			<ui:include src="listOfActivityEditable.xhtml">
 				<ui:param name="listOfActivity" value="#{personView.projets}" />
 			</ui:include>
 
@@ -204,7 +204,7 @@
 				</c:choose>
 			</div>
 
-			<ui:include src="listOfActivity.xhtml">
+			<ui:include src="listOfActivityEditable.xhtml">
 				<ui:param name="listOfActivity" value="#{personView.certifications}" />
 			</ui:include>
 			<br />
@@ -248,7 +248,7 @@
 					<h:outputText value="Name :" />
 					<p:inputText type="text" value="#{personUpdate.name}"
 						class="form-control" id="inputName" placeholder="Name"
-						required="true" requiredMessage="Name required" />
+						required="true" requiredMessage="Name required" maxlength="100"/>
 					<p:message for="inputName" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -257,7 +257,7 @@
 					<h:outputText value="First name :" />
 					<p:inputText type="text" value="#{personUpdate.firstName}"
 						class="form-control" id="inputFirstName" placeholder="Firstname"
-						required="true" requiredMessage="Firstname required" />
+						required="true" requiredMessage="Firstname required" maxlength="100"/>
 					<p:message for="inputFirstName" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -266,7 +266,7 @@
 					<h:outputText value="Email :" />
 					<p:inputText type="email" value="#{personUpdate.email}"
 						class="form-control" id="inputEmail" placeholder="Email"
-						required="true" requiredMessage="Email required" />
+						required="true" requiredMessage="Email required" maxlength="100"/>
 					<p:message for="inputEmail" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -282,8 +282,8 @@
 
 					<h:outputText value="Status :" />
 					<p:inputText type="text" value="#{personUpdate.status}"
-						class="form-control" id="inputStatus" placeholder="Status" />
-					<p:message for="inputStatus" showDetail="false" display="icon">
+						class="form-control" id="inputStatus" placeholder="Status" maxlength="100"/>
+					<p:message for="inputStatus" showDetail="false" display="icon" >
 						<p:autoUpdate />
 					</p:message>
 
@@ -299,7 +299,7 @@
 
 					<h:outputText value="Website :" />
 					<p:inputText type="text" value="#{personUpdate.webSite}"
-						class="form-control" id="inputWebsite" placeholder="Website" />
+						class="form-control" id="inputWebsite" placeholder="Website" maxlength="200"/>
 					<p:message for="inputWebsite" showDetail="false" display="icon">
 						<p:autoUpdate />
 					</p:message>
@@ -363,7 +363,7 @@
 							value="#{personView.person.curriculumVitae.title}"
 							class="form-control" id="inputCVTitle"
 							placeholder="Current title" required="true"
-							requiredMessage="Title required" />
+							requiredMessage="Title required" maxlength="100"/>
 						<p:message for="inputCVTitle" showDetail="false" display="icon">
 							<p:autoUpdate />
 						</p:message>
@@ -398,7 +398,7 @@
 			<h:outputText value="Title :" />
 			<p:inputText type="text" value="#{newActivity.title}"
 				class="form-control" id="inputTitle" placeholder="Title"
-				required="true" requiredMessage="Title required" />
+				required="true" requiredMessage="Title required" maxlength="100"/>
 			<p:message for="inputTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -406,7 +406,7 @@
 			<p:inputTextarea type="text" value="#{newActivity.description}"
 				class="form-control" id="inputDescription"
 				placeholder="Write the description here"
-				requiredMessage="Description required" />
+				requiredMessage="Description required" maxlength="3000"/>
 			<p:message for="inputDescription" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>
@@ -432,7 +432,7 @@
 			<h:outputText value="Website :" />
 			<p:inputText type="text" value="#{newActivity.webSite}"
 				class="form-control" id="inputWebsite" placeholder="Website" />
-			<p:message for="inputWebsite" showDetail="false" display="icon">
+			<p:message for="inputWebsite" showDetail="false" display="icon" maxlength="100">
 				<p:autoUpdate />
 			</p:message>
 
@@ -443,8 +443,69 @@
 		</p:commandButton>
 
 	</h:form>
+</p:dialog>
+
+<p:dialog id="editActivityDialog" header="Edit activity" widgetVar="editActivityDialog"
+	width="70%" modal="true" resizable="false" responsive="true"
+	draggable="false">
+
+	<c:set var="editActivity" value="#{activityPersonView.updateActivity}" />
+
+	<h:form id="editActivityForm">
+		<p:messages />
+
+		<p:panelGrid columns="3" layout="grid">
+
+			<h:outputText value="Title :" />
+			<p:inputText type="text" value="#{editActivity.title}"
+				class="form-control" id="inputTitle" placeholder="Title"
+				required="true" requiredMessage="Title required" maxlength="100"/>
+			<p:message for="inputTitle" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+			<h:outputText value="Description :" />
+			<p:inputTextarea type="text" value="#{editActivity.description}"
+				class="form-control" id="inputDescription"
+				placeholder="Write the description here"
+				requiredMessage="Description required" maxlength="3000"/>
+			<p:message for="inputDescription" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
 
 
+			<h:outputText value="Begin :" />
+			<p:calendar pattern="dd/MM/yyyy" id="inputBegin"
+				value="#{editActivity.begin}" navigator="true" yearRange="c-120:c"
+				maxdate="today" required="true"
+				requiredMessage="Begin date required" />
+			<p:message for="inputBegin" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+
+			<h:outputText value="End :" />
+			<p:calendar pattern="dd/MM/yyyy" id="inputEnd"
+				value="#{editActivity.end}" navigator="true" yearRange="c-120:c"
+				required="false"/>
+			<p:message for="inputEnd" showDetail="false" display="icon">
+				<p:autoUpdate />
+			</p:message>
+
+			<h:outputText value="Website :" />
+			<p:inputText type="text" value="#{editActivity.webSite}"
+				class="form-control" id="inputWebsite" placeholder="Website" />
+			<p:message for="inputWebsite" showDetail="false" display="icon" maxlength="100">
+				<p:autoUpdate />
+			</p:message>
+
+		</p:panelGrid>
+		
+		<p:commandButton class="signup" value="Save"
+			action="#{activityPersonView.update()}"
+			update="editActivityForm infosPersonForm" 
+			icon="fa fa-check">
+		</p:commandButton>
+
+	</h:form>
 </p:dialog>
 
 <p:dialog header="Confirm delete" widgetVar="confirmDeleteDialog"
@@ -468,7 +529,7 @@
 			<h:outputText value="Title :" />
 			<p:inputText type="text" value="#{personView.cvTitle}"
 				class="form-control" id="inputCVTitle" placeholder="Title"
-				required="true" requiredMessage="Title required" />
+				required="true" requiredMessage="Title required" maxlength="100"/>
 			<p:message for="inputCVTitle" showDetail="false" display="icon">
 				<p:autoUpdate />
 			</p:message>

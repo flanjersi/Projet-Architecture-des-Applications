@@ -40,15 +40,15 @@ public class Activity implements Serializable {
 	private long id	;
 	
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String type;
 	
 	@Basic(optional = false)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 100)
 	private String title;
 	
 	@Basic(optional = true)
-	@Column(nullable = true)
+	@Column(nullable = true, length = 3000)
 	private String description;
 	
 	@Basic(optional = false)
@@ -62,7 +62,7 @@ public class Activity implements Serializable {
 	private Date end;
 	
 	@Basic(optional = true)
-	@Column(nullable = true)
+	@Column(nullable = true, length = 100)
 	private String webSite;
 	
 	@ManyToOne()
