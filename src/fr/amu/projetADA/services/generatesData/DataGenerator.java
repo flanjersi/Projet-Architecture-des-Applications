@@ -60,10 +60,10 @@ public class DataGenerator {
 		cvsTitle.add("Stage developpement C");
 		cvsTitle.add("Stage developpement Ruby");
 		cvsTitle.add("Stage Big data");
-		cvsTitle.add("Stage Systèmes embarqués");
+		cvsTitle.add("Stage Systemes embarques");
 		cvsTitle.add("Stage Business analyste");
 		cvsTitle.add("Stage chef de projet");
-		cvsTitle.add("Stage analyse de données");
+		cvsTitle.add("Stage analyse de donnees");
 		cvsTitle.add("Stage service web");		
 	}
 		
