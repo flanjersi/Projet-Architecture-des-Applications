@@ -163,6 +163,13 @@ public class CurriculumVitaeManagerTest {
     	List<CurriculumVitae> cvs2 = curriculumVitaeManager.findCvByTitle("Example cv2",-1, 0);   	
     	Assert.assertTrue(cvs2.size() == 1);
     	
+    	List<CurriculumVitae> cvs3 = curriculumVitaeManager.findCvByTitle("cv1",-1, 0);   	
+    	Assert.assertTrue(cvs3.size() == 2);
+    	
+    	List<CurriculumVitae> cvs4 = curriculumVitaeManager.findCvByTitle("v1",-1, 0);   	
+    	Assert.assertTrue(cvs4.size() == 0);
+    	
+    	
     	personManager.removePerson(person);
     	personManager.removePerson(person2);
     	personManager.removePerson(person3);

@@ -29,7 +29,7 @@ public class DataGenerator {
 	
 	@PostConstruct
 	public void generateData() {
-		if(personManager.countNbPerson() > 10000) {
+		if(personManager.countNbPerson() > 1000) {
 			return;
 		}
 		
@@ -39,7 +39,7 @@ public class DataGenerator {
 		
 		fr.amu.projetADA.beans.person.Person person;
 		
-		for(int indexGenerated = 0 ; indexGenerated < 50_000 ; indexGenerated++) {
+		for(int indexGenerated = 0 ; indexGenerated < 5_000 ; indexGenerated++) {
 			if(indexGenerated % 1000 == 0) System.out.println(indexGenerated);
 			
 			person = generatePeopleAndCV(indexGenerated);
@@ -75,7 +75,7 @@ public class DataGenerator {
 				person.getLastName(), 
 				person.getDateOfBirth().toDate(), 
 				person.getPassword(), 
-				"example" + cpt + "@example.com"
+				"exampleCV" + cpt + "@generatorCV.com"
 		);
 		
 		CurriculumVitae curriculumVitae = new CurriculumVitae(cvsTitle.get((int) (Math.random() * cvsTitle.size())));
