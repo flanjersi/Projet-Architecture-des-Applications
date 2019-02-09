@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<style type="text/css">
+.title {
+	text-align: center !important;
+	font-size: 30px;
+	border-bottom: 1px solid #000;
+	border-top: 1px solid #000;
+}
+
+.desc {
+	font-size: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+}
+</style>
+
+<p:outputPanel id="cvDetail">
+	<div class="ui-g">
+
+		<div class="ui-g-3 desc">
+			<h:outputText value="#{cvParam.person.firstName} " />
+			<h:outputText value="#{cvParam.person.name}" />
+		</div>
+
+		<div class="ui-g-6 "
+			style="text-align: center; font-size: 30px; font-weight: bold;">
+			<h:outputText value="#{cvParam.title}" />
+		</div>
+
+		<div class="ui-g-3 desc">
+			<h:outputText value="Modified: #{cvParam.modifiedIn}" />
+		</div>
+
+	</div>
+
+	<div class=" ui-g desc">
+		<div class="ui-g-12 title">Experiences</div>
+
+		<ui:include src="listOfActivity.xhtml">
+			<ui:param name="listOfActivity"
+				value="#{curriculumVitaeView.getExperiences(cvParam)}" />
+		</ui:include>
+		<br />
+	</div>
+
+	<div class=" ui-g desc">
+		<div class="ui-g-12 title">Formations</div>
+
+		<ui:include src="listOfActivity.xhtml">
+			<ui:param name="listOfActivity"
+				value="#{curriculumVitaeView.getFormations(cvParam)}" />
+		</ui:include>
+		<br />
+
+	</div>
+
+
+	<div class=" ui-g desc">
+		<div class="ui-g-12 title">Projets</div>
+
+		<ui:include src="listOfActivity.xhtml">
+			<ui:param name="listOfActivity"
+				value="#{curriculumVitaeView.getProjets(cvParam)}" />
+		</ui:include>
+
+		<br />
+	</div>
+
+
+	<div class=" ui-g desc">
+		<div class="ui-g-12 title">Certifications</div>
+
+		<ui:include src="listOfActivity.xhtml">
+			<ui:param name="listOfActivity"
+				value="#{curriculumVitaeView.getCertifications(cvParam)}" />
+		</ui:include>
+		<br />
+
+	</div>
+
+</p:outputPanel>
+
+</html>

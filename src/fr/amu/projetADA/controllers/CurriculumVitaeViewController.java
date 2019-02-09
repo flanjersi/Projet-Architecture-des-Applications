@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -20,7 +20,7 @@ import fr.amu.projetADA.beans.person.Person;
 import fr.amu.projetADA.services.curriculumVitae.CurriculumVitaeManager;
 
 @ManagedBean(name="curriculumVitaeView")
-@SessionScoped
+@ViewScoped
 public class CurriculumVitaeViewController implements Serializable{
 
 	private static final long serialVersionUID = 7255657121709014514L;
@@ -123,28 +123,36 @@ public class CurriculumVitaeViewController implements Serializable{
 	}
 
 
-	public List<Activity> getExperiences(){		
-		return filterActivitiesByType("Experience");
+	public List<Activity> getExperiences(CurriculumVitae curriculumVitae){	
+		if(curriculumVitae == null) return new ArrayList<>();
+		
+		return filterActivitiesByType("Experience", curriculumVitae);
 	}
 
-	public List<Activity> getFormations(){
-		return filterActivitiesByType("Formation");
+	public List<Activity> getFormations(CurriculumVitae curriculumVitae){
+		if(curriculumVitae == null) return new ArrayList<>();
+		
+		return filterActivitiesByType("Formation", curriculumVitae );
 	}
 
-	public List<Activity> getCertifications(){
-		return filterActivitiesByType("Certification");
+	public List<Activity> getCertifications(CurriculumVitae curriculumVitae){
+		if(curriculumVitae == null) return new ArrayList<>();
+		
+		return filterActivitiesByType("Certification", curriculumVitae);
 	}
 
-	public List<Activity> getProjets(){
-		return filterActivitiesByType("Projet");
+	public List<Activity> getProjets(CurriculumVitae curriculumVitae){
+		if(curriculumVitae == null) return new ArrayList<>();
+		
+		return filterActivitiesByType("Projet", curriculumVitae);
 	}
 
-	private List<Activity> filterActivitiesByType(String type){
-		if(getSelectedCV() == null) {
+	private List<Activity> filterActivitiesByType(String type, CurriculumVitae curriculumVitae){
+		if(curriculumVitae == null) {
 			return new ArrayList<>();
 		}
 
-		return getSelectedCV().getActivities()
+		return curriculumVitae.getActivities()
 				.stream()
 				.filter(act -> act.getType().equals(type))
 				.collect(Collectors.toList());

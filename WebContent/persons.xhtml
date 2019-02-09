@@ -79,11 +79,12 @@
 			<br />
 			<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
 				showEffect="fade" hideEffect="fade" resizable="false"
-				positionType="absolute" draggable="false" responsive="true" width="50%">
-				<p:outputPanel id="personDetail" >
-					 <p:panelGrid columns="2" layout="grid" responsive="true"
-				rendered="#{not empty personsView.selectedPerson}"
-				columnClasses="ui-grid-col-3,ui-grid-col-9">
+				positionType="absolute" draggable="false" responsive="true"
+				width="50%">
+				<p:outputPanel id="personDetail">
+					<p:panelGrid columns="2" layout="grid" responsive="true"
+						rendered="#{not empty personsView.selectedPerson}"
+						columnClasses="ui-grid-col-3,ui-grid-col-9">
 
 						<h:outputText value="Name: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.name}" />
@@ -98,7 +99,11 @@
 						<h:outputText value="Description: " style="color:#3c8dbc;" />
 						<h:outputText value="#{personsView.selectedPerson.description}" />
 						<h:outputText value="Curriculum Vitae: " style="color:#3c8dbc;" />
-						<h:link	value="#{personsView.selectedPerson.curriculumVitae.title}" />
+						<p:commandLink
+							value="#{personsView.selectedPerson.curriculumVitae.title}"
+							update="dialogCVPerson"
+							oncomplete="PF('cvPersonDialog').show();"/>
+
 					</p:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
@@ -112,9 +117,10 @@
 			<h:form id="addPersonForm">
 				<c:set var="person" value="#{signUpView.person}" />
 
-				<p:messages/>
+				<p:messages />
 
-				<p:panelGrid columns="3" layout="grid" columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3">
+				<p:panelGrid columns="3" layout="grid"
+					columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3">
 
 					<h:outputText value="First name : " />
 					<p:inputText type="text" value="#{person.firstName}"
@@ -146,7 +152,8 @@
 					<h:outputText value="Email : " />
 					<p:inputText type="email" value="#{person.email}"
 						class="form-control" id="inputEmail" placeholder="Email"
-						required="true" requiredMessage="Email required" validatorMessage="Invalid email format">
+						required="true" requiredMessage="Email required"
+						validatorMessage="Invalid email format">
 						<f:validateRegex
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</p:inputText>
@@ -170,6 +177,17 @@
 					icon="fa fa-check">
 				</p:commandButton>
 			</h:form>
+		</p:dialog>
+
+		<p:dialog id="dialogCVPerson" header="CV Info" widgetVar="cvPersonDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="75%"
+			responsive="true" onShow="PF('cvPersonDialog').initPosition()"
+			position="center center" draggable="false">
+
+			<ui:include src="template/cv.xhtml">
+				<ui:param name="cvParam"
+					value="#{personsView.selectedPerson.curriculumVitae}" />
+			</ui:include>
 		</p:dialog>
 
 	</ui:define>

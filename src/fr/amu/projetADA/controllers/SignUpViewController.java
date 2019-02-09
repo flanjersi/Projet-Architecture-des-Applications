@@ -17,7 +17,7 @@ import fr.amu.projetADA.services.person.PersonManager;
 
 
 @ManagedBean(name = "signUpView")
-@SessionScoped
+@RequestScoped
 public class SignUpViewController implements Serializable{
 
 	private static final long serialVersionUID = -8129774864627937380L;

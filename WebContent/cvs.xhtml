@@ -11,22 +11,7 @@
 	<ui:param name="activeIndex" value="2" />
 
 	<ui:define name="content">
-<style type="text/css">
 
-.title {
-	text-align: center !important;
-	font-size: 30px;
-	border-bottom: 1px solid #000; 
-	border-top: 1px solid #000;
-}
-.desc {
-	font-size: 20px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 20px;
-}
-
-</style>
 		<h:form id="form">
 
 			<div class="ui-g" style="background-color: white;">
@@ -58,7 +43,8 @@
 						<h:outputText value="#{cv.person.name}" />
 					</div>
 
-					<div class="ui-g-10" style="text-align: center;font-size: 20px; font-weight: bold;">
+					<div class="ui-g-10"
+						style="text-align: center; font-size: 20px; font-weight: bold;">
 						<h:outputText value="#{cv.title}" />
 					</div>
 					<div style="margin-top: 1px; margin-left: auto; margin-right: 5px;">
@@ -84,85 +70,17 @@
 					<hr />
 				</h:outputText>
 			</p:dataGrid>
-			
+
 			<p:dialog header="CV Info" widgetVar="cvDialog" modal="true"
-				showEffect="fade" hideEffect="fade" resizable="false" width="75%" responsive="true"
-				positionType="" onShow="PF('cvDialog').initPosition()" position="center center" draggable="false">
-				<p:outputPanel id="cvDetail" >
-					<!-- <p:panelGrid columns="2"
-				rendered="#{not empty personsView.selectedPerson}"
-				columnClasses="label,value">
- -->
-
-
-				<div class="ui-g">
-
-					<div class="ui-g-3 desc">
-						<h:outputText value="#{curriculumVitaeView.selectedCV.person.firstName} " />
-						<h:outputText value="#{curriculumVitaeView.selectedCV.person.name}" />
-					</div>
-
-					<div class="ui-g-6 " style="text-align: center; font-size: 30px;font-weight: bold;">
-						<h:outputText value="#{curriculumVitaeView.selectedCV.title}" />
-					</div>
-					
-					<div class="ui-g-3 desc">
-						<h:outputText value="Modified: #{curriculumVitaeView.selectedCV.modifiedIn}" />
-					</div>
+				showEffect="fade" hideEffect="fade" resizable="false" width="75%"
+				responsive="true" positionType=""
+				onShow="PF('cvDialog').initPosition()" position="center center"
+				draggable="false">
 				
-				</div>
-				
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Experiences
-			</div>
-
-			<ui:include src="template/listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{curriculumVitaeView.experiences}" />
-			</ui:include>
-			<br />
-		</div>
-	
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Formations
-			</div>
-
-			<ui:include src="template/listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{curriculumVitaeView.formations}" />
-			</ui:include>
-			<br />
-
-		</div>
-		
-
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Projets
-			</div>
-
-			<ui:include src="template/listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{curriculumVitaeView.projets}" />
-			</ui:include>
-
-			<br />
-		</div>
-
-		
-		<div class=" ui-g desc">
-			<div class="ui-g-12 title">
-				Certifications
-			</div>
-
-			<ui:include src="template/listOfActivity.xhtml">
-				<ui:param name="listOfActivity" value="#{curriculumVitaeView.certifications}" />
-			</ui:include>
-			<br />
-
-		</div>
-
-</p:outputPanel>
-</p:dialog>
+				<ui:include src="template/cv.xhtml">
+					<ui:param name="cvParam" value="#{curriculumVitaeView.selectedCV}" />
+				</ui:include>
+			</p:dialog>
 		</h:form>
 	</ui:define>
 	<ui:define name="title">YouCV</ui:define>
