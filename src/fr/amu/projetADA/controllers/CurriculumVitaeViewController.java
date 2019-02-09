@@ -62,12 +62,14 @@ public class CurriculumVitaeViewController implements Serializable{
 					List<CurriculumVitae> concatCvs = new ArrayList<>();
 					concatCvs.addAll(cvsByActivity);
 					
-					for(int i=0;i<cvsByTitle.size();i++)
-						for(int j=0;j<cvsByActivity.size();i++)
+					for(int i=0;i<cvsByTitle.size();i++) {
+						for(int j=0;j<cvsByActivity.size();i++) 
 							if(cvsByTitle.get(i).equals(cvsByActivity.get(j)))
 								{i++; break;}
-							else concatCvs.add(cvsByTitle.get(i)); 
-		
+						
+							 concatCvs.add(cvsByTitle.get(i)); 
+					}
+					//concatCvs.addAll(cvsByTitle); 
 					//curriculumsVitae.setRowCount((int) curriculumVitaeManager.findCvByActivity(filter,pageSize,first));
 					
 					setNbData(concatCvs.size());
