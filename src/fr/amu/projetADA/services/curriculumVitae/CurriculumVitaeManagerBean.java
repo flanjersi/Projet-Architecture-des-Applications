@@ -70,10 +70,10 @@ public class CurriculumVitaeManagerBean implements CurriculumVitaeManager{
 		return q.getResultList();
 	}
 	
-	public int sizeOfCvs(String title, int limit, int offset) {
+	public int sizeOfCvs(String title) {
 		
-		List<CurriculumVitae> A =findCvByActivity(title,limit,offset);
-		List<CurriculumVitae> B =findCvByTitle(title,limit,offset);
+		List<CurriculumVitae> A =findCvByActivity(title,-1,0);
+		List<CurriculumVitae> B =findCvByTitle(title,-1,0);
 		
 		return A.size() + B.size() ;
 	}

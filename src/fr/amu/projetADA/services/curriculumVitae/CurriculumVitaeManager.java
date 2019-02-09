@@ -23,6 +23,6 @@ public interface CurriculumVitaeManager {
 	
 	public List<CurriculumVitae> findCvByActivity(String title, int limit, int offset);
 	
-	public int sizeOfCvs(String title, int limit, int offset);
+	public int sizeOfCvs(String title);
 	
 }
