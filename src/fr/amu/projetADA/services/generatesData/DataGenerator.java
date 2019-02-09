@@ -29,6 +29,10 @@ public class DataGenerator {
 	
 	@PostConstruct
 	public void generateData() {
+		if(personManager.countNbPerson() > 10000) {
+			return;
+		}
+		
 		setFairy(Fairy.create());
 	
 		generateListTitleCV();
