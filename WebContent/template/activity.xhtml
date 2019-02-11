@@ -12,9 +12,17 @@
 			<f:convertDateTime pattern="dd.MM.yyyy" />
 		</h:outputText>
 		<h:outputText value=" to " />
-		<h:outputText value="#{activity.end}">
-			<f:convertDateTime pattern="dd.MM.yyyy" />
-		</h:outputText>
+		<c:choose>
+			<c:when test="#{not empty activity.end}">
+				<h:outputText value="#{activity.end}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</c:when>
+			<c:otherwise>
+				<h:outputText value="now"/>
+			</c:otherwise>
+
+		</c:choose>
 	</div>
 	<div class="ui-g-4" style="text-align: center;">
 		<b><h:outputText value="#{activity.title}" /></b>
