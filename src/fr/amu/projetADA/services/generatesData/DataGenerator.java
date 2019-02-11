@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.amu.projetADA.beans.cv.CurriculumVitae;
 import fr.amu.projetADA.services.person.PersonManager;
@@ -39,8 +41,9 @@ public class DataGenerator {
 		
 		fr.amu.projetADA.beans.person.Person person;
 		
-		for(int indexGenerated = 0 ; indexGenerated < 5_000 ; indexGenerated++) {
-			if(indexGenerated % 1000 == 0) System.out.println(indexGenerated);
+		System.out.println("Generating data in progress ...");
+		for(int indexGenerated = 0 ; indexGenerated < 100_000 ; indexGenerated++) {
+			if(indexGenerated % 1000 == 0) System.out.println(indexGenerated + " generated data");
 			
 			person = generatePeopleAndCV(indexGenerated);
 			personManager.addPerson(person);
